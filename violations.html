@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="" content="Visualization of survey data about etiquette while flying">
     <title>Violations</title>
-	<script src="vendors/jquery/dist/jquery.min.js"></script>
+	  <script src="vendors/jquery/dist/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
     <!-- Optional theme -->
@@ -79,13 +79,13 @@
                 <h2 class ="card-title">Filter</h2>
               </div>
             <div class ="card-content">
-              <form>
+              <form class ="gender-filter">
                 <label class="radio-inline">
-                  <input type="radio" name="optradio">
-                    <i class="fas fa-female"></i>
-                </label>
+                    <input type="radio" name="optradio" id="woman">
+                      <i class="fas fa-female"></i>
+                    </label>
                 <label class="radio-inline">
-                  <input type="radio" name="optradio">
+                  <input type="radio" name="optradio" id ="man">
                     <i class="fas fa-male"></i>
                 </label>
              </form>
@@ -167,6 +167,12 @@
     <!-- reasons: script error doesnt lead to blank page; receiving and parsing large scripts increases load time -->
     <!-- dom model is ready and modifiable -->
     <script src="./vendors/d3/d3.js"></script>
-    <script src="flying_etiquette.js"></script>
+    <!--<script src="flying_etiquette.js"></script>-->
+    <script src="resources/js/BubbleDiagram.js"></script>
+    <script src="resources/js/BubbleDiagramController.js"></script>
+    <script src="resources/js/BubbleDiagramView.js"></script>
+    <script>
+        BubbleDiagram.init();
+    </script>
 </body>
 </html>
