@@ -5,12 +5,18 @@ BubbleDiagram.BubbleDiagramView = function(params) {
     "use strict";
 
   var that = {},
-  filter;
+  filter, sliderValue;
 
 
   function init() {
     filter = params.filter;
+    sliderValue = params.sliderValue;
     return that;
+  }
+
+  function setSliderText(value) {
+    console.log(value);
+    sliderValue.innerText = "Height: " + value.value;
   }
 
 
@@ -25,5 +31,7 @@ BubbleDiagram.BubbleDiagramView = function(params) {
 
   that.init = init;
   that.setFilterText = setFilterText;
+  that.setSliderText = setSliderText;
+
   return that;
 };
