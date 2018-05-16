@@ -7,12 +7,45 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
     var that = {},
         width = 1500,
         height = 800,
-        outerRingValue = 26;
+        outerRingValue = 26,
+        age = [],
+        container = {};
     
     function setupCsvData() {
         d3.csv("./data/flying-etiquette.csv", function(data) {
             createOuterRing(data.columns);
+            for(let i = 1; i < data.columns.length; i++){
+                for(let j = 0; j < data.length; j++){
+                    //container.question = data.columns[i];
+                    //container.answer = data[j][data.columns[i]];
+                    age.push(data.columns[i] + " " + data[j][data.columns[i]]);
+                }
+                countArrayElements(age);
+                age = [];
+            }
+            //countArrayElements(age);
         });
+    }
+    
+    function countArrayElements(array) {
+        var current = null,
+            count = 0;
+        
+        array.sort();
+        for(let i = 0; i < array.length; i++) {
+            if (array[i] != current) {
+                if (count > 0) {
+                    console.log(current + " " + count);
+                }
+                current = array[i];
+                count = 1;
+            } else {
+                count++;
+            }
+        }
+        if (count > 0) {
+            console.log(current + " " + count);
+        }
     }
     
     function createOuterRing(data) {
