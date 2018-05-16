@@ -34,11 +34,56 @@ a:hover{
 .fa-male{
   font-size: 2em;
 }
+#baby-explanation {
+  display: block;
+  padding: 3px;
+  color: #BDBDBD;
+}
+
+.fa-child:hover ~ #baby-explanation {
+  display: block;
+}
+
+.fa-child {
+  font-size: 2em;
+}
 
 .fas {
   color: #0277BD;
 }
 
+.slider {
+    -webkit-appearance: none;
+    width: 80%;
+    height: 8px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #0277BD;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+.checkbox-inline, .radio-inline {
+  padding-left: 5px;
+}
 
 .btn-primary {
   background-image: none;
