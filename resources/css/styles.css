@@ -1,26 +1,14 @@
 
 .navbar-default {
-  background-image: linear-gradient(to bottom,#007bff 0,#007bff 100%);
+  background-image: linear-gradient(to bottom,#B3E5FC 0,#B3E5FC 100%);
 }
 
 .navbar-default .navbar-nav>li>a {
-  color: #B3E5FC;
+  color: #0277BD;
 }
 
 .navbar-default .navbar-brand {
-  color: #B3E5FC;
-}
-
-.navbar-default .navbar-toggle {
-  border-color: #B3E5FC;
-}
-
-.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
-  color: #fff;
-}
-
-.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
-  background-color: #007bff;
+  color: #0277BD;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
@@ -29,9 +17,167 @@
 
 a.active {
   color:#fff!important;
-  background: transparent!important;
 }
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+  color: #fff;
+}
+
+
 a:hover{
   color: #fff;
-  background: transparent!important;
+  background: transparent;
 }
+.fa-female{
+  font-size: 2em;
+}
+
+.fa-male{
+  font-size: 2em;
+}
+#baby-explanation {
+  display: block;
+  padding: 3px;
+  color: #BDBDBD;
+}
+
+.fa-child:hover ~ #baby-explanation {
+  display: block;
+}
+
+.fa-child {
+  font-size: 2em;
+}
+
+.fas {
+  color: #0277BD;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 80%;
+    height: 8px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #0277BD;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+.checkbox-inline, .radio-inline {
+  padding-left: 5px;
+}
+
+.btn-primary {
+  background-image: none;
+  background-image: linear-gradient(to bottom,#fff 0,#fff 100%);
+  border-color: #0277BD;
+  color: #000;
+}
+
+.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover {
+  background-image: linear-gradient(to bottom,#E1F5FE 0,#E1F5FE 100%);
+  background-color: #E1F5FE;
+  color: #000;
+  border-color: #007bff;
+}
+
+.btn-primary:focus, .btn-primary:hover {
+  background-image: linear-gradient(to bottom,#E1F5FE 0,#E1F5FE 100%);
+  background-color: #E1F5FE;
+  color: #000;
+  border-color: #0277BD;
+}
+
+.card {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: solid 1px #DDDDDD;
+  margin-bottom: 2em;
+}
+  .card-block {
+    padding-left: 20px;
+    border-bottom: solid 2px #0277BD;
+    button {
+      top: 12px;
+      right: 12px;
+      position: relative;
+    }
+  }
+  .card-title {
+    line-height: 60px;
+    font-size: 2em;
+    display: inline;
+    font-weight: 400;
+  }
+  .card-content {
+    padding: 20px;
+    p {
+    }
+  }
+
+
+
+
+.m1 {margin:0.5em}
+.m2 {margin: 0.75em}
+.m3 {margin:1em}
+.m4 {margin: 1.5em}
+.m5 {margin:2em}
+.m6 {margin: 2.5em}
+
+.mb1 {margin-bottom:0.5em}
+.mb2 {margin-bottom: 0.75em}
+.mb3 {margin-bottom:1em}
+.mb4 {margin-bottom: 1.5em}
+.mb5 {margin-bottom:2em}
+.mb6 {margin-bottom: 2.5em}
+.mb10 {margin-bottom: 200px}
+
+.mt1 {margin-top:0.5em}
+.mt2 {margin-top: 0.75em}
+.mt3 {margin-top:1em}
+.mt4 {margin-top: 1.5em}
+.mt5 {margin-top:2em}
+.mt6 {margin-top: 2.5em}
+.mt7 {margin-top:3em}
+.mt8 {margin-top: 3.5em}
+.mt9 {margin-top:4em}
+.mt10 {margin-top: 8em}
+
+.ml1 {margin-left:0.5em}
+.ml2 {margin-left: 0.75em}
+.ml3 {margin-left:1em}
+.ml4 {margin-left: 1.5em}
+.ml5 {margin-left:2em}
+.ml6 {margin-left: 2.5em}
+
+.mr1 {margin-right:0.5em}
+.mr2 {margin-right: 0.75em}
+.mr3 {margin-right:1em}
+.mr4 {margin-right: 1.5em}
+.mr5 {margin-right:2em}
+.mr6 {margin-right: 2.5em}
+.mr7 {margin-right: 3.5em}
+
+.right{text-align:right;}
+.left{text-align:left;}
+.center{text-align:center;}
