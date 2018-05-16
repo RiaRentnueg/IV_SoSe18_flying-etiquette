@@ -61,7 +61,10 @@ function doChart() {
 
     questions = data.columns;
     console.log(data[1]["In general, is itrude to bring a baby on a plane?"]);
-    babySVG = d3.select("#babyBubbleChart").style("width", windowWidth).style("height", 50*windowHeight).selectAll("svg");
+    babySVG = d3.select("#babyBubbleChart")
+    .attr("viewBox","0 0 960 960")
+    .attr("perserveAspectRatio","xMinYMid")
+    .selectAll("svg");
     console.log(babySVG);
     var allBabiesAnswersCounted = d3.nest()
   .key(function(d) { return d.baby; })
