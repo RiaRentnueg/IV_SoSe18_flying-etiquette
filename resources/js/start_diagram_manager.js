@@ -8,7 +8,8 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
         width = 1500,
         height = 800,
         outerRingValue = 26,
-        age = [],
+        tempData = [],
+        currData = [],
         container = {};
     
     function setupCsvData() {
@@ -16,18 +17,16 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
             createOuterRing(data.columns);
             for(let i = 1; i < data.columns.length; i++){
                 for(let j = 0; j < data.length; j++){
-                    //container.question = data.columns[i];
-                    //container.answer = data[j][data.columns[i]];
-                    age.push(data.columns[i] + " " + data[j][data.columns[i]]);
+                    tempData.push(data[j][data.columns[i]]);
                 }
-                countArrayElements(age);
-                age = [];
+                countArrayElements(tempData, data.columns[i]);
+                tempData = [];
             }
-            //countArrayElements(age);
+            createInnerRing(currData);
         });
     }
     
-    function countArrayElements(array) {
+    function countArrayElements(array, questionName) {
         var current = null,
             count = 0;
         
@@ -35,7 +34,7 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
         for(let i = 0; i < array.length; i++) {
             if (array[i] != current) {
                 if (count > 0) {
-                    console.log(current + " " + count);
+                    setupContainer(questionName, current, count);
                 }
                 current = array[i];
                 count = 1;
@@ -44,8 +43,16 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
             }
         }
         if (count > 0) {
-            console.log(current + " " + count);
+            setupContainer(questionName, current, count);
         }
+    }
+    
+    function setupContainer(question, answer, value) {
+        container.question = question;
+        container.answer = answer;
+        container.value = value;
+        currData.push(container);
+        container = {};
     }
     
     function createOuterRing(data) {
@@ -58,7 +65,17 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
         
         g.append("path").attr("d", arc).style("fill", function(d){return color(d.data)});
         //g.append("text").attr("transform", function(d){return "translate(" + arc.centroid(d) + ")"; }).attr("dy", ".35em").text(function(d){return d.data});
+    }
+    
+    function createInnerRing(data) {
+        var radius = Math.min(width/1.2, height/1.2) / 2,
+            color = d3.scaleOrdinal().range(["#1565C0", "#B71C1C", "#EF6C00", "#6A1B9A", "#00838F", "#9E9D24", "#1B5E20"]),
+            arc = d3.arc().outerRadius(radius - 10).innerRadius(radius - 70),
+            pie = d3.pie().sort(null).value(function(d){return d.value}),
+            svg = d3.select(svgEl).attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")"),
+            g = svg.selectAll(".arc").data(pie(data.slice(1,data.length))).enter().append("g").attr("class", "arc").attr("id", function(d, i){return "innerRing" + i});
         
+        g.append("path").attr("d", arc).style("fill", function(d){return color(d.value)});
     }
     
     that.setupCsvData = setupCsvData;
