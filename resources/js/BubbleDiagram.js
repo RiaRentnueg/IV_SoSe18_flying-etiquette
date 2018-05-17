@@ -1,15 +1,21 @@
 /* eslint-env browser */
+/* global EventPublisher */
+
 
 var BubbleDiagram = (function() {
   "use strict";
 
-  var that = {},
+  var that = new EventPublisher(),
   bubbleDiagramController,
-  bubbleFilterView;
+  bubbleView,
+  bubbleFilterView,
+  bubbleModel;
 
   function init() {
     initBubbleDiagramController();
+    initBubbleView();
     initBubbleFilterView();
+    initBubbleModel();
   }
 
   function initBubbleDiagramController() {
@@ -30,6 +36,24 @@ var BubbleDiagram = (function() {
     bubbleDiagramController.setOnGenderFilterClickListener(onGenderFilterClicked);
     bubbleDiagramController.setOnSliderClickListener(onSliderClicked);
     bubbleDiagramController.setOnChildFilterClickListener(onChildFilterClicked);
+  }
+
+  function initBubbleModel() {
+    bubbleModel = (new BubbleDiagram.BubbleModel({
+      csvPath: "data/flying-etiquette.csv",
+    })).init();
+
+    bubbleModel.addEventListener("bubbleDataLoaded", onBubbleDataLoaded);
+  }
+
+  function onBubbleDataLoaded (event){
+    bubbleView.setAnswersWithCount(event.data);
+  }
+
+  function initBubbleView() {
+    bubbleView = (new BubbleDiagram.BubbleView({
+      selector: "#babyBubbleChart",
+    })).init();
   }
 
   function initBubbleFilterView() {

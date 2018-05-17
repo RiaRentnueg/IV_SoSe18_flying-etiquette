@@ -59,6 +59,7 @@ BubbleDiagram.BubbleDiagramController = function(params) {
     var checked = false;
     if (event.target.checked) {
       checked = true;
+      console.log("bdc");
     } else {
       checked = false;
     }
