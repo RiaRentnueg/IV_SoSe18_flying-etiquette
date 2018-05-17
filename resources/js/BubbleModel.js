@@ -10,7 +10,7 @@ BubbleDiagram.BubbleModel = function(params) {
 
   function init() {
     csvPath = params.csvPath;
-    loadBubbleData();
+    loadBubbleData({});
     return that;
   }
 
@@ -46,15 +46,30 @@ BubbleDiagram.BubbleModel = function(params) {
     };
   }
 
-  function loadBubbleData(){
+  function loadBubbleData(filter){
+
+    //var filter = {genderFilter: "Male"};
     console.log(csvPath);
     d3.csv(csvPath, mapQuestions, function(error, data){
+      console.log(data);
 
+    var filteredData = data.filter(function(d) {
+      var result = true;
+
+      if (filter.genderFilter) {
+        result = (d.gender.toLowerCase() === filter.genderFilter.toLowerCase());
+      }
+
+      return result;
+    });
+
+    console.log(filteredData);
     var answersWithCount = d3.nest()
       .key(function(d) { return d.baby; })
       .rollup(function(v) { return v.length; })
-      .entries(data);
+      .entries(filteredData);
 
+console.log(answersWithCount);
     that.notifyAll("bubbleDataLoaded", answersWithCount);
     //updateSVGWithData(answersWithCount, "#babyBubbleChart");
 

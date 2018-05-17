@@ -14,10 +14,14 @@ BubbleDiagram.BubbleView = function(params) {
   }
 
   function setAnswersWithCount(answersWithCount){
+    d3.selectAll("svg > *").remove(); // will haunt us later!
+
    var chartSVG = d3.select(selector)
    .attr("viewBox","0 0 960 960")
    .attr("perserveAspectRatio","xMinYMid")
    .selectAll("svg");
+
+   //chartSVG.selectAll("*").remove();
 
    var bubbleNodes =  chartSVG.data(answersWithCount).enter().append("g");
 
