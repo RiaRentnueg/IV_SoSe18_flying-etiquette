@@ -54,7 +54,7 @@ BubbleDiagram.BubbleView = function(params) {
      return d.x;
    }).attr("y", function(d){
      return d.y;
-   });
+   }).style("text-anchor", "middle");
  }
 
 that.init = init;
