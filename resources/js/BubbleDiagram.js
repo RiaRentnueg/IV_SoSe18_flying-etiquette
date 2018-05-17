@@ -1,15 +1,21 @@
 /* eslint-env browser */
+/* global EventPublisher */
+
 
 var BubbleDiagram = (function() {
   "use strict";
 
-  var that = {},
+  var that = new EventPublisher(),
   bubbleDiagramController,
-  bubbleDiagramView;
+  bubbleView,
+  bubbleFilterView,
+  bubbleModel;
 
   function init() {
     initBubbleDiagramController();
-    initBubbleDiagramView();
+    initBubbleView();
+    initBubbleFilterView();
+    initBubbleModel();
   }
 
   function initBubbleDiagramController() {
@@ -32,8 +38,26 @@ var BubbleDiagram = (function() {
     bubbleDiagramController.setOnChildFilterClickListener(onChildFilterClicked);
   }
 
-  function initBubbleDiagramView() {
-    bubbleDiagramView = (new BubbleDiagram.BubbleDiagramView({
+  function initBubbleModel() {
+    bubbleModel = (new BubbleDiagram.BubbleModel({
+      csvPath: "data/flying-etiquette.csv",
+    })).init();
+
+    bubbleModel.addEventListener("bubbleDataLoaded", onBubbleDataLoaded);
+  }
+
+  function onBubbleDataLoaded (event){
+    bubbleView.setAnswersWithCount(event.data);
+  }
+
+  function initBubbleView() {
+    bubbleView = (new BubbleDiagram.BubbleView({
+      selector: "#babyBubbleChart",
+    })).init();
+  }
+
+  function initBubbleFilterView() {
+    bubbleFilterView = (new BubbleDiagram.BubbleFilterView({
       filter:  document.querySelector(".standardFilters"),
       sliderValue: document.querySelector(".current-value"),
     })).init();
@@ -51,12 +75,12 @@ var BubbleDiagram = (function() {
 
   function onSliderClicked(value) {
     console.log("click");
-    bubbleDiagramView.setSliderText(value)
+    bubbleFilterView.setSliderText(value)
 
   }
 
   function onOptionSelected(textElement) {
-    bubbleDiagramView.setFilterText(textElement);
+    bubbleFilterView.setFilterText(textElement);
   }
 
   that.init = init;
