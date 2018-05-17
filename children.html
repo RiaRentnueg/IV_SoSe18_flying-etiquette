@@ -68,11 +68,21 @@
 
 
 
-
-
 	<main>
+    <h1 style="padding-top: 40px">Children</h1>
+
+
+
+
+
     <div class ="standardFilters">
       <div class="row mt10 ml2">
+        <h2>In general, is itrude to bring a baby on a plane?</h2>
+        <div class = "col-sm-8 col-md-9 col-lg-7">
+          <svg class = "ml6 mr6" id = "babyBubbleChart"></svg>
+        </div>
+        <div class = "col-lg-1">
+        </div>
         <div class="col-sm-8 col-md-3 col-lg-3">
           <div class ="card">
               <div class ="card-block">
@@ -192,10 +202,12 @@
     <!-- reasons: script error doesnt lead to blank page; receiving and parsing large scripts increases load time -->
     <!-- dom model is ready and modifiable -->
     <script src="./vendors/d3/d3.js"></script>
-    <!--<script src="flying_etiquette.js"></script>-->
+    <script src="vendors/event-publisher/EventPublisher.js"></script>
     <script src="resources/js/BubbleDiagram.js"></script>
     <script src="resources/js/BubbleDiagramController.js"></script>
-    <script src="resources/js/BubbleDiagramView.js"></script>
+    <script src="resources/js/BubbleFilterView.js"></script>
+    <script src="resources/js/BubbleView.js"></script>
+    <script src="resources/js/BubbleModel.js"></script>
     <script>
         BubbleDiagram.init();
     </script>
