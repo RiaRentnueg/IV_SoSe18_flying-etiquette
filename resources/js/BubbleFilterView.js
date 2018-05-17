@@ -1,7 +1,7 @@
 /* eslint-env browser */
 /* global BubbleDiagram */
 
-BubbleDiagram.BubbleDiagramView = function(params) {
+BubbleDiagram.BubbleFilterView = function(params) {
     "use strict";
 
   var that = {},

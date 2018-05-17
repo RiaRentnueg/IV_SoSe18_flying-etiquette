@@ -5,11 +5,11 @@ var BubbleDiagram = (function() {
 
   var that = {},
   bubbleDiagramController,
-  bubbleDiagramView;
+  bubbleFilterView;
 
   function init() {
     initBubbleDiagramController();
-    initBubbleDiagramView();
+    initBubbleFilterView();
   }
 
   function initBubbleDiagramController() {
@@ -32,8 +32,8 @@ var BubbleDiagram = (function() {
     bubbleDiagramController.setOnChildFilterClickListener(onChildFilterClicked);
   }
 
-  function initBubbleDiagramView() {
-    bubbleDiagramView = (new BubbleDiagram.BubbleDiagramView({
+  function initBubbleFilterView() {
+    bubbleFilterView = (new BubbleDiagram.BubbleFilterView({
       filter:  document.querySelector(".standardFilters"),
       sliderValue: document.querySelector(".current-value"),
     })).init();
@@ -51,12 +51,12 @@ var BubbleDiagram = (function() {
 
   function onSliderClicked(value) {
     console.log("click");
-    bubbleDiagramView.setSliderText(value)
+    bubbleFilterView.setSliderText(value)
 
   }
 
   function onOptionSelected(textElement) {
-    bubbleDiagramView.setFilterText(textElement);
+    bubbleFilterView.setFilterText(textElement);
   }
 
   that.init = init;
