@@ -16,7 +16,7 @@ BubbleDiagram.BubbleFilterView = function(params) {
 
   function setSliderText(value) {
     console.log(value);
-    sliderValue.innerText = "Height: " + value.value;
+    sliderValue.innerText = "Height: " + value;
   }
 
 
