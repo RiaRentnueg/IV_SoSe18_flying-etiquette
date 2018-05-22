@@ -68,25 +68,35 @@
 
 
 
-
-
 	<main>
+    <h1 style="padding-top: 40px">Children</h1>
+
+
+
+
+
     <div class ="standardFilters">
       <div class="row mt10 ml2">
+        <h2>In general, is itrude to bring a baby on a plane?</h2>
+        <div class = "col-sm-8 col-md-9 col-lg-7">
+          <svg class = "ml6 mr6" id = "babyBubbleChart"></svg>
+        </div>
+        <div class = "col-lg-1">
+        </div>
         <div class="col-sm-8 col-md-3 col-lg-3">
           <div class ="card">
               <div class ="card-block">
                 <h2 class ="card-title">Filter</h2>
               </div>
             <div class ="card-content">
-              <form>
-                <label class="radio-inline">
-                  <input type="radio" name="optradio">
+              <form class ="gender-filter">
+                <input type="checkbox" class="form-check-input" id="woman">
+                  <label class="radio-inline mr3">
                     <i class="fas fa-female"></i>
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="optradio">
-                    <i class="fas fa-male"></i>
+                  </label>
+                <input type="checkbox" class="form-check-input" id ="man">
+                 <label class="radio-inline">
+                   <i class="fas fa-male"></i>
                 </label>
              </form>
              <div class="dropdown mt3">
@@ -94,11 +104,11 @@
                  <i class="fas fa-plane"></i>&nbsp;Frequency of air travel
                  <span class="caret"></span></button>
                  <ul class="dropdown-menu">
-                   <li><a href="#">Once a year or less</a></li>
-                   <li><a href="#">Once a month or less</a></li>
-                   <li><a href="#">A few times per month</a></li>
-                   <li><a href="#">A few times per week</a></li>
-                   <li><a href="#">Every day</a></li>
+                   <li><a>Once a year or less</a></li>
+                   <li><a>Once a month or less</a></li>
+                   <li><a>A few times per month</a></li>
+                   <li><a>A few times per week</a></li>
+                   <li><a>Every day</a></li>
                  </ul>
               </div>
               <div class="dropdown mt3">
@@ -106,10 +116,10 @@
                   <i class="fas fa-birthday-cake"></i>&nbsp; Age
                   <span class="caret"></span></button>
                   <ul class="dropdown-menu">
-                    <li><a href="#">18-29</a></li>
-                    <li><a href="#">30-44</a></li>
-                    <li><a href="#">45-60</a></li>
-                    <li><a href="#">>60</a></li>
+                    <li><a>18-29</a></li>
+                    <li><a>30-44</a></li>
+                    <li><a>45-60</a></li>
+                    <li><a>>60</a></li>
                   </ul>
                </div>
                <div class="dropdown mt3">
@@ -117,11 +127,11 @@
                    <i class="fas fa-dollar-sign"></i>&nbsp; Income
                    <span class="caret"></span></button>
                    <ul class="dropdown-menu">
-                     <li><a href="#">$0 - $24,999</a></li>
-                     <li><a href="#">$25,000 - $49,999</a></li>
-                     <li><a href="#">$50,000 - $99,999</a></li>
-                     <li><a href="#">$100,000 - $149,999	</a></li>
-                     <li><a href="#">$150000</a></li>
+                     <li><a>$0 - $24,999</a></li>
+                     <li><a>$25,000 - $49,999</a></li>
+                     <li><a>$50,000 - $99,999</a></li>
+                     <li><a>$100,000 - $149,999	</a></li>
+                     <li><a>$150000</a></li>
                    </ul>
                 </div>
                 <div class="dropdown mt3">
@@ -129,10 +139,10 @@
                     <i class="fas fa-graduation-cap"></i>&nbsp; Education
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                      <li><a href="#">High school degree</a></li>
-                      <li><a href="#">Some college or Associate degree</a></li>
-                      <li><a href="#">Graduate degree</a></li>
-                      <li><a href="#">Bachelor degree</a></li>
+                      <li><a>High school degree</a></li>
+                      <li><a>Some college or Associate degree</a></li>
+                      <li><a>Graduate degree</a></li>
+                      <li><a>Bachelor degree</a></li>
                     </ul>
                  </div>
                  <div class="dropdown mt3">
@@ -140,22 +150,47 @@
                      <i class="fas fa-map-marker"></i>&nbsp; Location
                      <span class="caret"></span></button>
                      <ul class="dropdown-menu">
-                       <li><a href="#">New England</a></li>
-                       <li><a href="#">East North Central</a></li>
-                       <li><a href="#">East South Central</a></li>
-                       <li><a href="#">West North Central</a></li>
-                       <li><a href="#">West South Central</a></li>
-                       <li><a href="#">Middle Atlantic</a></li>
-                       <li><a href="#">South Atlantic</a></li>
-                       <li><a href="#">Mountain</a></li>
-                       <li><a href="#">Pacific</a></li>
+                       <li><a>New England</a></li>
+                       <li><a>East North Central</a></li>
+                       <li><a>East South Central</a></li>
+                       <li><a>West North Central</a></li>
+                       <li><a>West South Central</a></li>
+                       <li><a>Middle Atlantic</a></li>
+                       <li><a>South Atlantic</a></li>
+                       <li><a>Mountain</a></li>
+                       <li><a>Pacific</a></li>
                      </ul>
                   </div>
-                </div>
+                  <div class="dropdown mt3">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                      <i class="fas fa-couch"></i>&nbsp; Frequency of seat reclining
+                      <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><a>Never</a></li>
+                        <li><a>Once in a while</a></li>
+                        <li><a>About half the time</a></li>
+                        <li><a>Usually</a></li>
+                        <li><a>Always</a></li>
+                      </ul>
+                   </div>
+                   <div class="special-filter">
+                    <form class ="child-filter mt3">
+                      <input type="checkbox" class="form-check-input" name="optradio" id="child">
+                        <label class="radio-inline">
+                          <i class="fas fa-child"></i>
+                        <!--  <p id="baby-explanation">Does the participant have children?</p>-->
+                        </label>
+                   </form>
+                   <div class="slidecontainer mt2">
+                     <input type="range" min="<5" max=">6'6" value="0" class="slider mt2" id="height">
+                     <p class="current-value mt2">Height: </p>
+                   </div>
+                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
 	</main>
 
 
@@ -166,6 +201,14 @@
     <!-- reasons: script error doesnt lead to blank page; receiving and parsing large scripts increases load time -->
     <!-- dom model is ready and modifiable -->
     <script src="./vendors/d3/d3.js"></script>
-    <script src="flying_etiquette.js"></script>
-</body>
+    <script src="vendors/event-publisher/EventPublisher.js"></script>
+    <script src="resources/js/BubbleDiagram.js"></script>
+    <script src="resources/js/BubbleDiagramController.js"></script>
+    <script src="resources/js/BubbleFilterView.js"></script>
+    <script src="resources/js/BubbleView.js"></script>
+    <script src="resources/js/BubbleModel.js"></script>
+    <script>
+        BubbleDiagram.init();
+    </script>
+ </body>
 </html>
