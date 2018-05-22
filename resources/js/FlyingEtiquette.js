@@ -14,7 +14,7 @@ FlyingEtiquette = (function() {
     
     function initStartDiagram(diagramBox, diagramSvg) {
         var startDiagramManager = new FlyingEtiquette.StartDiagramManager(diagramBox, diagramSvg);
-        startDiagramManager.setupCsvData();
+        startDiagramManager.setupStartDiagram();
     }
     
     that.init = init;
