@@ -37,12 +37,13 @@ BubbleDiagram.BubbleView = function(params) {
    console.log("temp = " + temp);
    if(temp == 0){
      createBubbles(rootNodeChildren, bubbleNodes);
+     addTextToBubbles(rootNodeChildren, bubbleNodes);
      temp = 1;
    }else {
-     updateBubbles(rootNodeChildren, bubbleNodes);
+     updateBubbles(rootNodeChildren);
+     updateText(rootNodeChildren);
    }
 
-   addTextToBubbles(rootNodeChildren, bubbleNodes);
  }
 
 
@@ -60,6 +61,7 @@ BubbleDiagram.BubbleView = function(params) {
  }
 
  function addTextToBubbles(answersWithCount, bubbleNodes){
+   console.log("bubbleNodes: " + bubbleNodes);
    bubbleNodes.append("text").data(answersWithCount)
    .text(function (d) {
      return d.data.key;
@@ -70,7 +72,7 @@ BubbleDiagram.BubbleView = function(params) {
    }).style("text-anchor", "middle");
  }
 
- function updateBubbles (answersWithCount, bubbleNodes) {
+ function updateBubbles (answersWithCount) {
    d3.selectAll(selector).selectAll("circle")
     .data(answersWithCount)
      .transition()
@@ -84,6 +86,20 @@ BubbleDiagram.BubbleView = function(params) {
    }).attr("cy", function(d){
      return d.y;
    });
+ }
+
+ function updateText (answersWithCount) {
+   console.log(d3.selectAll(selector).selectAll("text"));
+   d3.selectAll(selector).selectAll("text")
+    .data(answersWithCount)
+     .transition()
+     .duration(transitionDelay)
+     .attr("x", function(d){
+     return d.x;
+   }).attr("y", function(d){
+     return d.y;
+   }).style("text-anchor", "middle");
+
  }
 
 that.init = init;
