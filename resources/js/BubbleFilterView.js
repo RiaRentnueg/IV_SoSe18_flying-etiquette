@@ -34,6 +34,9 @@ BubbleDiagram.BubbleFilterView = function(params) {
       document.querySelector("#female").checked = false;
     } else if (gender === "female") {
       document.querySelector("#male").checked = false;
+    } else if (gender === "") {
+      document.querySelector("#female").checked = false;
+      document.querySelector("#male").checked = false;  
     }
   }
 
