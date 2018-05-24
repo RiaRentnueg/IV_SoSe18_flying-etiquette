@@ -44,51 +44,26 @@ BubbleDiagram.BubbleView = function(params) {
  }
 
 
- // function createBubbles(answersWithCount, bubbleNodes) {
- //   bubbleNodes.append("circle").data(answersWithCount)
- //   .style("fill", function() {
- //     return "rgb(62,206,255)";
- //   }).attr("r", function (d){
- //     console.log("d.r in create");
- //     console.log(d.r);
- //     return d.r;
- //   }).attr("cx", function(d){
- //     return d.x;
- //   }).attr("cy", function(d){
- //     return d.y;
- //   });
- // }
 
- // function addTextToBubbles(answersWithCount, bubbleNodes){
- //   console.log("bubbleNodes: " + bubbleNodes);
- //   bubbleNodes.append("text").data(answersWithCount)
- //   .text(function (d) {
- //     return d.data.key;
- //   }).attr("x", function(d){
- //     return d.x;
- //   }).attr("y", function(d){
- //     return d.y;
- //   }).style("text-anchor", "middle");
- // }
-
- function addText(texts){
-   texts.enter().append("text")
-   .text(function (d) {
-     return d.data.key;
-   }).attr("x", function(d){
-     return d.x;
-   }).attr("y", function(d){
-     return d.y;
-   }).style("text-anchor", "middle");
- }
-
- function createBubbles (circles) {
+function createBubbles (circles) {
    circles.enter().append("circle")
    .style("fill", function() {
      return "rgb(62,206,255)";
-   }).attr("r", function (d){
-     console.log("d.r in create");
-     console.log(d.r);
+   }).call(setUpCircle);
+ }
+
+function updateBubbles (answersWithCount, bubbleNodes) {
+   var circles = bubbleNodes.selectAll("circle").data(answersWithCount);
+
+   circles.exit().remove();
+   createBubbles(circles);
+   circles.transition()
+     .duration(transitionDelay)
+     .call(setUpCircle);
+ }
+
+ function setUpCircle(selection) {
+   selection.attr("r", function (d){
      return d.r;
    }).attr("cx", function(d){
      return d.x;
@@ -97,23 +72,19 @@ BubbleDiagram.BubbleView = function(params) {
    });
  }
 
- function updateBubbles (answersWithCount, bubbleNodes) {
-   var circles = bubbleNodes.selectAll("circle").data(answersWithCount);
+ function addText(texts){
+   texts.enter().append("text")
+   .text(function (d) {
+     return d.data.key;
+   }).call(setUpText);
+  }
 
-   circles.exit().remove();
-   createBubbles(circles);
-
-    circles.transition()
-     .duration(transitionDelay)
-     .style("fill", function() {
-       return "rgb(62,206,255)";
-     }).attr("r", function (d){
-       return d.r;
-     }).attr("cx", function(d){
-       return d.x;
-     }).attr("cy", function(d){
-       return d.y;
-     });
+ function setUpText(selection) {
+   selection.attr("x", function(d){
+   return d.x;
+ }).attr("y", function(d){
+   return d.y;
+ }).style("text-anchor", "middle");
  }
 
  function updateText (answersWithCount, bubbleNodes) {
@@ -125,13 +96,8 @@ BubbleDiagram.BubbleView = function(params) {
 
    texts.transition()
      .duration(transitionDelay)
-     .attr("x", function(d){
-     return d.x;
-   }).attr("y", function(d){
-     return d.y;
-   }).style("text-anchor", "middle");
-
- }
+     .call(setUpText);
+  }
 
 that.init = init;
 that.setAnswersWithCount = setAnswersWithCount;
