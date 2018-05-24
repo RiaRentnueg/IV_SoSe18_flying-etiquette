@@ -8,7 +8,7 @@ BubbleDiagram.BubbleView = function(params) {
     selector;
   var transitionDelay = 1000;
 
-  var temp = 0;
+
 
   function init() {
     selector = params.selector;
@@ -25,8 +25,10 @@ BubbleDiagram.BubbleView = function(params) {
 
    //chartSVG.selectAll("*").remove();
 
-   var bubbleNodes =  chartSVG.data(answersWithCount).enter().append("g");
+   chartSVG.data(answersWithCount).enter().append("g");
+    // bubbleNodes.exit().remove();
 
+    var bubbleNodes = d3.selectAll(selector).select("g")
 
    var rootNode = d3.hierarchy({children: answersWithCount})
    .sum(function(d) { return d.value; });
@@ -34,21 +36,54 @@ BubbleDiagram.BubbleView = function(params) {
    d3.pack().padding(2).size([960,960])(rootNode);
 
    var rootNodeChildren = rootNode.children;
-   console.log("temp = " + temp);
-   if (temp == 0) {
-     createBubbles(rootNodeChildren, bubbleNodes);
-     addTextToBubbles(rootNodeChildren, bubbleNodes);
-     temp = 1;
-   } else {
-     updateBubbles(rootNodeChildren);
-     updateText(rootNodeChildren);
-   }
+
+   updateBubbles(rootNodeChildren, bubbleNodes);
+   updateText(rootNodeChildren, bubbleNodes);
+
 
  }
 
 
- function createBubbles(answersWithCount, bubbleNodes) {
-   bubbleNodes.append("circle").data(answersWithCount)
+ // function createBubbles(answersWithCount, bubbleNodes) {
+ //   bubbleNodes.append("circle").data(answersWithCount)
+ //   .style("fill", function() {
+ //     return "rgb(62,206,255)";
+ //   }).attr("r", function (d){
+ //     console.log("d.r in create");
+ //     console.log(d.r);
+ //     return d.r;
+ //   }).attr("cx", function(d){
+ //     return d.x;
+ //   }).attr("cy", function(d){
+ //     return d.y;
+ //   });
+ // }
+
+ // function addTextToBubbles(answersWithCount, bubbleNodes){
+ //   console.log("bubbleNodes: " + bubbleNodes);
+ //   bubbleNodes.append("text").data(answersWithCount)
+ //   .text(function (d) {
+ //     return d.data.key;
+ //   }).attr("x", function(d){
+ //     return d.x;
+ //   }).attr("y", function(d){
+ //     return d.y;
+ //   }).style("text-anchor", "middle");
+ // }
+
+ function addText(texts){
+   texts.enter().append("text")
+   .text(function (d) {
+     return d.data.key;
+   }).attr("x", function(d){
+     return d.x;
+   }).attr("y", function(d){
+     return d.y;
+   }).style("text-anchor", "middle");
+ }
+
+ function createBubbles (circles) {
+   circles.enter().append("circle")
    .style("fill", function() {
      return "rgb(62,206,255)";
    }).attr("r", function (d){
@@ -62,44 +97,33 @@ BubbleDiagram.BubbleView = function(params) {
    });
  }
 
- function addTextToBubbles(answersWithCount, bubbleNodes){
-   console.log("bubbleNodes: " + bubbleNodes);
-   bubbleNodes.append("text").data(answersWithCount)
-   .text(function (d) {
-     return d.data.key;
-   }).attr("x", function(d){
-     return d.x;
-   }).attr("y", function(d){
-     return d.y;
-   }).style("text-anchor", "middle");
- }
+ function updateBubbles (answersWithCount, bubbleNodes) {
+   var circles = bubbleNodes.selectAll("circle").data(answersWithCount);
 
- function updateBubbles (answersWithCount) {
-   var circles = d3.selectAll(selector).selectAll("circle");
-   console.log("circles");
-   console.log(circles);
-   //circles.remove();
-    circles.data(answersWithCount)
-     .transition()
+   circles.exit().remove();
+   createBubbles(circles);
+
+    circles.transition()
      .duration(transitionDelay)
-   .style("fill", function() {
-     return "rgb(62,206,255)";
-   }).attr("r", function (d){
-     console.log("d.r in update");
-     console.log(d.r);
-     return d.r;
-   }).attr("cx", function(d){
-     return d.x;
-   }).attr("cy", function(d){
-     return d.y;
-   });
+     .style("fill", function() {
+       return "rgb(62,206,255)";
+     }).attr("r", function (d){
+       return d.r;
+     }).attr("cx", function(d){
+       return d.x;
+     }).attr("cy", function(d){
+       return d.y;
+     });
  }
 
- function updateText (answersWithCount) {
+ function updateText (answersWithCount, bubbleNodes) {
    console.log(d3.selectAll(selector).selectAll("text"));
-   d3.selectAll(selector).selectAll("text")
-    .data(answersWithCount)
-     .transition()
+   var texts = bubbleNodes.selectAll("text").data(answersWithCount);
+
+   texts.exit().remove();
+   addText(texts);
+
+   texts.transition()
      .duration(transitionDelay)
      .attr("x", function(d){
      return d.x;
