@@ -29,9 +29,18 @@ BubbleDiagram.BubbleFilterView = function(params) {
 
   }
 
+  function updateGenderButton(gender){
+    if (gender === "male") {
+      document.querySelector("#female").checked = false;
+    } else if (gender === "female") {
+      document.querySelector("#male").checked = false;
+    }
+  }
+
   that.init = init;
   that.setFilterText = setFilterText;
   that.setSliderText = setSliderText;
+  that.updateGenderButton = updateGenderButton;
 
   return that;
 };

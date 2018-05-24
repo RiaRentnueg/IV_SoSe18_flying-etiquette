@@ -57,11 +57,7 @@ BubbleDiagram.BubbleDiagramController = function(params) {
   function onGenderFilterClicked(event) {
     var gender = event.target.id;
 
-    if (gender === "male") {
-      document.querySelector("#female").checked = false;
-    } else if (gender === "female") {
-      document.querySelector("#male").checked = false;
-    }
+    bubbleFilterView.updateGenderButton(gender);
 
     var checked = false;
     if (event.target.checked) {
