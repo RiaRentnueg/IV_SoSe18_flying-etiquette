@@ -46,13 +46,21 @@ BubbleDiagram.BubbleView = function(params) {
 
 
 function createBubbles (circles) {
+  var baseColor = (Math.random() * 360);
+  console.log(baseColor);
    circles.enter().append("circle")
-   .style("fill", function() {
-     return "rgb(62,206,255)";
-   }).call(setUpCircle);
+   .style("fill", function(d) {
+     console.log("d");
+     console.log(d);
+
+      console.log("hsl(" + (baseColor + (d.parent.children.indexOf(d) * 42) ) + ",100%,42%)");
+      return "hsl(" + (baseColor + (d.parent.children.indexOf(d) * 42) ) + ",100%,42%)";
+    })
+   .call(setUpCircle);
  }
 
 function updateBubbles (answersWithCount, bubbleNodes) {
+
    var circles = bubbleNodes.selectAll("circle").data(answersWithCount);
 
    circles.exit().remove();
@@ -63,7 +71,8 @@ function updateBubbles (answersWithCount, bubbleNodes) {
  }
 
  function setUpCircle(selection) {
-   selection.attr("r", function (d){
+   selection
+    .attr("r", function (d){
      return d.r;
    }).attr("cx", function(d){
      return d.x;
