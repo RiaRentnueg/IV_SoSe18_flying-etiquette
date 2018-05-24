@@ -48,6 +48,8 @@ var BubbleDiagram = (function() {
   }
 
   function onBubbleDataLoaded (event){
+    console.log("eventData");
+    console.log(event.data);
     bubbleView.setAnswersWithCount(event.data);
   }
 

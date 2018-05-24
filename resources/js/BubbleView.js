@@ -35,11 +35,11 @@ BubbleDiagram.BubbleView = function(params) {
 
    var rootNodeChildren = rootNode.children;
    console.log("temp = " + temp);
-   if(temp == 0){
+   if (temp == 0) {
      createBubbles(rootNodeChildren, bubbleNodes);
      addTextToBubbles(rootNodeChildren, bubbleNodes);
      temp = 1;
-   }else {
+   } else {
      updateBubbles(rootNodeChildren);
      updateText(rootNodeChildren);
    }
@@ -51,7 +51,9 @@ BubbleDiagram.BubbleView = function(params) {
    bubbleNodes.append("circle").data(answersWithCount)
    .style("fill", function() {
      return "rgb(62,206,255)";
-   }).style("r", function (d){
+   }).attr("r", function (d){
+     console.log("d.r in create");
+     console.log(d.r);
      return d.r;
    }).attr("cx", function(d){
      return d.x;
@@ -73,13 +75,18 @@ BubbleDiagram.BubbleView = function(params) {
  }
 
  function updateBubbles (answersWithCount) {
-   d3.selectAll(selector).selectAll("circle")
-    .data(answersWithCount)
+   var circles = d3.selectAll(selector).selectAll("circle");
+   console.log("circles");
+   console.log(circles);
+   //circles.remove();
+    circles.data(answersWithCount)
      .transition()
      .duration(transitionDelay)
    .style("fill", function() {
      return "rgb(62,206,255)";
-   }).style("r", function (d){
+   }).attr("r", function (d){
+     console.log("d.r in update");
+     console.log(d.r);
      return d.r;
    }).attr("cx", function(d){
      return d.x;
