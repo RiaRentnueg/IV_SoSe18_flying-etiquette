@@ -65,8 +65,6 @@ var BubbleDiagram = (function() {
   }
 
   function onGenderFilterClicked(checked, gender) {
-    console.log(checked);
-    console.log(gender);
     if (checked) {
       filter.genderFilter = gender;
     } else {

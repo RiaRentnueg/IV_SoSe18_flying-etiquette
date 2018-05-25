@@ -52,6 +52,10 @@ a:hover{
   color: #0277BD;
 }
 
+.categoryHeading, .bubbleQuestion {
+  color: #0277BD;
+}
+
 .slider {
     -webkit-appearance: none;
     width: 80%;
