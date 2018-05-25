@@ -47,11 +47,7 @@ BubbleDiagram.BubbleModel = function(params) {
   }
 
   function loadBubbleData(filter){
-
-    //var filter = {genderFilter: "Male"};
-    console.log(csvPath);
     d3.csv(csvPath, mapQuestions, function(error, data){
-      console.log(data);
 
     var filteredData = data.filter(function(d) {
       var result = true;
@@ -63,22 +59,17 @@ BubbleDiagram.BubbleModel = function(params) {
       return result;
     });
 
-    console.log(filteredData);
     var answersWithCount = d3.nest()
       .key(function(d) { return d.baby; })
       .rollup(function(v) { return v.length; })
       .entries(filteredData);
 
-console.log(answersWithCount);
     that.notifyAll("bubbleDataLoaded", answersWithCount);
-    //updateSVGWithData(answersWithCount, "#babyBubbleChart");
-
     })
 
   }
 that.init = init;
 that.loadBubbleData = loadBubbleData;
-
 
 return that;
 };
