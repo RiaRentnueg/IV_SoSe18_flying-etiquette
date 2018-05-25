@@ -37,14 +37,14 @@ BubbleDiagram.BubbleView = function(params) {
 
 
 
-  function createBubbles (circles) {
-    var baseColor = (Math.random() * 360);
-    circles.enter().append("circle")
-     .style("fill", function(d) {
-        return "hsl(" + (baseColor + (d.parent.children.indexOf(d) * 42) ) + ",100%,42%)";
-      })
-     .call(setUpCircle);
-   }
+ function createBubbles (circles) {
+   var baseColor = (Math.random() * 360);
+   circles.enter().append("circle")
+    .style("fill", function(d) {
+       return "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 20))+"%)";
+     })
+    .call(setUpCircle);
+  }
 
   function updateBubbles (answersWithCount, bubbleNodes) {
     var circles = bubbleNodes.selectAll("circle").data(answersWithCount);
