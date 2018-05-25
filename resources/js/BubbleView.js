@@ -6,6 +6,8 @@ BubbleDiagram.BubbleView = function(params) {
 
   var that = new EventPublisher(),
     selector;
+  var transitionDelay = 1000;
+
 
 
   function init() {
@@ -19,8 +21,9 @@ BubbleDiagram.BubbleView = function(params) {
    .attr("perserveAspectRatio","xMinYMid")
    .selectAll("svg");
 
-   var bubbleNodes =  chartSVG.data(answersWithCount).enter().append("g");
+   chartSVG.data(answersWithCount).enter().append("g");
 
+   var bubbleNodes = d3.selectAll(selector).select("g")
    var rootNode = d3.hierarchy({children: answersWithCount})
    .sum(function(d) { return d.value; });
 
@@ -28,16 +31,33 @@ BubbleDiagram.BubbleView = function(params) {
 
    var rootNodeChildren = rootNode.children;
 
-   createBubbles(rootNodeChildren, bubbleNodes);
-   addTextToBubbles(rootNodeChildren, bubbleNodes);
+   updateBubbles(rootNodeChildren, bubbleNodes);
+   updateText(rootNodeChildren, bubbleNodes);
  }
 
 
- function createBubbles(answersWithCount, bubbleNodes) {
-   bubbleNodes.append("circle").data(answersWithCount)
-   .style("fill", function() {
-     return "rgb(62,206,255)";
-   }).style("r", function (d){
+
+  function createBubbles (circles) {
+    var baseColor = (Math.random() * 360);
+    circles.enter().append("circle")
+     .style("fill", function(d) {
+        return "hsl(" + (baseColor + (d.parent.children.indexOf(d) * 42) ) + ",100%,42%)";
+      })
+     .call(setUpCircle);
+   }
+
+  function updateBubbles (answersWithCount, bubbleNodes) {
+    var circles = bubbleNodes.selectAll("circle").data(answersWithCount);
+
+    circles.exit().remove();
+    createBubbles(circles);
+    circles.transition()
+      .duration(transitionDelay)
+      .call(setUpCircle);
+   }
+
+ function setUpCircle(selection) {
+   selection.attr("r", function (d){
      return d.r;
    }).attr("cx", function(d){
      return d.x;
@@ -46,20 +66,34 @@ BubbleDiagram.BubbleView = function(params) {
    });
  }
 
- function addTextToBubbles(answersWithCount, bubbleNodes){
-   bubbleNodes.append("text").data(answersWithCount)
+ function addText(texts){
+   texts.enter().append("text")
    .text(function (d) {
      return d.data.key;
-   }).attr("x", function(d){
-     return d.x;
-   }).attr("y", function(d){
-     return d.y;
-   }).style("text-anchor", "middle");
+   }).call(setUpText);
+  }
+
+ function setUpText(selection) {
+   selection.attr("x", function(d){
+   return d.x;
+ }).attr("y", function(d){
+   return d.y;
+ }).style("text-anchor", "middle");
  }
+
+ function updateText (answersWithCount, bubbleNodes) {
+   var texts = bubbleNodes.selectAll("text").data(answersWithCount);
+
+   texts.exit().remove();
+   addText(texts);
+
+   texts.transition()
+     .duration(transitionDelay)
+     .call(setUpText);
+  }
 
 that.init = init;
 that.setAnswersWithCount = setAnswersWithCount;
-
 
 return that;
 };

@@ -9,7 +9,8 @@ var BubbleDiagram = (function() {
   bubbleDiagramController,
   bubbleView,
   bubbleFilterView,
-  bubbleModel;
+  bubbleModel,
+  filter = {genderFilter : null};
 
   function init() {
     initBubbleDiagramController();
@@ -64,8 +65,14 @@ var BubbleDiagram = (function() {
   }
 
   function onGenderFilterClicked(checked, gender) {
-    console.log(checked);
-    console.log(gender);
+    if (checked) {
+      filter.genderFilter = gender;
+    } else {
+      filter.genderFilter = null;
+    }
+    bubbleModel.loadBubbleData(filter);
+
+    bubbleFilterView.updateGenderButton(gender);
   }
 
   function onChildFilterClicked(child) {

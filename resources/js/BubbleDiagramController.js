@@ -64,10 +64,12 @@ BubbleDiagram.BubbleDiagramController = function(params) {
 
   function onGenderFilterClicked(event) {
     var gender = event.target.id;
+
+    //bubbleFilterView.updateGenderButton(gender);
+
     var checked = false;
     if (event.target.checked) {
       checked = true;
-      console.log("bdc");
     } else {
       checked = false;
     }
