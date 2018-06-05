@@ -21,13 +21,17 @@ BubbleDiagram.BubbleView = function(params) {
    .attr("perserveAspectRatio","xMinYMid")
    .selectAll("svg");
 
-   chartSVG.data(answersWithCount).enter().append("g");
+   //chartSVG.data(answersWithCount).enter().append("g").exit().remove();
 
-   var bubbleNodes = d3.selectAll(selector).select("g")
+   var bubbleNodes = d3.selectAll(selector);//.select("g");
+   console.log(bubbleNodes);
    var rootNode = d3.hierarchy({children: answersWithCount})
    .sum(function(d) { return d.value; });
+   //.sort(function(a, b) { return b.value - a.value; });
 
    d3.pack().padding(2).size([960,960])(rootNode);
+
+
 
    var rootNodeChildren = rootNode.children;
 
@@ -38,6 +42,7 @@ BubbleDiagram.BubbleView = function(params) {
 
 
  function createBubbles (circles) {
+   console.log(circles);
    var baseColor = (Math.random() * 360);
    circles.enter().append("circle")
     .style("fill", function(d) {
@@ -47,7 +52,18 @@ BubbleDiagram.BubbleView = function(params) {
   }
 
   function updateBubbles (answersWithCount, bubbleNodes) {
+    console.log("answersWithCount");
+    console.log(answersWithCount);
+    var dataObj = {name: "bubbleArray", size: 856, children: answersWithCount};
     var circles = bubbleNodes.selectAll("circle").data(answersWithCount);
+    console.log(dataObj);
+    //var circles = bubbleNodes.selectAll("circle").data(dataObj.children);
+    // circles.append("circle")
+    //   .style("fill", "#000")
+    //   .attr("r", 856)
+    //   .attr("cx", 856/2)
+    //   .attr("cy",856%2);
+
 
     circles.exit().remove();
     createBubbles(circles);
