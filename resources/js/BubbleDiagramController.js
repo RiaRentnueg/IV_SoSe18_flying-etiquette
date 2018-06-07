@@ -46,17 +46,19 @@ BubbleDiagram.BubbleDiagramController = function(params) {
   }
 
   function onSliderClicked(event) {
+    var originalVal = event.target.value;
     var value = event.target.value;
-    console.log(value);
     var heights = ['<5',"5'0\"","5'1\"","5'2\"","5'3\"","5'4\"","5'5\"","5'6\"","5'7\"","5'8\"",
-  "5'9\"","5'10\"","5'11\"","6'0\"","6'1\"","6'2\"","6'3\"","6'4\"","6'5\"","<6'6\""]
+    "5'9\"","5'10\"","5'11\"","6'0\"","6'1\"","6'2\"","6'3\"","6'4\"","6'5\"","<6'6\""]
     var i;
-  for (i = 1; i < 20; i++) {
-    if (value <= i*100/19) {
-      value = heights[i];
+    for (i = 1; i < 20; i++) {
+      if (originalVal == 0) {
+        value = '';
+      } else
+      if (value <= i*100/19) {
+        value = heights[i];
+      }
     }
-  }
-
     sliderFilterListener.forEach(function(listener) {
       listener(value);
     });
