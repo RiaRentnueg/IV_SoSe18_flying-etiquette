@@ -8,6 +8,7 @@ BubbleDiagram.BubbleView = function(params) {
     selector;
   var transitionDelay = 1000;
   var initialPackSize = 960;
+  var diagramShift;
 
 
 
@@ -29,14 +30,11 @@ BubbleDiagram.BubbleView = function(params) {
    var rootNode = d3.hierarchy({children: answersWithCount})
    .sum(
      function(d) { return d.value;});
-    console.log("rootNode");
-console.log(rootNode);
-console.log(rootNode.value);
 
    //.sort(function(a, b) { return b.value - a.value; });
 
    //calculates size of pack layout (needed that bubbles shrink proportionally)
-   var currentPackSize = initialPackSize / 856 * rootNode.value;//* tpCount;
+   var currentPackSize = rootNode.value;//* tpCount;
 
    d3.pack().padding(2).size([currentPackSize,currentPackSize])(rootNode);
 
@@ -61,18 +59,8 @@ console.log(rootNode.value);
   }
 
   function updateBubbles (answersWithCount, bubbleNodes) {
-    console.log("answersWithCount");
-    console.log(answersWithCount);
     var dataObj = {name: "bubbleArray", size: 856, children: answersWithCount};
     var circles = bubbleNodes.selectAll("circle").data(answersWithCount);
-    console.log(dataObj);
-    //var circles = bubbleNodes.selectAll("circle").data(dataObj.children);
-    // circles.append("circle")
-    //   .style("fill", "#000")
-    //   .attr("r", 856)
-    //   .attr("cx", 856/2)
-    //   .attr("cy",856%2);
-
 
     circles.exit().remove();
     createBubbles(circles);
@@ -88,9 +76,11 @@ console.log(d.r);
 console.log(d.value);
      return d.r;
    }).attr("cx", function(d){
-     return d.x;
-   }).attr("cy", function(d){
-     return d.y;
+     var diagramShift = (856 - d.parent.value)/2;
+     return d.x + diagramShift;
+   }).attr("cy", function(d, diagramShift){
+     var diagramShift = (856 - d.parent.value)/2;
+     return d.y + diagramShift;
    });
  }
 
@@ -103,9 +93,11 @@ console.log(d.value);
 
  function setUpText(selection) {
    selection.attr("x", function(d){
-   return d.x;
+   var diagramShift = (856 - d.parent.value)/2;
+   return d.x + diagramShift;
  }).attr("y", function(d){
-   return d.y;
+   var diagramShift = (856 - d.parent.value)/2;
+   return d.y + diagramShift;
  }).style("text-anchor", "middle");
  }
 
