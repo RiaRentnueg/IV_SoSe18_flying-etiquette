@@ -61,7 +61,6 @@ BubbleDiagram.BubbleView = function(params) {
   function updateBubbles (answersWithCount, bubbleNodes) {
     var dataObj = {name: "bubbleArray", size: 856, children: answersWithCount};
     var circles = bubbleNodes.selectAll("circle").data(answersWithCount);
-
     circles.exit().remove();
     createBubbles(circles);
     circles.transition()

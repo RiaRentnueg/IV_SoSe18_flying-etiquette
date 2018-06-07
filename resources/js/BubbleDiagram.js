@@ -10,7 +10,7 @@ var BubbleDiagram = (function() {
   bubbleView,
   bubbleFilterView,
   bubbleModel,
-  filter = {genderFilter : null};
+  filter = {genderFilter : null, childFilter : null, dropDownFilter : null, sliderFilter : null};
 
   function init() {
     initBubbleDiagramController();
@@ -75,18 +75,33 @@ var BubbleDiagram = (function() {
     bubbleFilterView.updateGenderButton(gender);
   }
 
-  function onChildFilterClicked(child) {
-    console.log(child);
+  function onChildFilterClicked(checked) {
+    if (checked) {
+      filter.childFilter = checked;
+    } else {
+      filter.childFilter = null;
+    }
+    bubbleModel.loadBubbleData(filter);
   }
 
 
   function onSliderClicked(value) {
-    console.log("click");
-    bubbleFilterView.setSliderText(value)
-
+    bubbleFilterView.setSliderText(value);
+    if (value == '') {
+      filter.sliderFilter = null;
+    } else {
+      filter.sliderFilter = value;
+    }
+    bubbleModel.loadBubbleData(filter);
   }
 
   function onOptionSelected(textElement) {
+    if (textElement.id) {
+      filter.dropDownFilter = null;
+    } else {
+      filter.dropDownFilter = textElement;
+    }
+    bubbleModel.loadBubbleData(filter);
     bubbleFilterView.setFilterText(textElement);
   }
 

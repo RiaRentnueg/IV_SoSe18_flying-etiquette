@@ -18,11 +18,9 @@
 
 <body>
 
-
 	<header>
 
 	</header>
-
 
   <!-- Fixed navbar -->
   <div class="row">
@@ -66,20 +64,21 @@
     </nav>
   </div>
 
-
-
 	<main>
-
+        <div id="startDiagramBox" class="startDiagramBox">
+            <svg class="startDiagram"></svg>
+        </div>
 	</main>
-
-
-
-
 
     <!-- Scripts should be loaded when the dom model is done and thus are included at the bottom -->
     <!-- reasons: script error doesnt lead to blank page; receiving and parsing large scripts increases load time -->
     <!-- dom model is ready and modifiable -->
     <script src="./vendors/d3/d3.js"></script>
-    <script src="resources/js/flying_etiquette.js"></script>
+    <script src="./resources/js/FlyingEtiquette.js"></script>
+    <script src="./resources/js/StartDiagramManager.js"></script>
+    <script src="./resources/js/StartDiagramModel.js"></script>
+    <script> 
+            FlyingEtiquette.init()
+    </script>
 </body>
 </html>

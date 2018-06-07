@@ -56,6 +56,41 @@ BubbleDiagram.BubbleModel = function(params) {
         result = (d.gender.toLowerCase() === filter.genderFilter.toLowerCase());
       }
 
+      if (filter.childFilter) {
+        var answer = "";
+        if (filter.childFilter) {
+          answer = "yes"
+        } else {
+          answer = "no"
+        }
+        result = d.having_children.toLowerCase() === answer;
+      }
+
+      if (filter.dropDownFilter) {
+        if (filter.dropDownFilter.parentElement.children[1].id === "freq") {
+        result = (d.travel_frequency === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+        }
+        if (filter.dropDownFilter.parentElement.children[1].id === "age") {
+        result = (d.age === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+        }
+        if (filter.dropDownFilter.parentElement.children[1].id === "income") {
+        result = (d.income === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+        }
+        if (filter.dropDownFilter.parentElement.children[1].id === "seatReq") {
+        result = (d.seat_reclining === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+        }
+        if (filter.dropDownFilter.parentElement.children[1].id === "degree") {
+        result = (d.education === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+        }
+        if (filter.dropDownFilter.parentElement.children[1].id === "location") {
+        result = (d.location === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+        }
+      }
+
+      if (filter.sliderFilter) {
+        result = d.size === filter.sliderFilter;
+      }
+
       return result;
     });
 
