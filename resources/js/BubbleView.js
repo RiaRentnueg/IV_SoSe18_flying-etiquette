@@ -7,6 +7,7 @@ BubbleDiagram.BubbleView = function(params) {
   var that = new EventPublisher(),
     selector;
   var transitionDelay = 1000;
+  var initialPackSize = 960;
 
 
 
@@ -18,7 +19,7 @@ BubbleDiagram.BubbleView = function(params) {
   function setAnswersWithCount(answersWithCount){
    var chartSVG = d3.select(selector)
    .attr("viewBox","0 0 960 960")
-   .attr("perserveAspectRatio","xMinYMid")
+   .attr("preserveAspectRatio","xMinYMid")
    .selectAll("svg");
 
    //chartSVG.data(answersWithCount).enter().append("g").exit().remove();
@@ -26,10 +27,18 @@ BubbleDiagram.BubbleView = function(params) {
    var bubbleNodes = d3.selectAll(selector);//.select("g");
    console.log(bubbleNodes);
    var rootNode = d3.hierarchy({children: answersWithCount})
-   .sum(function(d) { return d.value; });
+   .sum(
+     function(d) { return d.value;});
+    console.log("rootNode");
+console.log(rootNode);
+console.log(rootNode.value);
+
    //.sort(function(a, b) { return b.value - a.value; });
 
-   d3.pack().padding(2).size([960,960])(rootNode);
+   //calculates size of pack layout (needed that bubbles shrink proportionally)
+   var currentPackSize = initialPackSize / 856 * rootNode.value;//* tpCount;
+
+   d3.pack().padding(2).size([currentPackSize,currentPackSize])(rootNode);
 
 
 
@@ -74,6 +83,9 @@ BubbleDiagram.BubbleView = function(params) {
 
  function setUpCircle(selection) {
    selection.attr("r", function (d){
+console.log("d.r");
+console.log(d.r);
+console.log(d.value);
      return d.r;
    }).attr("cx", function(d){
      return d.x;
