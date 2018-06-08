@@ -26,7 +26,6 @@ BubbleDiagram.BubbleView = function(params) {
    //chartSVG.data(answersWithCount).enter().append("g").exit().remove();
 
    var bubbleNodes = d3.selectAll(selector);//.select("g");
-   console.log(bubbleNodes);
    var rootNode = d3.hierarchy({children: answersWithCount})
    .sum(
      function(d) { return d.value;});
@@ -49,7 +48,6 @@ BubbleDiagram.BubbleView = function(params) {
 
 
  function createBubbles (circles) {
-   console.log(circles);
    var baseColor = (Math.random() * 360);
    circles.enter().append("circle")
     .style("fill", function(d) {
@@ -70,9 +68,6 @@ BubbleDiagram.BubbleView = function(params) {
 
  function setUpCircle(selection) {
    selection.attr("r", function (d){
-console.log("d.r");
-console.log(d.r);
-console.log(d.value);
      return d.r;
    }).attr("cx", function(d){
      var diagramShift = (856 - d.parent.value)/2;

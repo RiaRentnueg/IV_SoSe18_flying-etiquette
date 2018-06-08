@@ -52,11 +52,11 @@ BubbleDiagram.BubbleModel = function(params) {
     var filteredData = data.filter(function(d) {
       var result = true;
 
-      if (filter.genderFilter) {
+      if (result && filter.genderFilter) {
         result = (d.gender.toLowerCase() === filter.genderFilter.toLowerCase());
       }
 
-      if (filter.childFilter) {
+      if (result && filter.childFilter) {
         var answer = "";
         if (filter.childFilter) {
           answer = "yes"
@@ -66,28 +66,32 @@ BubbleDiagram.BubbleModel = function(params) {
         result = d.having_children.toLowerCase() === answer;
       }
 
-      if (filter.dropDownFilter) {
-        if (filter.dropDownFilter.parentElement.children[1].id === "freq") {
-        result = (d.travel_frequency === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+      if (result && filter.dropDownFilter) {
+        if (result && filter.dropDownFilter.parentElement.children[1].id === "freq") {
+          result = (d.travel_frequency === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
         }
-        if (filter.dropDownFilter.parentElement.children[1].id === "age") {
-        result = (d.age === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+        if (result && filter.dropDownFilter.parentElement.children[1].id === "age") {
+          var age = filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>','');
+          if (age === "&gt; 60") {
+            age = '> 60';
+          }
+          result = (d.age === age);
         }
-        if (filter.dropDownFilter.parentElement.children[1].id === "income") {
-        result = (d.income === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+        if (result && filter.dropDownFilter.parentElement.children[1].id === "income") {
+          result = (d.income === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
         }
-        if (filter.dropDownFilter.parentElement.children[1].id === "seatReq") {
-        result = (d.seat_reclining === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+        if (result && filter.dropDownFilter.parentElement.children[1].id === "seatReq") {
+          result = (d.seat_reclining === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
         }
-        if (filter.dropDownFilter.parentElement.children[1].id === "degree") {
-        result = (d.education === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+        if (result && filter.dropDownFilter.parentElement.children[1].id === "degree") {
+          result = (d.education === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
         }
-        if (filter.dropDownFilter.parentElement.children[1].id === "location") {
-        result = (d.location === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+        if (result && filter.dropDownFilter.parentElement.children[1].id === "location") {
+          result = (d.location === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
         }
       }
 
-      if (filter.sliderFilter) {
+      if (result && filter.sliderFilter) {
         result = d.size === filter.sliderFilter;
       }
 
