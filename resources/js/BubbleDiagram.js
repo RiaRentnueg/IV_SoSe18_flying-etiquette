@@ -7,10 +7,10 @@ var BubbleDiagram = (function() {
 
   var that = new EventPublisher(),
   bubbleDiagramController,
-  bubbleView,
   bubbleFilterView,
-  bubbleModel,
   bubbleCharts,
+  bubbleModel = {},
+  bubbleView = {},
   filter = {genderFilter : null, childFilter : null, dropDownFilter : null, sliderFilter : null};
 
   function init() {
@@ -22,8 +22,8 @@ var BubbleDiagram = (function() {
       console.log(d3.select(element).select("h2").node().innerText);
       var bubbleSvg = d3.select(element).select("svg");
       var question = d3.select(element).select("h2").node().innerText;
-      initBubbleView(bubbleSvg);
-      initBubbleModel(question);
+      bubbleView[question] = initBubbleView(bubbleSvg);
+      bubbleModel[question] = initBubbleModel(question);
   });
     initBubbleDiagramController();
     //initBubbleView();
@@ -51,20 +51,22 @@ var BubbleDiagram = (function() {
     bubbleDiagramController.setOnChildFilterClickListener(onChildFilterClicked);
   }
 
-  function initBubbleModel() {
-    bubbleModel = (new BubbleDiagram.BubbleModel({
+  function initBubbleModel(question) {
+    var result = (new BubbleDiagram.BubbleModel({
       csvPath: "data/flying-etiquette.csv",
+      question: question,
     })).init();
 
-    bubbleModel.addEventListener("bubbleDataLoaded", onBubbleDataLoaded);
+    result.addEventListener("bubbleDataLoaded", onBubbleDataLoaded);
+    return result;
   }
 
   function onBubbleDataLoaded (event){
-    bubbleView.setAnswersWithCount(event.data);
+    bubbleView[event.data.question].setAnswersWithCount(event.data.answersWithCount);
   }
 
   function initBubbleView(bubbleSvg) {
-    bubbleView = (new BubbleDiagram.BubbleView({
+    return (new BubbleDiagram.BubbleView({
       bubbleSvg: bubbleSvg,
     })).init();
   }
