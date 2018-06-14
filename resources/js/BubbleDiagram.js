@@ -6,7 +6,7 @@ var BubbleDiagram = (function() {
   "use strict";
 
   var that = new EventPublisher(),
-  bubbleDiagramController,
+  bubbleDiagramController = {},
   bubbleFilterView,
   bubbleCharts,
   bubbleModel = {},
@@ -24,31 +24,36 @@ var BubbleDiagram = (function() {
       var question = d3.select(element).select("h2").node().innerText;
       bubbleView[question] = initBubbleView(bubbleSvg);
       bubbleModel[question] = initBubbleModel(question);
+      bubbleDiagramController[question] = initBubbleDiagramController(question);
+
   });
-    initBubbleDiagramController();
     //initBubbleView();
     initBubbleFilterView();
     //initBubbleModel();
   }
 
-  function initBubbleDiagramController() {
+  function initBubbleDiagramController(question) {
+    var result;
     if (document.querySelector(".special-filter") != null) {
-      bubbleDiagramController = (new BubbleDiagram.BubbleDiagramController({
+      result = (new BubbleDiagram.BubbleDiagramController({
         filter:  document.querySelector(".standardFilters"),
         genderFilter: document.querySelector(".gender-filter"),
         childFilter: document.querySelector(".child-filter"),
-        slider: document.querySelector(".slidecontainer")
+        slider: document.querySelector(".slidecontainer"),
+        question: question,
       })).init();
     } else {
-      bubbleDiagramController = (new BubbleDiagram.BubbleDiagramController({
+      result = (new BubbleDiagram.BubbleDiagramController({
         filter:  document.querySelector(".standardFilters"),
         genderFilter: document.querySelector(".gender-filter"),
+        question: question,
       })).init2();
     }
-    bubbleDiagramController.setOnFilterClickListener(onOptionSelected);
-    bubbleDiagramController.setOnGenderFilterClickListener(onGenderFilterClicked);
-    bubbleDiagramController.setOnSliderClickListener(onSliderClicked);
-    bubbleDiagramController.setOnChildFilterClickListener(onChildFilterClicked);
+    result.setOnFilterClickListener(onOptionSelected);
+    result.setOnGenderFilterClickListener(onGenderFilterClicked);
+    result.setOnSliderClickListener(onSliderClicked);
+    result.setOnChildFilterClickListener(onChildFilterClicked);
+    return result;
   }
 
   function initBubbleModel(question) {
@@ -78,45 +83,47 @@ var BubbleDiagram = (function() {
     })).init();
   }
 
-  function onGenderFilterClicked(checked, gender) {
-    if (checked) {
-      filter.genderFilter = gender;
+  function onGenderFilterClicked(event) {
+console.log(event);
+    if (event.value) {
+      filter.genderFilter = event.gender;
     } else {
       filter.genderFilter = null;
     }
-    bubbleModel.loadBubbleData(filter);
+    console.log(filter);
+    bubbleModel[event.question].loadBubbleData(filter);
 
-    bubbleFilterView.updateGenderButton(gender);
+    bubbleFilterView.updateGenderButton(event.gender);
   }
 
-  function onChildFilterClicked(checked) {
-    if (checked) {
-      filter.childFilter = checked;
+  function onChildFilterClicked(event) {
+    if (event.value) {
+      filter.childFilter = event.value;
     } else {
       filter.childFilter = null;
     }
-    bubbleModel.loadBubbleData(filter);
+    bubbleModel[event.question].loadBubbleData(filter);
   }
 
 
-  function onSliderClicked(value) {
-    bubbleFilterView.setSliderText(value);
-    if (value == '') {
+  function onSliderClicked(event) {
+    bubbleFilterView.setSliderText(event.value);
+    if (event.value == '') {
       filter.sliderFilter = null;
     } else {
-      filter.sliderFilter = value;
+      filter.sliderFilter = event.value;
     }
-    bubbleModel.loadBubbleData(filter);
+    bubbleModel[event.question].loadBubbleData(filter);
   }
 
-  function onOptionSelected(textElement) {
-    if (textElement.id) {
+  function onOptionSelected(event) {
+    if (event.value.id) {
       filter.dropDownFilter = null;
     } else {
-      filter.dropDownFilter = textElement;
+      filter.dropDownFilter = event.value;
     }
-    bubbleModel.loadBubbleData(filter);
-    bubbleFilterView.setFilterText(textElement);
+    bubbleModel[event.question].loadBubbleData(filter);
+    bubbleFilterView.setFilterText(event.value);
   }
 
   that.init = init;

@@ -5,6 +5,7 @@ BubbleDiagram.BubbleDiagramController = function(params) {
     "use strict";
 
   var that = {},
+    question,
     filter,
     genderFilter,childFilter,
     slider,
@@ -14,6 +15,7 @@ BubbleDiagram.BubbleDiagramController = function(params) {
     genderFilterListeners = [];
 
   function init() {
+    question = params.question;
     filter = params.filter;
     genderFilter = params.genderFilter;
     slider = params.slider;
@@ -27,6 +29,7 @@ BubbleDiagram.BubbleDiagramController = function(params) {
 
   function init2() {
     filter = params.filter;
+    question = params.question;
     genderFilter = params.genderFilter;
     filter.addEventListener("click", onFilterOptionClicked);
     genderFilter.addEventListener("click", onGenderFilterClicked);
@@ -40,8 +43,12 @@ BubbleDiagram.BubbleDiagramController = function(params) {
     } else {
       checked = false;
     }
+    var notificationData = {
+      question: question,
+      value: checked
+    }
     childFilterClickListeners.forEach(function(listener) {
-      listener(checked);
+      listener(notificationData);
     });
   }
 
@@ -59,8 +66,12 @@ BubbleDiagram.BubbleDiagramController = function(params) {
         value = heights[i];
       }
     }
+    var notificationData = {
+      question: question,
+      value: value
+    }
     sliderFilterListener.forEach(function(listener) {
-      listener(value);
+      listener(notificationData);
     });
   }
 
@@ -75,17 +86,26 @@ BubbleDiagram.BubbleDiagramController = function(params) {
     } else {
       checked = false;
     }
+    var notificationData = {
+      question: question,
+      value: checked,
+      gender: gender
+    }
     genderFilterListeners.forEach(function(listener) {
-      listener(checked, gender);
+      listener(notificationData);
     });
 
   }
 
   function onFilterOptionClicked(event) {
     var textElement = event.target.parentElement;
+    var notificationData = {
+      question: question,
+      value: textElement
+    }
     if (textElement.tagName == "LI") {
       filterSelectionListeners.forEach(function(listener) {
-        listener(textElement);
+        listener(notificationData);
       });
     }
   }

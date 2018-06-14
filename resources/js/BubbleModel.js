@@ -55,7 +55,7 @@ BubbleDiagram.BubbleModel = function(params) {
       var result = true;
 
       if (result && filter.genderFilter) {
-        result = (d.gender.toLowerCase() === filter.genderFilter.toLowerCase());
+        result = (d["Gender"].toLowerCase() === filter.genderFilter.toLowerCase());
       }
 
       if (result && filter.childFilter) {
@@ -65,36 +65,36 @@ BubbleDiagram.BubbleModel = function(params) {
         } else {
           answer = "no"
         }
-        result = d.having_children.toLowerCase() === answer;
+        result = d["Do you have any children under 18?"].toLowerCase() === answer;
       }
 
       if (result && filter.dropDownFilter) {
         if (result && filter.dropDownFilter.parentElement.children[1].id === "freq") {
-          result = (d.travel_frequency === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+          result = (d["How often do you travel by plane?"] === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
         }
         if (result && filter.dropDownFilter.parentElement.children[1].id === "age") {
           var age = filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>','');
           if (age === "&gt; 60") {
             age = '> 60';
           }
-          result = (d.age === age);
+          result = (d["Age"] === age);
         }
         if (result && filter.dropDownFilter.parentElement.children[1].id === "income") {
-          result = (d.income === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+          result = (d["Household Income"] === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
         }
         if (result && filter.dropDownFilter.parentElement.children[1].id === "seatReq") {
-          result = (d.seat_reclining === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+          result = (d["Do you ever recline your seat when you fly?"] === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
         }
         if (result && filter.dropDownFilter.parentElement.children[1].id === "degree") {
-          result = (d.education === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+          result = (d["Education"] === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
         }
         if (result && filter.dropDownFilter.parentElement.children[1].id === "location") {
-          result = (d.location === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
+          result = (d["Location (Census Region)"] === filter.dropDownFilter.innerHTML.replace('<a>','').replace('</a>',''));
         }
       }
 
       if (result && filter.sliderFilter) {
-        result = d.size === filter.sliderFilter;
+        result = d["How tall are you?"] === filter.sliderFilter;
       }
 
       return result;
