@@ -10,13 +10,25 @@ var BubbleDiagram = (function() {
   bubbleView,
   bubbleFilterView,
   bubbleModel,
+  bubbleCharts,
   filter = {genderFilter : null, childFilter : null, dropDownFilter : null, sliderFilter : null};
 
   function init() {
+    bubbleCharts = d3.selectAll(".standardFilters");
+    console.log(bubbleCharts);
+    console.log(bubbleCharts._groups[0]);
+    bubbleCharts._groups[0].forEach(function(element) {
+      console.log(d3.select(element).select("svg"));
+      console.log(d3.select(element).select("h2").node().innerText);
+      var bubbleSvg = d3.select(element).select("svg");
+      var question = d3.select(element).select("h2").node().innerText;
+      initBubbleView(bubbleSvg);
+      initBubbleModel(question);
+  });
     initBubbleDiagramController();
-    initBubbleView();
+    //initBubbleView();
     initBubbleFilterView();
-    initBubbleModel();
+    //initBubbleModel();
   }
 
   function initBubbleDiagramController() {
@@ -51,9 +63,9 @@ var BubbleDiagram = (function() {
     bubbleView.setAnswersWithCount(event.data);
   }
 
-  function initBubbleView() {
+  function initBubbleView(bubbleSvg) {
     bubbleView = (new BubbleDiagram.BubbleView({
-      selector: "#babyBubbleChart",
+      bubbleSvg: bubbleSvg,
     })).init();
   }
 

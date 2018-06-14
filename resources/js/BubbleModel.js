@@ -99,7 +99,7 @@ BubbleDiagram.BubbleModel = function(params) {
     });
 
     var answersWithCount = d3.nest()
-      .key(function(d) { return d.baby; })
+      .key(function(d) { return d["baby"]; })
       .rollup(function(v) { return v.length; })
       .entries(filteredData);
 
