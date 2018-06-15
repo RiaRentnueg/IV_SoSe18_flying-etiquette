@@ -14,7 +14,7 @@ var BubbleDiagram = (function() {
   filter = {genderFilter : null, childFilter : null, dropDownFilter : null, sliderFilter : null};
 
   function init() {
-    bubbleCharts = d3.selectAll(".standardFilters");
+    bubbleCharts = d3.selectAll(".questionView");
     console.log(bubbleCharts);
     console.log(bubbleCharts._groups[0]);
     bubbleCharts._groups[0].forEach(function(element) {
