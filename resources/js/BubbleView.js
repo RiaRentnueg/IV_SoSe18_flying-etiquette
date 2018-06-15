@@ -5,7 +5,7 @@ BubbleDiagram.BubbleView = function(params) {
     "use strict";
 
   var that = new EventPublisher(),
-    selector;
+    bubbleSvg;
   var transitionDelay = 1000;
   var initialPackSize = 960;
   var diagramShift;
@@ -13,19 +13,20 @@ BubbleDiagram.BubbleView = function(params) {
 
 
   function init() {
-    selector = params.selector;
+    bubbleSvg = params.bubbleSvg;
     return that;
   }
 
   function setAnswersWithCount(answersWithCount){
-   var chartSVG = d3.select(selector)
+   //var chartSVG = d3.select(selector)
+   var chartSVG = bubbleSvg
    .attr("viewBox","0 0 960 960")
    .attr("preserveAspectRatio","xMinYMid")
    .selectAll("svg");
 
    //chartSVG.data(answersWithCount).enter().append("g").exit().remove();
 
-   var bubbleNodes = d3.selectAll(selector);//.select("g");
+  // var bubbleNodes = d3.selectAll(selector);//.select("g");
    var rootNode = d3.hierarchy({children: answersWithCount})
    .sum(
      function(d) { return d.value;});
@@ -41,8 +42,8 @@ BubbleDiagram.BubbleView = function(params) {
 
    var rootNodeChildren = rootNode.children;
 
-   updateBubbles(rootNodeChildren, bubbleNodes);
-   updateText(rootNodeChildren, bubbleNodes);
+   updateBubbles(rootNodeChildren, bubbleSvg);
+   updateText(rootNodeChildren, bubbleSvg);
  }
 
 
@@ -56,9 +57,9 @@ BubbleDiagram.BubbleView = function(params) {
     .call(setUpCircle);
   }
 
-  function updateBubbles (answersWithCount, bubbleNodes) {
+  function updateBubbles (answersWithCount, bubbleSvg) {
     var dataObj = {name: "bubbleArray", size: 856, children: answersWithCount};
-    var circles = bubbleNodes.selectAll("circle").data(answersWithCount);
+    var circles = bubbleSvg.selectAll("circle").data(answersWithCount);
     circles.exit().remove();
     createBubbles(circles);
     circles.transition()
@@ -95,8 +96,8 @@ BubbleDiagram.BubbleView = function(params) {
  }).style("text-anchor", "middle");
  }
 
- function updateText (answersWithCount, bubbleNodes) {
-   var texts = bubbleNodes.selectAll("text").data(answersWithCount);
+ function updateText (answersWithCount, bubbleSvg) {
+   var texts = bubbleSvg.selectAll("text").data(answersWithCount);
 
    texts.exit().remove();
    addText(texts);
