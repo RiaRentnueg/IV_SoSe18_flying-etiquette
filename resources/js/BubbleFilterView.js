@@ -20,8 +20,12 @@ BubbleDiagram.BubbleFilterView = function(params) {
 
 
   function setFilterText(textElement) {
+
     var children = textElement.parentElement.parentElement.children;
-    children.item(0).innerText = textElement.innerText;
+    console.log(children.item(0).getElementsByClassName("textDropdown").item(0));
+
+console.log(textElement.innerText);
+    children.item(0).getElementsByClassName("textDropdown").item(0).innerHTML = "&nbsp;" + textElement.innerText;
   }
 
   function updateGenderButton(gender){
