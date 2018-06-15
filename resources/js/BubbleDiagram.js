@@ -7,45 +7,41 @@ var BubbleDiagram = (function() {
 
   var that = new EventPublisher(),
   bubbleDiagramController = {},
-  bubbleFilterView,
+  bubbleFilterView = {},
   bubbleCharts,
   bubbleModel = {},
   bubbleView = {},
-  filter = {genderFilter : null, childFilter : null, dropDownFilter : null, sliderFilter : null};
+  filter = {genderFilter : null, childFilter : null, dropDownFilter : null, sliderFilter : null},
+  filterWrapper = {};
 
   function init() {
     bubbleCharts = d3.selectAll(".questionView");
-    console.log(bubbleCharts);
-    console.log(bubbleCharts._groups[0]);
     bubbleCharts._groups[0].forEach(function(element) {
-      console.log(d3.select(element).select("svg"));
-      console.log(d3.select(element).select("h2").node().innerText);
       var bubbleSvg = d3.select(element).select("svg");
       var question = d3.select(element).select("h2").node().innerText;
+      var filters = d3.select(element).select(".standardFilters").node();
       bubbleView[question] = initBubbleView(bubbleSvg);
       bubbleModel[question] = initBubbleModel(question);
-      bubbleDiagramController[question] = initBubbleDiagramController(question);
-
-  });
-    //initBubbleView();
-    initBubbleFilterView();
-    //initBubbleModel();
+      bubbleDiagramController[question] = initBubbleDiagramController(question, filters);
+      bubbleFilterView[question] = initBubbleFilterView(filters);
+      filterWrapper[question] = filter;
+    });
   }
 
-  function initBubbleDiagramController(question) {
+  function initBubbleDiagramController(question, filterNode) {
     var result;
     if (document.querySelector(".special-filter") != null) {
       result = (new BubbleDiagram.BubbleDiagramController({
-        filter:  document.querySelector(".standardFilters"),
-        genderFilter: document.querySelector(".gender-filter"),
-        childFilter: document.querySelector(".child-filter"),
-        slider: document.querySelector(".slidecontainer"),
+        filter:  filterNode,
+        genderFilter: d3.select(filterNode).select(".gender-filter").node(),
+        childFilter: d3.select(filterNode).select(".child-filter").node(),
+        slider: d3.select(filterNode).select(".slidecontainer").node(),
         question: question,
       })).init();
     } else {
       result = (new BubbleDiagram.BubbleDiagramController({
-        filter:  document.querySelector(".standardFilters"),
-        genderFilter: document.querySelector(".gender-filter"),
+        filter:  filterNode,
+        genderFilter: d3.select(filterNode).select(".gender-filter").node(),
         question: question,
       })).init2();
     }
@@ -76,24 +72,22 @@ var BubbleDiagram = (function() {
     })).init();
   }
 
-  function initBubbleFilterView() {
-    bubbleFilterView = (new BubbleDiagram.BubbleFilterView({
-      filter:  document.querySelector(".standardFilters"),
-      sliderValue: document.querySelector(".current-value"),
+  function initBubbleFilterView(filterNode) {
+    return (new BubbleDiagram.BubbleFilterView({
+      filter:  d3.select(filterNode),
+      sliderValue: d3.select(filterNode).select(".current-value").node(),
     })).init();
   }
 
   function onGenderFilterClicked(event) {
-console.log(event);
     if (event.value) {
       filter.genderFilter = event.gender;
     } else {
       filter.genderFilter = null;
     }
-    console.log(filter);
-    bubbleModel[event.question].loadBubbleData(filter);
+    bubbleModel[event.question].loadBubbleData(filterWrapper[event.question]);
 
-    bubbleFilterView.updateGenderButton(event.gender);
+    bubbleFilterView[event.question].updateGenderButton(event.gender);
   }
 
   function onChildFilterClicked(event) {
@@ -102,18 +96,18 @@ console.log(event);
     } else {
       filter.childFilter = null;
     }
-    bubbleModel[event.question].loadBubbleData(filter);
+    bubbleModel[event.question].loadBubbleData(filterWrapper[event.question]);
   }
 
 
   function onSliderClicked(event) {
-    bubbleFilterView.setSliderText(event.value);
+    bubbleFilterView[event.question].setSliderText(event.value);
     if (event.value == '') {
       filter.sliderFilter = null;
     } else {
       filter.sliderFilter = event.value;
     }
-    bubbleModel[event.question].loadBubbleData(filter);
+    bubbleModel[event.question].loadBubbleData(filterWrapper[event.question]);
   }
 
   function onOptionSelected(event) {
@@ -122,8 +116,8 @@ console.log(event);
     } else {
       filter.dropDownFilter = event.value;
     }
-    bubbleModel[event.question].loadBubbleData(filter);
-    bubbleFilterView.setFilterText(event.value);
+    bubbleModel[event.question].loadBubbleData(filterWrapper[event.question]);
+    bubbleFilterView[event.question].setFilterText(event.value);
   }
 
   that.init = init;
