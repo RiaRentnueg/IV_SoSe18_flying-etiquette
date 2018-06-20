@@ -5,15 +5,18 @@ BubbleDiagram.BubbleView = function(params) {
     "use strict";
 
   var that = new EventPublisher(),
-    bubbleSvg;
-  var transitionDelay = 1000;
-  var initialPackSize = 960;
-  var diagramShift;
+    bubbleSvg,
+    legendSvg;
+  var colorObj = {}, dataArr = [],
+  transitionDelay = 1000,
+  initialPackSize = 960,
+  diagramShift;
 
 
 
   function init() {
     bubbleSvg = params.bubbleSvg;
+    legendSvg = params.legendSvg;
     return that;
   }
 
@@ -24,41 +27,83 @@ BubbleDiagram.BubbleView = function(params) {
    .attr("preserveAspectRatio","xMinYMid")
    .selectAll("svg");
 
-   //chartSVG.data(answersWithCount).enter().append("g").exit().remove();
-
-  // var bubbleNodes = d3.selectAll(selector);//.select("g");
    var rootNode = d3.hierarchy({children: answersWithCount})
    .sum(
      function(d) { return d.value;});
 
-   //.sort(function(a, b) { return b.value - a.value; });
-
-   //calculates size of pack layout (needed that bubbles shrink proportionally)
    var currentPackSize = rootNode.value;//* tpCount;
 
    d3.pack().padding(2).size([currentPackSize,currentPackSize])(rootNode);
-
-
 
    var rootNodeChildren = rootNode.children;
 
    updateBubbles(rootNodeChildren, bubbleSvg);
    updateText(rootNodeChildren, bubbleSvg);
+   updateLegend(legendSvg);
+ }
+
+ function updateLegend (legendSvg) {
+   var legendChart = legendSvg
+   .attr("viewBox","0 0 960 960")
+   .attr("preserveAspectRatio","xMinYMid")
+   .selectAll("svg");
+
+    var circles = legendSvg.selectAll("circle").data(dataArr);
+    var circle = circles.enter().append("circle");
+
+   circle.style("fill", function(d) {
+console.log(dataArr);
+     console.log(d.data.value);
+     return d.data.value;
+   }).call(setUpLegend);
+
+ }
+
+ function setUpLegend (selection) {
+  selection.attr("r", 100)
+   .attr("cx", function(d, i) {
+     return 200;
+   })
+   .attr("cy", function (d, i) {
+     return 220*i+200;
+   })
+
+
  }
 
 
-
  function createBubbles (circles) {
+
    var baseColor = (Math.random() * 360);
-   circles.enter().append("circle")
-    .style("fill", function(d) {
-       return "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 20))+"%)";
-     })
-    .call(setUpCircle);
+   var circle = circles.enter().append("circle");
+    circle.style("fill", function(d) {
+       var color;
+       color = "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 20))+"%)";
+
+       var obj = {key: d, value: color};
+       dataArr.push(obj);
+
+
+
+
+       return color;
+     });
+     var rootNode = d3.hierarchy({children: dataArr})
+     .sum(
+       function(d) { return d.value;});
+
+     var currentPackSize = rootNode.value;//* tpCount;
+
+     d3.pack().padding(2).size([currentPackSize,currentPackSize])(rootNode);
+
+     dataArr = rootNode.children;
+   colorObj = {name: "legendArray", size: dataArr.length, children: dataArr};
+    circle.call(setUpCircle);
   }
 
   function updateBubbles (answersWithCount, bubbleSvg) {
     var dataObj = {name: "bubbleArray", size: 856, children: answersWithCount};
+    console.log(dataObj);
     var circles = bubbleSvg.selectAll("circle").data(answersWithCount);
     circles.exit().remove();
     createBubbles(circles);
