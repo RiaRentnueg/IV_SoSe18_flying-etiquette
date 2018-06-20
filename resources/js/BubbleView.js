@@ -52,8 +52,6 @@ BubbleDiagram.BubbleView = function(params) {
     var circle = circles.enter().append("circle");
 
    circle.style("fill", function(d) {
-console.log(dataArr);
-     console.log(d.data.value);
      return d.data.value;
    }).call(setUpLegend);
 
@@ -66,7 +64,19 @@ console.log(dataArr);
    })
    .attr("cy", function (d, i) {
      return 220*i+200;
-   })
+   });
+
+   var texts = legendSvg.selectAll("text").data(dataArr);
+
+   texts.exit().remove();
+   texts.enter().append("text")
+   .text(function (d) {
+     return d.data.key.data.key;
+   }).attr("x", function(d){
+   return 500;
+ }).attr("y", function(d,i){
+   return 220*i+200;
+ }).style("font-size", "75px");
 
 
  }
