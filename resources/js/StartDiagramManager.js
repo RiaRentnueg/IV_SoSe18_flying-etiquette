@@ -62,15 +62,44 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
     }
     
     function createDots(dotdata) {
-        var svg = d3.select(svgEl),
-            bubbles = svg.append("g")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-                .selectAll(".bubble").data(dotdata)
-                .enter();
+        var svg = d3.select(svgEl).selectAll("svg"),
+            bubbles = svg.data(dotdata),
+            dataArray = [],
+            nodes,
+            packObj,
+            hierarchyObj,
+            bubbleChart;
         
-        bubbles.append("circle").attr("r", "5")
-            .style("fill", "#ff00ff")
-            .attr("transform", function(d,i){return "translate(" + (i*10) + "," + 0 + ")"});
+        //move function into the Model to add information about the answers given by the participant, this could be necessary to test if people gave the same answer, in which case the dots would light up accordingly
+        for (let i = 0; i < dotdata.length; i++){
+            dataValue = dotdata[i]["RespondentID"];
+            dataArray[i] = {value: dataValue};
+        }
+        
+        nodes = {children: dataArray};
+        
+        packObj = d3.pack().size([500, 500]);
+        
+        hierarchyObj = d3.hierarchy(nodes).sum(function(d) {return d.value;}).sort(function(a,b) {return b.value - a.value;});
+        
+        bubbleChart = bubbles.data(packObj(hierarchyObj).descendants()).enter().append("g");
+        
+        bubbleChart.append("circle")
+            .style("fill", "#000000")
+            .style("stroke", "white")
+            .style("stroke-width", "0.5px")
+            .attr("r", function(d) {return d.r;})
+            .attr("cx", function (d) {return d.x;})
+            .attr("cy", function(d) {return d.y;})
+            .attr("transform", "translate(" + width / 3 + "," + height / 5.25 + ")")
+            .attr("class", "participantDots");
+        
+        element = document.querySelectorAll(".participantDots");
+        
+        for(let i = 0; i < element.length; i++){
+            element[i].addEventListener("click", function(){console.log("testis")});
+        }
+        
     }
     
     that.setupStartDiagram = setupStartDiagram;

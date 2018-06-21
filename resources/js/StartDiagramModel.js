@@ -25,6 +25,7 @@ FlyingEtiquette.StartDiagramModel = function() {
                 tempData = [];
             }
         });
+        
     }
     
     function getInnerRingData() {
