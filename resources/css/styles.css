@@ -1,4 +1,16 @@
+body{
+  font-family: 'Roboto', sans-serif;
+}
+h3{
+  padding: 40px;
+  text-align: center;
+  font-size: 6em;
+}
 
+.bubbleQuestion{
+  text-align: center;
+  color: #fff;
+}
 .navbar-default {
   background-image: linear-gradient(to bottom,#B3E5FC 0,#B3E5FC 100%);
 }
@@ -53,7 +65,7 @@ a:hover{
 }
 
 .categoryHeading, .bubbleQuestion {
-  color: #0277BD;
+  color: #000;
 }
 
 .slider {

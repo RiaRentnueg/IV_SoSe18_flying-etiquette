@@ -15,18 +15,15 @@ BubbleDiagram.BubbleFilterView = function(params) {
   }
 
   function setSliderText(value) {
-    console.log(value);
     sliderValue.innerText = "Height: " + value;
   }
 
 
   function setFilterText(textElement) {
+
     var children = textElement.parentElement.parentElement.children;
-    children.item(0).innerText = textElement.innerText;
 
-  //  console.log(text.getElementsByClassName("btn btn-primary dropdown-toggle"));
-//  text.getElementsByClassName("btn btn-primary dropdown-toggle").innerText = text;
-
+    children.item(0).getElementsByClassName("textDropdown").item(0).innerHTML = "&nbsp;" + textElement.innerText;
   }
 
   function updateGenderButton(gender){
@@ -36,7 +33,7 @@ BubbleDiagram.BubbleFilterView = function(params) {
       document.querySelector("#male").checked = false;
     } else if (gender === "") {
       document.querySelector("#female").checked = false;
-      document.querySelector("#male").checked = false;  
+      document.querySelector("#male").checked = false;
     }
   }
 

@@ -6,88 +6,118 @@ var BubbleDiagram = (function() {
   "use strict";
 
   var that = new EventPublisher(),
-  bubbleDiagramController,
-  bubbleView,
-  bubbleFilterView,
-  bubbleModel,
-  filter = {genderFilter : null};
+  bubbleDiagramController = {},
+  bubbleFilterView = {},
+  bubbleCharts,
+  bubbleModel = {},
+  bubbleView = {},
+  filter = {genderFilter : null, childFilter : null, dropDownFilter : null, sliderFilter : null},
+  filterWrapper = {};
 
   function init() {
-    initBubbleDiagramController();
-    initBubbleView();
-    initBubbleFilterView();
-    initBubbleModel();
+    bubbleCharts = d3.selectAll(".questionView");
+    bubbleCharts._groups[0].forEach(function(element) {
+      var bubbleSvg = d3.select(element).select("svg");
+      var question = d3.select(element).select("h2").node().innerText;
+      var filters = d3.select(element).select(".standardFilters").node();
+      bubbleView[question] = initBubbleView(bubbleSvg);
+      bubbleModel[question] = initBubbleModel(question);
+      bubbleDiagramController[question] = initBubbleDiagramController(question, filters);
+      bubbleFilterView[question] = initBubbleFilterView(filters);
+      filterWrapper[question] = filter;
+    });
   }
 
-  function initBubbleDiagramController() {
+  function initBubbleDiagramController(question, filterNode) {
+    var result;
     if (document.querySelector(".special-filter") != null) {
-      bubbleDiagramController = (new BubbleDiagram.BubbleDiagramController({
-        filter:  document.querySelector(".standardFilters"),
-        genderFilter: document.querySelector(".gender-filter"),
-        childFilter: document.querySelector(".child-filter"),
-        slider: document.querySelector(".slidecontainer")
+      result = (new BubbleDiagram.BubbleDiagramController({
+        filter:  filterNode,
+        genderFilter: d3.select(filterNode).select(".gender-filter").node(),
+        childFilter: d3.select(filterNode).select(".child-filter").node(),
+        slider: d3.select(filterNode).select(".slidecontainer").node(),
+        question: question,
       })).init();
     } else {
-      bubbleDiagramController = (new BubbleDiagram.BubbleDiagramController({
-        filter:  document.querySelector(".standardFilters"),
-        genderFilter: document.querySelector(".gender-filter"),
+      result = (new BubbleDiagram.BubbleDiagramController({
+        filter:  filterNode,
+        genderFilter: d3.select(filterNode).select(".gender-filter").node(),
+        question: question,
       })).init2();
     }
-    bubbleDiagramController.setOnFilterClickListener(onOptionSelected);
-    bubbleDiagramController.setOnGenderFilterClickListener(onGenderFilterClicked);
-    bubbleDiagramController.setOnSliderClickListener(onSliderClicked);
-    bubbleDiagramController.setOnChildFilterClickListener(onChildFilterClicked);
+    result.setOnFilterClickListener(onOptionSelected);
+    result.setOnGenderFilterClickListener(onGenderFilterClicked);
+    result.setOnSliderClickListener(onSliderClicked);
+    result.setOnChildFilterClickListener(onChildFilterClicked);
+    return result;
   }
 
-  function initBubbleModel() {
-    bubbleModel = (new BubbleDiagram.BubbleModel({
+  function initBubbleModel(question) {
+    var result = (new BubbleDiagram.BubbleModel({
       csvPath: "data/flying-etiquette.csv",
+      question: question,
     })).init();
 
-    bubbleModel.addEventListener("bubbleDataLoaded", onBubbleDataLoaded);
+    result.addEventListener("bubbleDataLoaded", onBubbleDataLoaded);
+    return result;
   }
 
   function onBubbleDataLoaded (event){
-    bubbleView.setAnswersWithCount(event.data);
+    bubbleView[event.data.question].setAnswersWithCount(event.data.answersWithCount);
   }
 
-  function initBubbleView() {
-    bubbleView = (new BubbleDiagram.BubbleView({
-      selector: "#babyBubbleChart",
+  function initBubbleView(bubbleSvg) {
+    return (new BubbleDiagram.BubbleView({
+      bubbleSvg: bubbleSvg,
     })).init();
   }
 
-  function initBubbleFilterView() {
-    bubbleFilterView = (new BubbleDiagram.BubbleFilterView({
-      filter:  document.querySelector(".standardFilters"),
-      sliderValue: document.querySelector(".current-value"),
+  function initBubbleFilterView(filterNode) {
+    return (new BubbleDiagram.BubbleFilterView({
+      filter:  d3.select(filterNode),
+      sliderValue: d3.select(filterNode).select(".current-value").node(),
     })).init();
   }
 
-  function onGenderFilterClicked(checked, gender) {
-    if (checked) {
-      filter.genderFilter = gender;
+  function onGenderFilterClicked(event) {
+    if (event.value) {
+      filter.genderFilter = event.gender;
     } else {
       filter.genderFilter = null;
     }
-    bubbleModel.loadBubbleData(filter);
+    bubbleModel[event.question].loadBubbleData(filterWrapper[event.question]);
 
-    bubbleFilterView.updateGenderButton(gender);
+    bubbleFilterView[event.question].updateGenderButton(event.gender);
   }
 
-  function onChildFilterClicked(child) {
-    console.log(child);
+  function onChildFilterClicked(event) {
+    if (event.value) {
+      filter.childFilter = event.value;
+    } else {
+      filter.childFilter = null;
+    }
+    bubbleModel[event.question].loadBubbleData(filterWrapper[event.question]);
   }
 
 
-  function onSliderClicked(value) {
-    console.log("click");
-    bubbleFilterView.setSliderText(value)
-
+  function onSliderClicked(event) {
+    bubbleFilterView[event.question].setSliderText(event.value);
+    if (event.value == '') {
+      filter.sliderFilter = null;
+    } else {
+      filter.sliderFilter = event.value;
+    }
+    bubbleModel[event.question].loadBubbleData(filterWrapper[event.question]);
   }
 
-  function onOptionSelected(textElement) {
-    bubbleFilterView.setFilterText(textElement);
+  function onOptionSelected(event) {
+    if (event.value.id) {
+      filter.dropDownFilter = null;
+    } else {
+      filter.dropDownFilter = event.value;
+    }
+    bubbleModel[event.question].loadBubbleData(filterWrapper[event.question]);
+    bubbleFilterView[event.question].setFilterText(event.value);
   }
 
   that.init = init;
