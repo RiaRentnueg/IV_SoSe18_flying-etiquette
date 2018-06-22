@@ -73,7 +73,8 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
             nodes,
             packObj,
             hierarchyObj,
-            bubbleChart;
+            bubbleChart,
+            dots;
         
         //move function into the Model to add information about the answers given by the participant, this could be necessary to test if people gave the same answer, in which case the dots would light up accordingly
         /*for (let i = 0; i < dotdata.length; i++){
@@ -90,14 +91,15 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
         bubbleChart = bubbles.data(packObj(hierarchyObj).descendants()).enter().append("g");
         
         bubbleChart.append("circle")
-            .style("fill", "#000000")
-            .style("stroke", "white")
-            .style("stroke-width", "0.5px")
+            .style("fill", "rgb(0,80,250)")
             .attr("r", function(d) {return d.r;})
             .attr("cx", function (d) {return d.x;})
             .attr("cy", function(d) {return d.y;})
             .attr("transform", "translate(" + width / 3 + "," + height / 5.25 + ")")
             .attr("class", "participantDots");
+        
+        dots = document.querySelectorAll(".participantDots");
+        dots[0].style = ("fill: #000000");
         
     }
     

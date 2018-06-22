@@ -29,23 +29,22 @@ FlyingEtiquette.StartDiagramController = function() {
         answer = e.target["__data__"]["data"]["answer"];
         
         resetDotsColor();
-        selectDotsColor(keyPair, answer);
+        selectDotsColor(keyPair, answer, question);
     }
     
     function resetDotsColor() {
-        for(let i = 0; i < dots.length; i++) {
-            dots[i].style = ("fill: rgb(255,50,0)");
-            dots[i].style = ("stroke: white");
+        for(let i = 1; i < dots.length; i++) {
+            dots[i].style = ("fill: rgb(20,20,100)");
         }
     }
     
-    function selectDotsColor(keyPair, answer) {
-        for(let i = 0; i < dots.length; i++) {
+    //nur wenn Antwort und Frage übereinstimmen
+    function selectDotsColor(keyPair, answer, question) {
+        for(let i = 1; i < dots.length; i++) {
             keyPair = dots[i]["__data__"]["data"];
             for (var key in keyPair){
-                if (answer === keyPair[key]) {
-                    dots[i].style = ("fill: rgb(0,255,0)");
-                    console.log("count");
+                if (answer === keyPair[key] && key === question) {
+                    dots[i].style = ("fill: rgb(0,80,250)");
                 }
             }
         }

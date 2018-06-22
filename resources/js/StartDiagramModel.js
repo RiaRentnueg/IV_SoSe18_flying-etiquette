@@ -15,6 +15,7 @@ FlyingEtiquette.StartDiagramModel = function() {
     function setupCsvData() {
         d3.csv("./data/flying-etiquette.csv", function(data) {
             processDotsData(data);
+            console.log(data.columns);
             //this loop saves all answers form the dataset into a temporary array that can then be sorted and provide the output we need, the first column of the data is an id which is irrelevant at this point, so the loop starts at 1
             for(let i = 1; i < data.columns.length; i++){
                 //this saves the data needed for the outer ring in a seperate array
@@ -104,7 +105,33 @@ FlyingEtiquette.StartDiagramModel = function() {
                 education = rawData[i]["Education"],
                 location = rawData[i]["Location (Census Region)"];
             
-            dataArray[i] = {value: dataValue, travelFrequency: travelFreq, reclineOwnSeat: reclOwnSeat, height: height, childUnder18: childUnder18, threeSeatArmRest: threeSeatArmRest, twoSeatArmRest: twoSeatArmRest, windowShadeControl: windowShadeControl, moveToUnsoldSeat: moveToUnsoldSeat, speakWithStranger: speakWithStranger, howOftenGetUp: howOftenGetUp, obligationWhenReclining: obligationWhenReclining, rudeToRecline: rudeToRecline, eliminateReclining: eliminateReclining, switchSeatForFriends: switchSeatForFriends, switchSeatForFamily: switchSeatForFamily, wakePassengerForBathroom: wakePassengerForBathroom, wakePassengerForWalking: wakePassengerForWalking, rudeToBringBaby: rudeToBringBaby, rudeToBringUnrulyChild: rudeToBringUnrulyChild, violationElectronics: violationElectronics, violationSmoking: violationSmoking, gender: gender, age: age, householdIncome: householdIncome, education: education, location: location};
+            dataArray[i] = {"value": dataValue,
+                            "How often do you travel by plane?": travelFreq,
+                            "Do you ever recline your seat when you fly?": reclOwnSeat,
+                            "How tall are you?": height,
+                            "Do you have any children under 18?": childUnder18,
+                            "In a row of three seats, who should get to use the two arm rests?": threeSeatArmRest,
+                            "In a row of two seats, who should get to use the middle arm rest?": twoSeatArmRest,
+                            "Who should have control over the window shade?": windowShadeControl,
+                            "Is it rude to move to an unsold seat on a plane?": moveToUnsoldSeat,
+                            "Generally speaking, is it rude to say more than a few words to the stranger sitting next to you on a plane?": speakWithStranger,
+                            "On a 6 hour flight from NYC to LA, how many times is it acceptable to get up if you're not in an aisle seat?": howOftenGetUp,
+                            "Under normal circumstances, does a person who reclines their seat during a flight have any obligation to the person sitting behind them?": obligationWhenReclining,
+                            "Is it rude to recline your seat on a plane?": rudeToRecline,
+                            "Given the opportunity, would you eliminate the possibility of reclining seats on planes entirely?": eliminateReclining,
+                            "Is it rude to ask someone to switch seats with you in order to be closer to friends?": switchSeatForFriends,
+                            "Is it rude to ask someone to switch seats with you in order to be closer to family?": switchSeatForFamily,
+                            "Is it rude to wake a passenger up if you are trying to go to the bathroom?": wakePassengerForBathroom,
+                            "Is it rude to wake a passenger up if you are trying to walk around?": wakePassengerForWalking,
+                            "In general, is it rude to bring a baby on a plane?": rudeToBringBaby,
+                            "In general, is it rude to knowingly bring unruly children on a plane?": rudeToBringUnrulyChild,
+                            "Have you ever used personal electronics during take off or landing in violation of a flight attendant's direction?": violationElectronics,
+                            "Have you ever smoked a cigarette in an airplane bathroom when it was against the rules?": violationSmoking,
+                            "Gender": gender,
+                            "Age": age,
+                            "Household Income": householdIncome,
+                            "Education": education,
+                            "Location (Census Region)": location};
         }
     }
     
