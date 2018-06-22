@@ -40,8 +40,8 @@ BubbleDiagram.BubbleView = function(params) {
    updateBubbles(rootNodeChildren, bubbleSvg);
    updateText(rootNodeChildren, bubbleSvg);
    updateLegend(legendSvg);
-   updateLines(answersWithCount);
-   appendLines(answersWithCount);
+   updateLines(rootNodeChildren);
+  // appendLines(answersWithCount);
  }
 
  function updateLegend (legendSvg) {
@@ -114,8 +114,8 @@ BubbleDiagram.BubbleView = function(params) {
   }
 
   function updateBubbles (answersWithCount, bubbleSvg) {
+
     var dataObj = {name: "bubbleArray", size: 856, children: answersWithCount};
-    console.log(dataObj);
     var circles = bubbleSvg.selectAll("circle").data(answersWithCount);
     circles.exit().remove();
     createBubbles(circles);
@@ -145,6 +145,7 @@ BubbleDiagram.BubbleView = function(params) {
 
  function setUpText(selection) {
 
+console.log("UPDATING TEXT");
   let texts = selection.attr("x", function(d,i){
 
    var diagramShift = (856 - d.parent.value)/2;
@@ -166,29 +167,46 @@ BubbleDiagram.BubbleView = function(params) {
 
  }
 
- function appendLines(answersWithCount) {
 
-   bubbleSvg.selectAll("line").data(answersWithCount).enter().append("line")          // attach a line
-    .style("stroke", "black")  // colour the line
-    .style("stroke-width", 1)
-    .attr("x1", function(d, i) {
-      console.log("hallo");
-      return xDataText[i];
-    })     // x position of the first end of the line
-    .attr("y1", function(d, i) {
-      return yDataText[i]+10;
-    })      // y position of the first end of the line
-    .attr("x2", function(d, i){
-      return xDataCircle[i];
-    })     // x position of the second end of the line
-    .attr("y2", function(d,i) {
-      return yDataCircle[i];
-    });
+ function updateLines(answersWithCount) {
 
+  var lines =  bubbleSvg.selectAll("line").data(answersWithCount).enter().append("line");
+  lines.exit().remove();
+  setUpLine(lines);
+  lines.transition()
+    .duration(transitionDelay)
+    .call(setUpLine);
+ }
+
+ function setUpLine(selection) {
+   console.log(selection);
+      console.log("UPDATING LINES");
+
+   selection.attr("x1", function(d,i){
+         console.log("HALLO IM X1 LINE");
+    return 300+i*200;
+  }).attr("y1", function(d){
+        console.log("HALLO IM Y1 LINE");
+    return 40;
+  }).attr("x2", function(d,i){
+    console.log("HALLO IM X2 LINE");
+   var diagramShift = (856 - d.parent.value)/2;
+   return d.x + diagramShift;
+ }).attr("y2", function(d){
+   console.log("HALLO IM Y1 LINE");
+    var diagramShift = (856 - d.parent.value)/2;
+    return d.y + diagramShift;
+ }).style("stroke", function(d) {
+   console.log("in der Farbe bin ich drin");
+   return 'black';
+ })  // colour the line
+ .style("stroke-width", 1);
+  //.style("text-anchor", "middle").style("font-size", "20px").attr("class",'labelBox');
 
  }
 
  function updateText (answersWithCount, bubbleSvg) {
+
    var texts = bubbleSvg.selectAll("text").data(answersWithCount);
 
    texts.exit().remove();
