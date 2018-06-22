@@ -7,7 +7,7 @@ BubbleDiagram.BubbleView = function(params) {
   var that = new EventPublisher(),
     bubbleSvg,
     legendSvg;
-  var colorObj = {}, dataArr = [],
+  var colorObj = {}, dataArr = [], xDataCircle = [], yDataCircle = [], xDataText = [], yDataText = [],
   transitionDelay = 1000,
   initialPackSize = 960,
   diagramShift;
@@ -40,6 +40,8 @@ BubbleDiagram.BubbleView = function(params) {
    updateBubbles(rootNodeChildren, bubbleSvg);
    updateText(rootNodeChildren, bubbleSvg);
    updateLegend(legendSvg);
+   updateLines(answersWithCount);
+   appendLines(answersWithCount);
  }
 
  function updateLegend (legendSvg) {
@@ -142,13 +144,48 @@ BubbleDiagram.BubbleView = function(params) {
   }
 
  function setUpText(selection) {
-   selection.attr("x", function(d){
+
+  let texts = selection.attr("x", function(d,i){
+
    var diagramShift = (856 - d.parent.value)/2;
-   return d.x + diagramShift;
+   xDataCircle.push(d.x + diagramShift);
+   xDataText.push(300+i*200);
+   return 300+i*200;
  }).attr("y", function(d){
+
    var diagramShift = (856 - d.parent.value)/2;
-   return d.y + diagramShift;
- }).style("text-anchor", "middle");
+    yDataCircle.push(d.y + diagramShift);
+    yDataText.push(30);
+   return 30;
+ }).style("text-anchor", "middle").style("font-size", "20px").attr("class",'labelBox');
+
+
+
+
+
+
+ }
+
+ function appendLines(answersWithCount) {
+
+   bubbleSvg.selectAll("line").data(answersWithCount).enter().append("line")          // attach a line
+    .style("stroke", "black")  // colour the line
+    .style("stroke-width", 1)
+    .attr("x1", function(d, i) {
+      console.log("hallo");
+      return xDataText[i];
+    })     // x position of the first end of the line
+    .attr("y1", function(d, i) {
+      return yDataText[i]+10;
+    })      // y position of the first end of the line
+    .attr("x2", function(d, i){
+      return xDataCircle[i];
+    })     // x position of the second end of the line
+    .attr("y2", function(d,i) {
+      return yDataCircle[i];
+    });
+
+
  }
 
  function updateText (answersWithCount, bubbleSvg) {
