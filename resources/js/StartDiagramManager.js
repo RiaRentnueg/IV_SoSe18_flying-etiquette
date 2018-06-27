@@ -5,7 +5,7 @@ var FlyingEtiquette = FlyingEtiquette || {};
 FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
     
     var that = {},
-        width = 1500,
+        width = 1000,
         height = 800,
         outerRingValue = 26,
         colorRange = ["#1565C0", "#B71C1C", "#C62828", "#EF6C00", "#6A1B9A", "#7B1FA2", "#8E24AA", "#00838F", "#9E9D24", "#AFB42B", "#D32F2F", "#E53935", "#F44336", "#0097A7", "#00ACC1", "#C0CA33", "#CDDC39", "#F57C00", "#FB8C00", "#1B5E20", "#2E7D32", "#1976D2", "#1E88E5", "#2196F3", "#42A5F5", "#64B5F6"];
@@ -95,7 +95,7 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
             .attr("r", function(d) {return d.r;})
             .attr("cx", function (d) {return d.x;})
             .attr("cy", function(d) {return d.y;})
-            .attr("transform", "translate(" + width / 3 + "," + height / 5.25 + ")")
+            .attr("transform", "translate(" + width / 4 + "," + height / 5.25 + ")")
             .attr("class", "participantDots");
         
         dots = document.querySelectorAll(".participantDots");

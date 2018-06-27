@@ -150,7 +150,20 @@ a:hover{
     }
   }
 
+.outerInfo {
+    display: inline-block;
+    background-color: black;
+    color: aqua;
+    width: auto;
+    position: relative;
+}
 
+.startDiagramBox {
+    padding: 50px;
+    display: inline-block;
+    width: auto;
+    height: 100%;
+}
 
 
 .m1 {margin:0.5em}

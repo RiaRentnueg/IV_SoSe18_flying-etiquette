@@ -15,7 +15,6 @@ FlyingEtiquette.StartDiagramModel = function() {
     function setupCsvData() {
         d3.csv("./data/flying-etiquette.csv", function(data) {
             processDotsData(data);
-            console.log(data.columns);
             //this loop saves all answers form the dataset into a temporary array that can then be sorted and provide the output we need, the first column of the data is an id which is irrelevant at this point, so the loop starts at 1
             for(let i = 1; i < data.columns.length; i++){
                 //this saves the data needed for the outer ring in a seperate array
