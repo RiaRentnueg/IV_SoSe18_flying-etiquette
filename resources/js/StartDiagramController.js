@@ -7,7 +7,8 @@ FlyingEtiquette.StartDiagramController = function() {
     var that = {},
       dots,
       innerRingSegments,
-      outerRingSegments;
+      outerRingSegments,
+      outerInfoText;
     
     function setupEventListeners() {
         dots = document.querySelectorAll(".participantDots");
@@ -16,6 +17,7 @@ FlyingEtiquette.StartDiagramController = function() {
         
         for(let i = 0; i < outerRingSegments.length; i++) {
             outerRingSegments[i].addEventListener("mouseover", showOuterRingInformation);
+            outerRingSegments[i].addEventListener("mouseleave", removeOuterRingInformation);
         }
         
         for(let j = 0; j < innerRingSegments.length; j++) {
@@ -55,15 +57,12 @@ FlyingEtiquette.StartDiagramController = function() {
     }
     
     function showOuterRingInformation(e) {
-        var outerInfoText,
-            startDiagrammBox;
-        
-        if(e.target.childElementCount === 0) {
-            outerInfoText = document.querySelector(".outerInfoText");
-            
-            outerInfoText.innerHTML = e.target["__data__"]["data"];
-        }
-        
+        outerInfoText = document.querySelector(".outerInfoText");
+        outerInfoText.innerHTML = e.target["__data__"]["data"];
+    }
+    
+    function removeOuterRingInformation(e) {
+        outerInfoText.innerHTML = "";
     }
     
     that.setupEventListeners = setupEventListeners;
