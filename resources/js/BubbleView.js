@@ -91,7 +91,7 @@ BubbleDiagram.BubbleView = function(params) {
     circle.style("fill", function(d, i) {
        var color;
        if(Object.keys(colorObj).length === 0 && colorObj.constructor === Object){
-         color = "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 20))+"%)";
+         color = "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 15))+"%)";
 
          var obj = {key: d, value: color};
          dataArr.push(obj);
