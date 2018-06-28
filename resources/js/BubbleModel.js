@@ -73,7 +73,6 @@ BubbleDiagram.BubbleModel = function(params) {
       .key(function(d) { return d[question]; })
       .rollup(function(v) { return v.length; })
       .entries(filteredData);
-      console.log(answersWithCount);
 
     var notificationData = {
       question : question,

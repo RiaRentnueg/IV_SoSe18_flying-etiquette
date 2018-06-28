@@ -151,7 +151,6 @@ BubbleDiagram.BubbleView = function(params) {
 
  function setUpText(selection) {
 
-console.log("UPDATING TEXT");
   let texts = selection.attr("x", function(d,i){
 
    var diagramShift = (856 - d.parent.value)/2;
@@ -193,25 +192,18 @@ console.log("UPDATING TEXT");
 
 
  function setUpLine(selection) {
-   console.log(selection);
-      console.log("UPDATING LINES");
 
    selection.attr("x1", function(d,i){
-         console.log("HALLO IM X1 LINE");
     return 300+i*200;
   }).attr("y1", function(d){
-        console.log("HALLO IM Y1 LINE");
     return 40;
   }).attr("x2", function(d,i){
-    console.log("HALLO IM X2 LINE");
    var diagramShift = (856 - d.parent.value)/2;
    return d.x + diagramShift;
  }).attr("y2", function(d){
-   console.log("HALLO IM Y1 LINE");
     var diagramShift = (856 - d.parent.value)/2;
     return d.y + diagramShift;
  }).style("stroke", function(d) {
-   console.log("in der Farbe bin ich drin");
    return 'black';
  })  // colour the line
  .style("stroke-width", 1);
