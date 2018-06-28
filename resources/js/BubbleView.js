@@ -7,7 +7,7 @@ BubbleDiagram.BubbleView = function(params) {
   var that = new EventPublisher(),
     bubbleSvg,
     legendSvg;
-  var colorObj = {}, dataArr = [], xDataCircle = [], yDataCircle = [], xDataText = [], yDataText = [],
+  var bubbleColors = {}, colorObj = {}, dataArr = [], xDataCircle = [], yDataCircle = [], xDataText = [], yDataText = [],
   transitionDelay = 1000,
   initialPackSize = 960,
   diagramShift;
@@ -88,28 +88,34 @@ BubbleDiagram.BubbleView = function(params) {
 
    var baseColor = (Math.random() * 360);
    var circle = circles.enter().append("circle");
-    circle.style("fill", function(d) {
+    circle.style("fill", function(d, i) {
        var color;
-       color = "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 20))+"%)";
+       if(Object.keys(colorObj).length === 0 && colorObj.constructor === Object){
+         color = "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 20))+"%)";
 
-       var obj = {key: d, value: color};
-       dataArr.push(obj);
-
+         var obj = {key: d, value: color};
+         dataArr.push(obj);
+       } else {
+         color = colorObj.children[i].data.value;
+       }
 
 
 
        return color;
      });
-     var rootNode = d3.hierarchy({children: dataArr})
-     .sum(
-       function(d) { return d.value;});
+     if (Object.keys(colorObj).length === 0 && colorObj.constructor === Object) {
+       var rootNode = d3.hierarchy({children: dataArr})
+       .sum(
+         function(d) { return d.value;});
 
-     var currentPackSize = rootNode.value;//* tpCount;
+       var currentPackSize = rootNode.value;//* tpCount;
 
-     d3.pack().padding(2).size([currentPackSize,currentPackSize])(rootNode);
+       d3.pack().padding(2).size([currentPackSize,currentPackSize])(rootNode);
 
-     dataArr = rootNode.children;
-   colorObj = {name: "legendArray", size: dataArr.length, children: dataArr};
+       dataArr = rootNode.children;
+
+       colorObj = {name: "legendArray", size: dataArr.length, children: dataArr};
+    }
     circle.call(setUpCircle);
   }
 
