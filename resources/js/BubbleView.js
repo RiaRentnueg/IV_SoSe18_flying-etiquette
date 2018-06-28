@@ -40,7 +40,7 @@ BubbleDiagram.BubbleView = function(params) {
    updateBubbles(rootNodeChildren, bubbleSvg);
    updateText(rootNodeChildren, bubbleSvg);
    updateLegend(legendSvg);
-   updateLines(rootNodeChildren);
+   updateLines(rootNodeChildren, bubbleSvg);
   // appendLines(answersWithCount);
  }
 
@@ -168,15 +168,23 @@ console.log("UPDATING TEXT");
  }
 
 
- function updateLines(answersWithCount) {
 
-  var lines =  bubbleSvg.selectAll("line").data(answersWithCount).enter().append("line");
+ function updateLines(answersWithCount, bubbleSvg) {
+
+  var lines =  bubbleSvg.selectAll("line").data(answersWithCount);
   lines.exit().remove();
-  setUpLine(lines);
+  createLines(lines);
   lines.transition()
     .duration(transitionDelay)
     .call(setUpLine);
  }
+
+ function createLines (lines) {
+   var line = lines.enter().append("line");
+   line.call(setUpLine);
+  }
+
+
 
  function setUpLine(selection) {
    console.log(selection);
