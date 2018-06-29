@@ -8,12 +8,15 @@ FlyingEtiquette.StartDiagramController = function() {
       dots,
       innerRingSegments,
       outerRingSegments,
-      outerInfoText;
+      outerInfoText,
+      innerInfoText;
     
     function setupEventListeners() {
         dots = document.querySelectorAll(".participantDots");
         outerRingSegments = document.querySelectorAll(".outer");
         innerRingSegments = document.querySelectorAll(".inner");
+        outerInfoText = document.querySelector(".outerInfoText");
+        innerInfoText = document.querySelector(".innerInfoText");
         
         for(let i = 0; i < outerRingSegments.length; i++) {
             outerRingSegments[i].addEventListener("mouseover", showOuterRingInformation);
@@ -21,12 +24,14 @@ FlyingEtiquette.StartDiagramController = function() {
         }
         
         for(let j = 0; j < innerRingSegments.length; j++) {
-            innerRingSegments[j].addEventListener("click", testInnerRing);
+            innerRingSegments[j].addEventListener("click", changeDotsColor);
+            innerRingSegments[j].addEventListener("mouseover", showInnerRingInformation);
+            innerRingSegments[j].addEventListener("mouseleave", removeInnerRingInformation);
         }
         
     }
     
-    function testInnerRing(e) {
+    function changeDotsColor(e) {
         var answer,
             question,
             keyPair;
@@ -57,11 +62,20 @@ FlyingEtiquette.StartDiagramController = function() {
     }
     
     function showOuterRingInformation(e) {
-        outerInfoText = document.querySelector(".outerInfoText");
         outerInfoText.innerHTML = e.target["__data__"]["data"];
     }
     
     function removeOuterRingInformation(e) {
+        outerInfoText.innerHTML = "";
+    }
+    
+    function showInnerRingInformation(e) {
+        innerInfoText.innerHTML = e.target["__data__"]["data"]["answer"] + "  (" + (e.target["__data__"]["data"]["value"] / 856 * 100) + "%)";
+        outerInfoText.innerHTML = e.target["__data__"]["data"]["question"];
+    }
+    
+    function removeInnerRingInformation(e) {
+        innerInfoText.innerHTML = "";
         outerInfoText.innerHTML = "";
     }
     

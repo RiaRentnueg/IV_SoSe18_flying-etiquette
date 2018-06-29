@@ -64,7 +64,6 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
             .style("fill", function(d){return color(d.data["question"])})
             .style("stroke", "white")
             .style("stroke-width", "0.5px");
-        //g.append("text").attr("transform", function(d){return "translate(" + arc.centroid(d) + ")"; }).attr("dy", ".35em").text(function(d){return d.data["question"]});
     }
     
     function createDots(proccessedDots) {
