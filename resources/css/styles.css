@@ -7,6 +7,10 @@ h3{
   font-size: 6em;
 }
 
+.legend {
+  vertical-align: top;
+}
+
 .bubbleQuestion{
   text-align: center;
   color: #fff;
