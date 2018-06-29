@@ -17,10 +17,11 @@ var BubbleDiagram = (function() {
   function init() {
     bubbleCharts = d3.selectAll(".questionView");
     bubbleCharts._groups[0].forEach(function(element) {
-      var bubbleSvg = d3.select(element).select("svg");
+      var bubbleSvg = d3.select(element).select(".bubbleDiagram");
+      var legendSvg = d3.select(element).select(".legend");
       var question = d3.select(element).select("h2").node().innerText;
       var filters = d3.select(element).select(".standardFilters").node();
-      bubbleView[question] = initBubbleView(bubbleSvg);
+      bubbleView[question] = initBubbleView(bubbleSvg, legendSvg);
       bubbleModel[question] = initBubbleModel(question);
       bubbleDiagramController[question] = initBubbleDiagramController(question, filters);
       bubbleFilterView[question] = initBubbleFilterView(filters);
@@ -66,9 +67,10 @@ var BubbleDiagram = (function() {
     bubbleView[event.data.question].setAnswersWithCount(event.data.answersWithCount);
   }
 
-  function initBubbleView(bubbleSvg) {
+  function initBubbleView(bubbleSvg, legendSvg) {
     return (new BubbleDiagram.BubbleView({
       bubbleSvg: bubbleSvg,
+      legendSvg: legendSvg,
     })).init();
   }
 
