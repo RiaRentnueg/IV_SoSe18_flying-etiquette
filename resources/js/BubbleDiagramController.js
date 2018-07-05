@@ -76,6 +76,8 @@ BubbleDiagram.BubbleDiagramController = function(params) {
   }
 
   function onGenderFilterClicked(event) {
+    console.log(event);
+    console.log(event.target.parentNode[0]);
     var gender = event.target.className;
     if (gender.includes("female")) {
       gender = "female";
@@ -83,7 +85,7 @@ BubbleDiagram.BubbleDiagramController = function(params) {
       gender = "male";
     }
 
-    console.log(gender);
+    // console.log(gender);
 
     //bubbleFilterView.updateGenderButton(gender);
 

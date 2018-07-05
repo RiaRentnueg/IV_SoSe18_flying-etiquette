@@ -18,6 +18,7 @@ var BubbleDiagram = (function() {
     bubbleCharts = d3.selectAll(".questionView");
     bubbleCharts._groups[0].forEach(function(element) {
       var bubbleSvg = d3.select(element).select(".bubbleDiagram");
+      console.log(bubbleSvg);
       var legendSvg = d3.select(element).select(".legend");
       var question = d3.select(element).select("h2").node().innerText;
       var filters = d3.select(element).select(".standardFilters").node();
@@ -46,6 +47,7 @@ var BubbleDiagram = (function() {
         question: question,
       })).init2();
     }
+    console.log(result);
     result.setOnFilterClickListener(onOptionSelected);
     result.setOnGenderFilterClickListener(onGenderFilterClicked);
     result.setOnSliderClickListener(onSliderClicked);
@@ -82,6 +84,8 @@ var BubbleDiagram = (function() {
   }
 
   function onGenderFilterClicked(event) {
+    console.log("onGenderFilterClicked");
+    console.log(event);
     if (event.value) {
       filter.genderFilter = event.gender;
     } else {
