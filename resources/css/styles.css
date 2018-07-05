@@ -28,14 +28,18 @@ h3{
 }
 
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: #B3E5FC;
+  background-color: #0277BD;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: #0277BD !important;
 }
 
 a.active {
   color:#fff!important;
 }
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
-  color: #fff;
+  color: #0277BD;
 }
 
 
