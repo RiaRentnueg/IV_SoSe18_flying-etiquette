@@ -76,19 +76,18 @@ BubbleDiagram.BubbleDiagramController = function(params) {
   }
 
   function onGenderFilterClicked(event) {
-    console.log(event);
-    console.log(event.target.parentNode[0]);
     var gender = event.target.className;
+    var oppositeElement;
     if (gender.includes("female")) {
       gender = "female";
+      //retrieve the include tag for gender male
+      oppositeElement = event.target.nextElementSibling.nextElementSibling;
     }else if (gender.includes("male")) {
       gender = "male";
+      //retrieve the include tag for gender female
+      oppositeElement = event.target.previousElementSibling.previousElementSibling;
     }
-
-    // console.log(gender);
-
-    //bubbleFilterView.updateGenderButton(gender);
-
+    
     var checked = false;
     if (event.target.checked) {
       checked = true;
@@ -98,7 +97,8 @@ BubbleDiagram.BubbleDiagramController = function(params) {
     var notificationData = {
       question: question,
       value: checked,
-      gender: gender
+      gender: gender,
+      oppositeElement: oppositeElement
     }
     genderFilterListeners.forEach(function(listener) {
       listener(notificationData);
