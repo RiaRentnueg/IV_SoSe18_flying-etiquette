@@ -35,7 +35,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">LOGO</a>
+          <a class="navbar-brand" href="#">Flying Etiquette</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -71,122 +71,495 @@
 
 
 	<main>
-    <div class ="standardFilters">
-      <div class="row mt10 ml2">
-        <div class="col-sm-8 col-md-3 col-lg-3">
-          <div class ="card">
-              <div class ="card-block">
-                <h2 class ="card-title">Filter</h2>
-              </div>
-            <div class ="card-content">
-              <form class ="gender-filter">
-                <input type="checkbox" class="form-check-input" id="female">
-                  <label class="radio-inline mr3">
-                    <i class="fas fa-female"></i>
+    <div class="row mt3 ml5">
+      <div class = "col-sm-12 col-md-12 col-lg-12">
+        <h3>Switching Seats</h3>
+      </div>
+    </div>
+
+    <div class ="questionView">
+      <div class="row mt2 ml5">
+        <div class = "col-sm-8 col-md-7 col-lg-7">
+          <h2 class = "bubbleQuestion">Is it rude to ask someone to switch seats with you in order to be closer to friends?</h2>
+        </div>
+      </div>
+      <div class="row mt3 ml2 mr2">
+        <div class = "col-sm-8 col-md-7 col-lg-7">
+          <svg class = "ml6 mr6 bubbleDiagram" id = "switchSeatsFriendsBubbleChart"></svg>
+        </div>
+        <div class = "col-lg-1">
+
+        </div>
+        <div class="col-sm-8 col-md-4 col-lg-4">
+          <div class="standardFilters">
+            <div class ="card">
+                <div class ="card-block">
+                  <h2 class ="card-title">Filter</h2>
+                </div>
+              <div class ="card-content">
+                <form class ="gender-filter">
+                  <input type="checkbox" class="form-check-input female">
+                    <label class="radio-inline mr3">
+                      <i class="fas fa-female"></i>
+                    </label>
+                  <input type="checkbox" class="form-check-input male">
+                   <label class="radio-inline">
+                     <i class="fas fa-male"></i>
                   </label>
-                <input type="checkbox" class="form-check-input" id ="male">
-                 <label class="radio-inline">
-                   <i class="fas fa-male"></i>
-                </label>
-             </form>
-             <div class="dropdown mt3">
-               <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                 <i class="fas fa-plane"></i><span class="textDropdown">&nbsp;Frequency of air travel</span>
-                 <span class="caret"></span></button>
-                 <ul class="dropdown-menu">
-                   <li><a>
-                   <li id ="freq"><a>
-                         <i class="fas fa-plane"></i>
-                         &nbsp;Frequency of air travel
-                       </a>
-                      </li>
-                   <li class="divider"></li>
-                   <li><a>Once a year or less</a></li>
-                   <li><a>Once a month or less</a></li>
-                   <li><a>A few times per month</a></li>
-                   <li><a>A few times per week</a></li>
-                   <li><a>Every day</a></li>
-                 </ul>
-              </div>
-              <div class="dropdown mt3">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                  <i class="fas fa-birthday-cake"></i><span class="textDropdown">&nbsp; Age</span>
-                  <span class="caret"></span></button>
-                  <ul class="dropdown-menu">
-                    <li><a>
-                    <li id ="age"><a>
-                         <i class="fas fa-birthday-cake"></i>&nbsp; Age
-                       </a>
-                      </li>
-                    <li class="divider"></li>
-                    <li><a>18-29</a></li>
-                    <li><a>30-44</a></li>
-                    <li><a>45-60</a></li>
-                    <li><a>> 60</a></li>
-                  </ul>
-               </div>
+               </form>
                <div class="dropdown mt3">
                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                   <i class="fas fa-dollar-sign"></i><span class="textDropdown">&nbsp; Income</span>
+                   <i class="fas fa-plane"></i><span class="textDropdown">&nbsp;Frequency of air travel</span>
                    <span class="caret"></span></button>
                    <ul class="dropdown-menu">
                      <li><a>
-                     <li id ="income"><a>
-                        <i class="fas fa-dollar-sign"></i>&nbsp; Income
-                       </a>
-                      </li>
+                     <li id ="freq"><a>
+                           <i class="fas fa-plane"></i>
+                           &nbsp;Frequency of air travel
+                         </a>
+                        </li>
                      <li class="divider"></li>
-                     <li><a>$0 - $24,999</a></li>
-                     <li><a>$25,000 - $49,999</a></li>
-                     <li><a>$50,000 - $99,999</a></li>
-                     <li><a>$100,000 - $149,999</a></li>
-                     <li><a>$150000</a></li>
+                     <li><a>Once a year or less</a></li>
+                     <li><a>Once a month or less</a></li>
+                     <li><a>A few times per month</a></li>
+                     <li><a>A few times per week</a></li>
+                     <li><a>Every day</a></li>
                    </ul>
                 </div>
                 <div class="dropdown mt3">
                   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    <i class="fas fa-graduation-cap"></i><span class="textDropdown">&nbsp; Education</span>
+                    <i class="fas fa-birthday-cake"></i><span class="textDropdown">&nbsp; Age</span>
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                       <li><a>
-                      <li id ="degree"><a>
-                         <i class="fas fa-graduation-cap"></i>&nbsp; Education
-                       </a>
-                      </li>
+                      <li id ="age"><a>
+                           <i class="fas fa-birthday-cake"></i>&nbsp; Age
+                         </a>
+                        </li>
                       <li class="divider"></li>
-                      <li><a>High school degree</a></li>
-                      <li><a>Some college or Associate degree</a></li>
-                      <li><a>Graduate degree</a></li>
-                      <li><a>Bachelor degree</a></li>
+                      <li><a>18-29</a></li>
+                      <li><a>30-44</a></li>
+                      <li><a>45-60</a></li>
+                      <li><a>> 60</a></li>
                     </ul>
                  </div>
                  <div class="dropdown mt3">
                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                     <i class="fas fa-map-marker"></i><span class="textDropdown">&nbsp; Location</span>
+                     <i class="fas fa-dollar-sign"></i><span class="textDropdown">&nbsp; Income</span>
                      <span class="caret"></span></button>
                      <ul class="dropdown-menu">
                        <li><a>
-                       <li id ="location"><a>
-                          <i class="fas fa-map-marker"></i>&nbsp; Location
-                        </a>
-                       </li>
+                       <li id ="income"><a>
+                          <i class="fas fa-dollar-sign"></i>&nbsp; Income
+                         </a>
+                        </li>
                        <li class="divider"></li>
-                       <li><a>New England</a></li>
-                       <li><a>East North Central</a></li>
-                       <li><a>East South Central</a></li>
-                       <li><a>West North Central</a></li>
-                       <li><a>West South Central</a></li>
-                       <li><a>Middle Atlantic</a></li>
-                       <li><a>South Atlantic</a></li>
-                       <li><a>Mountain</a></li>
-                       <li><a>Pacific</a></li>
+                       <li><a>$0 - $24,999</a></li>
+                       <li><a>$25,000 - $49,999</a></li>
+                       <li><a>$50,000 - $99,999</a></li>
+                       <li><a>$100,000 - $149,999</a></li>
+                       <li><a>$150000</a></li>
                      </ul>
                   </div>
+                  <div class="dropdown mt3">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                      <i class="fas fa-graduation-cap"></i><span class="textDropdown">&nbsp; Education</span>
+                      <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><a>
+                        <li id ="degree"><a>
+                           <i class="fas fa-graduation-cap"></i>&nbsp; Education
+                         </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a>High school degree</a></li>
+                        <li><a>Some college or Associate degree</a></li>
+                        <li><a>Graduate degree</a></li>
+                        <li><a>Bachelor degree</a></li>
+                      </ul>
+                   </div>
+                   <div class="dropdown mt3">
+                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                       <i class="fas fa-map-marker"></i><span class="textDropdown">&nbsp; Location</span>
+                       <span class="caret"></span></button>
+                       <ul class="dropdown-menu">
+                         <li><a>
+                         <li id ="location"><a>
+                            <i class="fas fa-map-marker"></i>&nbsp; Location
+                          </a>
+                         </li>
+                         <li class="divider"></li>
+                         <li><a>New England</a></li>
+                         <li><a>East North Central</a></li>
+                         <li><a>East South Central</a></li>
+                         <li><a>West North Central</a></li>
+                         <li><a>West South Central</a></li>
+                         <li><a>Middle Atlantic</a></li>
+                         <li><a>South Atlantic</a></li>
+                         <li><a>Mountain</a></li>
+                         <li><a>Pacific</a></li>
+                       </ul>
+                    </div>
+                    <div class="dropdown mt3">
+                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fas fa-couch"></i><span class ="textDropdown">&nbsp; Frequency of seat reclining</span>
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a>
+                            <li id ="seatReq"><a>
+                             <i class="fas fa-couch"></i>&nbsp; Frequency of seat reclining
+                           </a>
+                          </li>
+                          <li class="divider"></li>
+                          <li><a>Never</a></li>
+                          <li><a>Once in a while</a></li>
+                          <li><a>About half the time</a></li>
+                          <li><a>Usually</a></li>
+                          <li><a>Always</a></li>
+                        </ul>
+                     </div>
+                     <div class="special-filter">
+                      <form class ="child-filter mt3">
+                        <input type="checkbox" class="form-check-input child" name="optradio">
+                          <label class="radio-inline">
+                            <i class="fas fa-child"></i>
+                          <!--  <p id="baby-explanation">Does the participant have children?</p>-->
+                          </label>
+                     </form>
+                     <div class="slidecontainer mt2">
+                       <input type="range" min="<5" max=">6'6" value="0" class="slider mt2 height">
+                       <p class="current-value mt2">Height: </p>
+                     </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div class ="questionView">
+        <div class="row mt2 ml5">
+          <div class = "col-sm-8 col-md-7 col-lg-7">
+            <h2 class = "bubbleQuestion">Is it rude to ask someone to switch seats with you in order to be closer to family?</h2>
+          </div>
+        </div>
+        <div class="row mt3 ml2 mr2">
+          <div class = "col-sm-8 col-md-7 col-lg-7">
+            <svg class = "ml6 mr6 bubbleDiagram" id = "switchSeatsFamiliyBubbleChart"></svg>
+          </div>
+          <div class = "col-lg-1">
+
+          </div>
+          <div class="col-sm-8 col-md-4 col-lg-4">
+            <div class="standardFilters">
+              <div class ="card">
+                  <div class ="card-block">
+                    <h2 class ="card-title">Filter</h2>
+                  </div>
+                <div class ="card-content">
+                  <form class ="gender-filter">
+                    <input type="checkbox" class="form-check-input female">
+                      <label class="radio-inline mr3">
+                        <i class="fas fa-female"></i>
+                      </label>
+                    <input type="checkbox" class="form-check-input male">
+                     <label class="radio-inline">
+                       <i class="fas fa-male"></i>
+                    </label>
+                 </form>
+                 <div class="dropdown mt3">
+                   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                     <i class="fas fa-plane"></i><span class="textDropdown">&nbsp;Frequency of air travel</span>
+                     <span class="caret"></span></button>
+                     <ul class="dropdown-menu">
+                       <li><a>
+                       <li id ="freq"><a>
+                             <i class="fas fa-plane"></i>
+                             &nbsp;Frequency of air travel
+                           </a>
+                          </li>
+                       <li class="divider"></li>
+                       <li><a>Once a year or less</a></li>
+                       <li><a>Once a month or less</a></li>
+                       <li><a>A few times per month</a></li>
+                       <li><a>A few times per week</a></li>
+                       <li><a>Every day</a></li>
+                     </ul>
+                  </div>
+                  <div class="dropdown mt3">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                      <i class="fas fa-birthday-cake"></i><span class="textDropdown">&nbsp; Age</span>
+                      <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><a>
+                        <li id ="age"><a>
+                             <i class="fas fa-birthday-cake"></i>&nbsp; Age
+                           </a>
+                          </li>
+                        <li class="divider"></li>
+                        <li><a>18-29</a></li>
+                        <li><a>30-44</a></li>
+                        <li><a>45-60</a></li>
+                        <li><a>> 60</a></li>
+                      </ul>
+                   </div>
+                   <div class="dropdown mt3">
+                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                       <i class="fas fa-dollar-sign"></i><span class="textDropdown">&nbsp; Income</span>
+                       <span class="caret"></span></button>
+                       <ul class="dropdown-menu">
+                         <li><a>
+                         <li id ="income"><a>
+                            <i class="fas fa-dollar-sign"></i>&nbsp; Income
+                           </a>
+                          </li>
+                         <li class="divider"></li>
+                         <li><a>$0 - $24,999</a></li>
+                         <li><a>$25,000 - $49,999</a></li>
+                         <li><a>$50,000 - $99,999</a></li>
+                         <li><a>$100,000 - $149,999</a></li>
+                         <li><a>$150000</a></li>
+                       </ul>
+                    </div>
+                    <div class="dropdown mt3">
+                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fas fa-graduation-cap"></i><span class="textDropdown">&nbsp; Education</span>
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a>
+                          <li id ="degree"><a>
+                             <i class="fas fa-graduation-cap"></i>&nbsp; Education
+                           </a>
+                          </li>
+                          <li class="divider"></li>
+                          <li><a>High school degree</a></li>
+                          <li><a>Some college or Associate degree</a></li>
+                          <li><a>Graduate degree</a></li>
+                          <li><a>Bachelor degree</a></li>
+                        </ul>
+                     </div>
+                     <div class="dropdown mt3">
+                       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                         <i class="fas fa-map-marker"></i><span class="textDropdown">&nbsp; Location</span>
+                         <span class="caret"></span></button>
+                         <ul class="dropdown-menu">
+                           <li><a>
+                           <li id ="location"><a>
+                              <i class="fas fa-map-marker"></i>&nbsp; Location
+                            </a>
+                           </li>
+                           <li class="divider"></li>
+                           <li><a>New England</a></li>
+                           <li><a>East North Central</a></li>
+                           <li><a>East South Central</a></li>
+                           <li><a>West North Central</a></li>
+                           <li><a>West South Central</a></li>
+                           <li><a>Middle Atlantic</a></li>
+                           <li><a>South Atlantic</a></li>
+                           <li><a>Mountain</a></li>
+                           <li><a>Pacific</a></li>
+                         </ul>
+                      </div>
+                      <div class="dropdown mt3">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                          <i class="fas fa-couch"></i><span class ="textDropdown">&nbsp; Frequency of seat reclining</span>
+                          <span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a>
+                              <li id ="seatReq"><a>
+                               <i class="fas fa-couch"></i>&nbsp; Frequency of seat reclining
+                             </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a>Never</a></li>
+                            <li><a>Once in a while</a></li>
+                            <li><a>About half the time</a></li>
+                            <li><a>Usually</a></li>
+                            <li><a>Always</a></li>
+                          </ul>
+                       </div>
+                       <div class="special-filter">
+                        <form class ="child-filter mt3">
+                          <input type="checkbox" class="form-check-input child" name="optradio">
+                            <label class="radio-inline">
+                              <i class="fas fa-child"></i>
+                            <!--  <p id="baby-explanation">Does the participant have children?</p>-->
+                            </label>
+                       </form>
+                       <div class="slidecontainer mt2">
+                         <input type="range" min="<5" max=">6'6" value="0" class="slider mt2 height">
+                         <p class="current-value mt2">Height: </p>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class ="questionView">
+          <div class="row mt2 ml5">
+            <div class = "col-sm-8 col-md-7 col-lg-7">
+              <h2 class = "bubbleQuestion">Is it rude to move to an unsold seat on a plane?</h2>
+            </div>
+          </div>
+          <div class="row mt3 ml2 mr2">
+            <div class = "col-sm-8 col-md-7 col-lg-7">
+              <svg class = "ml6 mr6 bubbleDiagram" id = "unsoldSeatBubbleChart"></svg>
+            </div>
+            <div class = "col-lg-1">
+
+            </div>
+            <div class="col-sm-8 col-md-4 col-lg-4">
+              <div class="standardFilters">
+                <div class ="card">
+                    <div class ="card-block">
+                      <h2 class ="card-title">Filter</h2>
+                    </div>
+                  <div class ="card-content">
+                    <form class ="gender-filter">
+                      <input type="checkbox" class="form-check-input female">
+                        <label class="radio-inline mr3">
+                          <i class="fas fa-female"></i>
+                        </label>
+                      <input type="checkbox" class="form-check-input male">
+                       <label class="radio-inline">
+                         <i class="fas fa-male"></i>
+                      </label>
+                   </form>
+                   <div class="dropdown mt3">
+                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                       <i class="fas fa-plane"></i><span class="textDropdown">&nbsp;Frequency of air travel</span>
+                       <span class="caret"></span></button>
+                       <ul class="dropdown-menu">
+                         <li><a>
+                         <li id ="freq"><a>
+                               <i class="fas fa-plane"></i>
+                               &nbsp;Frequency of air travel
+                             </a>
+                            </li>
+                         <li class="divider"></li>
+                         <li><a>Once a year or less</a></li>
+                         <li><a>Once a month or less</a></li>
+                         <li><a>A few times per month</a></li>
+                         <li><a>A few times per week</a></li>
+                         <li><a>Every day</a></li>
+                       </ul>
+                    </div>
+                    <div class="dropdown mt3">
+                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fas fa-birthday-cake"></i><span class="textDropdown">&nbsp; Age</span>
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a>
+                          <li id ="age"><a>
+                               <i class="fas fa-birthday-cake"></i>&nbsp; Age
+                             </a>
+                            </li>
+                          <li class="divider"></li>
+                          <li><a>18-29</a></li>
+                          <li><a>30-44</a></li>
+                          <li><a>45-60</a></li>
+                          <li><a>> 60</a></li>
+                        </ul>
+                     </div>
+                     <div class="dropdown mt3">
+                       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                         <i class="fas fa-dollar-sign"></i><span class="textDropdown">&nbsp; Income</span>
+                         <span class="caret"></span></button>
+                         <ul class="dropdown-menu">
+                           <li><a>
+                           <li id ="income"><a>
+                              <i class="fas fa-dollar-sign"></i>&nbsp; Income
+                             </a>
+                            </li>
+                           <li class="divider"></li>
+                           <li><a>$0 - $24,999</a></li>
+                           <li><a>$25,000 - $49,999</a></li>
+                           <li><a>$50,000 - $99,999</a></li>
+                           <li><a>$100,000 - $149,999</a></li>
+                           <li><a>$150000</a></li>
+                         </ul>
+                      </div>
+                      <div class="dropdown mt3">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                          <i class="fas fa-graduation-cap"></i><span class="textDropdown">&nbsp; Education</span>
+                          <span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a>
+                            <li id ="degree"><a>
+                               <i class="fas fa-graduation-cap"></i>&nbsp; Education
+                             </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a>High school degree</a></li>
+                            <li><a>Some college or Associate degree</a></li>
+                            <li><a>Graduate degree</a></li>
+                            <li><a>Bachelor degree</a></li>
+                          </ul>
+                       </div>
+                       <div class="dropdown mt3">
+                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                           <i class="fas fa-map-marker"></i><span class="textDropdown">&nbsp; Location</span>
+                           <span class="caret"></span></button>
+                           <ul class="dropdown-menu">
+                             <li><a>
+                             <li id ="location"><a>
+                                <i class="fas fa-map-marker"></i>&nbsp; Location
+                              </a>
+                             </li>
+                             <li class="divider"></li>
+                             <li><a>New England</a></li>
+                             <li><a>East North Central</a></li>
+                             <li><a>East South Central</a></li>
+                             <li><a>West North Central</a></li>
+                             <li><a>West South Central</a></li>
+                             <li><a>Middle Atlantic</a></li>
+                             <li><a>South Atlantic</a></li>
+                             <li><a>Mountain</a></li>
+                             <li><a>Pacific</a></li>
+                           </ul>
+                        </div>
+                        <div class="dropdown mt3">
+                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            <i class="fas fa-couch"></i><span class ="textDropdown">&nbsp; Frequency of seat reclining</span>
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                              <li><a>
+                                <li id ="seatReq"><a>
+                                 <i class="fas fa-couch"></i>&nbsp; Frequency of seat reclining
+                               </a>
+                              </li>
+                              <li class="divider"></li>
+                              <li><a>Never</a></li>
+                              <li><a>Once in a while</a></li>
+                              <li><a>About half the time</a></li>
+                              <li><a>Usually</a></li>
+                              <li><a>Always</a></li>
+                            </ul>
+                         </div>
+                         <div class="special-filter">
+                          <form class ="child-filter mt3">
+                            <input type="checkbox" class="form-check-input child" name="optradio">
+                              <label class="radio-inline">
+                                <i class="fas fa-child"></i>
+                              <!--  <p id="baby-explanation">Does the participant have children?</p>-->
+                              </label>
+                         </form>
+                         <div class="slidecontainer mt2">
+                           <input type="range" min="<5" max=">6'6" value="0" class="slider mt2 height">
+                           <p class="current-value mt2">Height: </p>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 	</main>
 
 
