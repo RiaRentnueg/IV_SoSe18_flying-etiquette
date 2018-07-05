@@ -161,39 +161,26 @@ a:hover{
     height: 100%;
 }
 
-.outerInfo {
-    display: inline-block;
-    width: 700px;
-}
-
-.outerInfo .outerInfoText {
-    font-size: 1.5em;
-    overflow: hidden;
-}
-
-.innerInfo {
-    display: inline-block;
-    width: 700px;
-}
-
-.innerInfo .innerInfoText {
-    font-size: 1.5em;
-}
-
 .infoBox {
     display: inline-block;
     position: absolute;
-    padding: 50px;
+    padding: 20px;
     width: 800px;
     height: 800px;
     background-color: #00aaff;
+    font-size: 1.5em;
 }
 
 .infoBoxText {
     display: inline-block;
-    font-size: 1.5em;
     color: #ddffff;
 }
+
+.dotsInfo {
+    height: 680px;
+    overflow-y: scroll;
+}
+
 
 .m1 {margin:0.5em}
 .m2 {margin: 0.75em}
