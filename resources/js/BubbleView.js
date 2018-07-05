@@ -110,15 +110,17 @@ BubbleDiagram.BubbleView = function(params) {
  function createBubbles (circles) {
 
    var rgbValues = bubbleChartColors[bubbleChartId];
+
+   var factor = 1.0;
    console.log(rgbValues);
    var circle = circles.enter().append("circle");
     circle.style("fill", function(d, i) {
        var color;
        if(Object.keys(colorObj).length === 0 && colorObj.constructor === Object){
          //color = "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 15))+"%)";
-         rgbValues =  rgbValues.map(x => x * 1.1);
-
-         color = "rgb(" + rgbValues.join(",") + ")";
+         color = "rgb(" + rgbValues.map(x => x * factor).join(",") + ")";
+         factor -= 0.1;
+         console.log(factor);
          console.log(bubbleChartId);
          var obj = {key: d, value: color};
          dataArr.push(obj);
