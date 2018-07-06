@@ -5,8 +5,7 @@ BubbleDiagram.BubbleView = function(params) {
     "use strict";
 
   var that = new EventPublisher(),
-    bubbleSvg,
-    legendSvg;
+    bubbleSvg;
   var bubbleColors = {}, colorObj = {}, dataArr = [], xDataCircle = [], yDataCircle = [], xDataText = [], yDataText = [],
   transitionDelay = 1000,
   initialPackSize = 960,
@@ -16,7 +15,6 @@ BubbleDiagram.BubbleView = function(params) {
 
   function init() {
     bubbleSvg = params.bubbleSvg;
-    legendSvg = params.legendSvg;
     return that;
   }
 
@@ -39,48 +37,8 @@ BubbleDiagram.BubbleView = function(params) {
 
    updateBubbles(rootNodeChildren, bubbleSvg);
    updateText(rootNodeChildren, bubbleSvg);
-   updateLegend(legendSvg);
    updateLines(rootNodeChildren, bubbleSvg);
   // appendLines(answersWithCount);
- }
-
- function updateLegend (legendSvg) {
-   var legendChart = legendSvg
-   .attr("viewBox","0 0 960 960")
-   .attr("preserveAspectRatio","xMinYMid")
-   .selectAll("svg");
-
-    var circles = legendSvg.selectAll("circle").data(dataArr);
-    var circle = circles.enter().append("circle");
-
-   circle.style("fill", function(d) {
-     return d.data.value;
-   }).call(setUpLegend);
-
- }
-
- function setUpLegend (selection) {
-  selection.attr("r", 100)
-   .attr("cx", function(d, i) {
-     return 200;
-   })
-   .attr("cy", function (d, i) {
-     return 220*i+200;
-   });
-
-   var texts = legendSvg.selectAll("text").data(dataArr);
-
-   texts.exit().remove();
-   texts.enter().append("text")
-   .text(function (d) {
-     return d.data.key.data.key;
-   }).attr("x", function(d){
-   return 500;
- }).attr("y", function(d,i){
-   return 220*i+200;
- }).style("font-size", "75px");
-
-
  }
 
 
