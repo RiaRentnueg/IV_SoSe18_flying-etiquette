@@ -99,16 +99,16 @@
                 <form class ="gender-filter">
                   <input type="checkbox" class="form-check-input female">
                     <label class="radio-inline mr3">
-                      <i class="fas fa-female"></i>
+                      <i class="fas fa-female" data-toggle="tooltip" data-placement="auto" title="female"></i>
                     </label>
                   <input type="checkbox" class="form-check-input male">
                    <label class="radio-inline">
-                     <i class="fas fa-male"></i>
+                     <i class="fas fa-male" data-toggle="tooltip" data-placement="auto" title="male"></i>
                   </label>
                </form>
                <div class="dropdown mt3">
                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                   <i class="fas fa-plane"></i><span class="textDropdown">&nbsp;Frequency of air travel</span>
+                   <i class="fas fa-plane"  data-toggle="tooltip" data-placement="auto" title="How often do you travel by plane?"></i><span class="textDropdown">&nbsp;Frequency of air travel</span>
                    <span class="caret"></span></button>
                    <ul class="dropdown-menu">
                      <li><a>
@@ -127,7 +127,7 @@
                 </div>
                 <div class="dropdown mt3">
                   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    <i class="fas fa-birthday-cake"></i><span class="textDropdown">&nbsp; Age</span>
+                    <i class="fas fa-birthday-cake" data-toggle="tooltip" data-placement="auto" title="How old are you?"></i><span class="textDropdown">&nbsp; Age</span>
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                       <li><a>
@@ -144,7 +144,7 @@
                  </div>
                  <div class="dropdown mt3">
                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                     <i class="fas fa-dollar-sign"></i><span class="textDropdown">&nbsp; Income</span>
+                     <i class="fas fa-dollar-sign" data-toggle="tooltip" data-placement="auto" title="Yearly household income?"></i><span class="textDropdown">&nbsp; Income</span>
                      <span class="caret"></span></button>
                      <ul class="dropdown-menu">
                        <li><a>
@@ -162,7 +162,7 @@
                   </div>
                   <div class="dropdown mt3">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                      <i class="fas fa-graduation-cap"></i><span class="textDropdown">&nbsp; Education</span>
+                      <i class="fas fa-graduation-cap" data-toggle="tooltip" data-placement="auto" title="Highest degree?"></i><span class="textDropdown">&nbsp; Education</span>
                       <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><a>
@@ -179,7 +179,7 @@
                    </div>
                    <div class="dropdown mt3">
                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                       <i class="fas fa-map-marker"></i><span class="textDropdown">&nbsp; Location</span>
+                       <i class="fas fa-map-marker" data-toggle="tooltip" data-placement="auto" title="Where are you from?"></i><span class="textDropdown">&nbsp; Location</span>
                        <span class="caret"></span></button>
                        <ul class="dropdown-menu">
                          <li><a>
@@ -201,7 +201,7 @@
                     </div>
                     <div class="dropdown mt3">
                       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        <i class="fas fa-couch"></i><span class ="textDropdown">&nbsp; Frequency of seat reclining</span>
+                        <i class="fas fa-couch" data-toggle="tooltip" data-placement="auto" title="Do you ever recline your seat when you fly?"></i><span class ="textDropdown">&nbsp; Frequency of seat reclining</span>
                         <span class="caret"></span></button>
                         <ul class="dropdown-menu">
                           <li><a>
@@ -221,13 +221,13 @@
                       <form class ="child-filter mt3">
                         <input type="checkbox" class="form-check-input child" name="optradio">
                           <label class="radio-inline">
-                            <i class="fas fa-child"></i>
+                            <i class="fas fa-child" data-toggle="tooltip" data-placement="auto" title="Do you have any childer under 18?"></i>
                           <!--  <p id="baby-explanation">Does the participant have children?</p>-->
                           </label>
                      </form>
                      <div class="slidecontainer mt2">
                        <input type="range" min="<5" max=">6'6" value="0" class="slider mt2 height">
-                       <p class="current-value mt2">Height: </p>
+                       <p class="current-value mt2" data-toggle="tooltip" data-placement="auto" title="How tall are you?">Height: </p>
                      </div>
                   </div>
                 </div>
@@ -575,6 +575,11 @@
     <script src="resources/js/BubbleModel.js"></script>
     <script>
         BubbleDiagram.init();
+    </script>
+    <script>
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+      });
     </script>
 </body>
 </html>
