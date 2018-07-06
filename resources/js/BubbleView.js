@@ -10,11 +10,36 @@ BubbleDiagram.BubbleView = function(params) {
   transitionDelay = 1000,
   initialPackSize = 960,
   diagramShift;
+  //seat reclining colors are missing -> diagrams not correct in html
+  //need to rename bubbleChart ids in seat
+  var bubbleChartColors = {
+    babyBubbleChart: [245, 124, 0],
+    babyUnrulyBubbleChart: [251, 140, 0],
+    seatTwoArmrestBubbleChart: [106, 27, 154],
+    seatMiddleArmrestBubbleChart: [123, 31, 162],
+    seatWindowShadeBubbleChart: [142, 36, 170],
+    reclineSeatBubbleChart: [229, 57, 53],
+    reclineSeatObligationBubbleChart: [211, 47, 47],
+    reclineSeatPossibilityBubbleChart: [244, 67, 54],
+    generalSpeakingBubbleChart: [158, 157, 36],
+    getUpAisleBubbleChart: [175, 180, 43],
+    bathroomWakeUpBubbleChart: [192, 202, 51],
+    walkArounfWakeUpBubbleChart: [205, 220, 57],
+    switchSeatsFriendsBubbleChart: [0, 151, 167],
+    switchSeatsFamiliyBubbleChart: [0, 172, 193],
+    unsoldSeatBubbleChart: [0, 131, 143],
+    electronicsLandingBubbleChart: [27, 94, 32],
+    smokingBubbleChart: [46, 125, 50]
+  }
 
 
 
   function init() {
     bubbleSvg = params.bubbleSvg;
+    bubbleChartId = bubbleSvg._groups[0][0].id;
+    console.log(bubbleSvg);
+    console.log(bubbleChartId);
+    console.log(bubbleChartColors);
     return that;
   }
 
@@ -46,13 +71,19 @@ BubbleDiagram.BubbleView = function(params) {
 
  function createBubbles (circles) {
 
-   var baseColor = (Math.random() * 360);
+   var rgbValues = bubbleChartColors[bubbleChartId];
+
+   var factor = 1.0;
+   console.log(rgbValues);
    var circle = circles.enter().append("circle");
     circle.style("fill", function(d, i) {
        var color;
        if(Object.keys(colorObj).length === 0 && colorObj.constructor === Object){
-         color = "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 15))+"%)";
-
+         //color = "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 15))+"%)";
+         color = "rgb(" + rgbValues.map(x => x * factor).join(",") + ")";
+         factor -= 0.1;
+         console.log(factor);
+         console.log(bubbleChartId);
          var obj = {key: d, value: color};
          dataArr.push(obj);
        } else {
