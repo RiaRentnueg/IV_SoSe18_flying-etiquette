@@ -10,7 +10,8 @@ FlyingEtiquette.StartDiagramController = function() {
       outerRingSegments,
       outerInfoText,
       innerInfoText,
-      dotsInfoText;
+      dotsInfoText,
+      colorInformation = [];
     
     function setupEventListeners() {
         dots = document.querySelectorAll(".participantDots");
@@ -89,16 +90,23 @@ FlyingEtiquette.StartDiagramController = function() {
     //when hovering over a dot, the answers to the question from the participant appear in the info box
     function showDotsInformation(e) {
         var dotsData,
-            ringAnswers;
+            ringAnswers,
+            tempColor;
         
         //saves the data of the dot temporarily on hover
         dotsData = e.target["__data__"]["data"];
         ringAnswers = document.querySelectorAll(".inner");
+        tempColor = document.querySelectorAll(".tempColor");
         
-        for (let j = 0; j < ringAnswers.length; j++) {
-            //ringAnswers[j].children[0].style.stroke = "white";
-            //ringAnswers[j].children[0].style.strokeWidth = "0.5px";
+        
+        //reset the style of the inner ring segments
+        for (let j = 0; j < tempColor.length; j++) {
+            tempColor[j].style.fill = colorInformation[j];
+            
+            tempColor[j].classList.remove("tempColor");
         }
+        
+        colorInformation = [];
         
         //iterate through the object for every key (question) except the participant ID 
         for(let key in dotsData) {
@@ -112,10 +120,11 @@ FlyingEtiquette.StartDiagramController = function() {
                     segment = ringAnswers[i].children[0];
                 
                 if(question === key && answer === dotsData[key]) {
-                    segment.style.stroke = "blue";
-                    segment.style.strokeWidth = "1px";
-                    segment.style.fill = "rgb(0,0,0)"
-                } 
+                    colorInformation.push(segment.style.fill);
+                    
+                    segment.style.fill = "rgb(0,0,0)";
+                    segment.classList.add("tempColor");
+                }
             }
         }
     }
