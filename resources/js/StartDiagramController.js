@@ -122,11 +122,22 @@ FlyingEtiquette.StartDiagramController = function() {
                 if(question === key && answer === dotsData[key]) {
                     colorInformation.push(segment.style.fill);
                     
-                    segment.style.fill = "rgb(0,0,0)";
+                    segment.style.fill = "rgb(0,0,80)";
                     segment.classList.add("tempColor");
                 }
             }
         }
+        showSelectedParticipant(e.target);
+    }
+    
+    function showSelectedParticipant(test) {
+        for(let i = 1; i < dots.length; i++) {
+            if(dots[i] === test) {
+                dots[i].style.fill = "rgb(0,80,250)";
+            } else {
+                dots[i].style.fill = "rgb(20,20,100)";
+            }
+        }        
     }
     
     
