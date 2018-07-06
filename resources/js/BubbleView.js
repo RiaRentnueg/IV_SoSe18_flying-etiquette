@@ -5,7 +5,7 @@ BubbleDiagram.BubbleView = function(params) {
     "use strict";
 
   var that = new EventPublisher(),
-    bubbleSvg;
+    bubbleSvg, bubbleChartId;
   var bubbleColors = {}, colorObj = {}, dataArr = [], xDataCircle = [], yDataCircle = [], xDataText = [], yDataText = [],
   transitionDelay = 1000,
   initialPackSize = 960,
