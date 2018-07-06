@@ -18,16 +18,18 @@ BubbleDiagram.BubbleView = function(params) {
     return that;
   }
 
+  //updates bubblediagrams with current size and answers (depending in witch filters are selected)
   function setAnswersWithCount(answersWithCount){
-   //var chartSVG = d3.select(selector)
-   var chartSVG = bubbleSvg
-   .attr("viewBox","0 0 960 960")
-   .attr("preserveAspectRatio","xMinYMid")
-   .selectAll("svg");
+    //viewBox is needed for making the bubbleChart responsive
+    var chartSVG = bubbleSvg
+     .attr("viewBox","0 0 960 960")
+     .attr("preserveAspectRatio","xMinYMid")
+     .selectAll("svg");
 
    var rootNode = d3.hierarchy({children: answersWithCount})
-   .sum(
-     function(d) { return d.value;});
+   .sum(function(d) {
+     return d.value;
+   });
 
    var currentPackSize = rootNode.value;//* tpCount;
 
@@ -83,6 +85,7 @@ BubbleDiagram.BubbleView = function(params) {
     var circles = bubbleSvg.selectAll("circle").data(answersWithCount);
     circles.exit().remove();
     createBubbles(circles);
+    //duration is needed, to make the transitions of the bubbles smooth
     circles.transition()
       .duration(transitionDelay)
       .call(setUpCircle);
@@ -122,11 +125,6 @@ BubbleDiagram.BubbleView = function(params) {
     yDataText.push(30);
    return 30;
  }).style("text-anchor", "middle").style("font-size", "20px").attr("class",'labelBox');
-
-
-
-
-
 
  }
 

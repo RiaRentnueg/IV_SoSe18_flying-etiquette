@@ -86,8 +86,8 @@ var BubbleDiagram = (function() {
       filter.genderFilter = null;
     }
     bubbleModel[event.question].loadBubbleData(filterWrapper[event.question]);
-
-    bubbleFilterView[event.question].updateGenderButton(event.gender);
+    
+    bubbleFilterView[event.question].updateGenderButton(event.oppositeElement);
   }
 
   function onChildFilterClicked(event) {
