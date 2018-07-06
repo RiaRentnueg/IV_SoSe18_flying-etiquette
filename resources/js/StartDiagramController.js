@@ -33,8 +33,7 @@ FlyingEtiquette.StartDiagramController = function() {
         }
         
         for(let k = 1; k < dots.length; k++) {
-            dots[k].addEventListener("mouseover", showDotsInformation);
-            dots[k].addEventListener("mouseleave", removeDotsInformaton);
+            dots[k].addEventListener("click", showDotsInformation);
         }
         
     }
@@ -89,26 +88,38 @@ FlyingEtiquette.StartDiagramController = function() {
     
     //when hovering over a dot, the answers to the question from the participant appear in the info box
     function showDotsInformation(e) {
-        var temp,
-            infoString = [];
+        var dotsData,
+            ringAnswers;
         
         //saves the data of the dot temporarily on hover
-        temp = e.target["__data__"]["data"];
+        dotsData = e.target["__data__"]["data"];
+        ringAnswers = document.querySelectorAll(".inner");
         
-        //iterate through the object for every key (question) except the participant ID and add the resulting string, so that infoString includes every answer from the participant
-        for(let key in temp) {
+        for (let j = 0; j < ringAnswers.length; j++) {
+            //ringAnswers[j].children[0].style.stroke = "white";
+            //ringAnswers[j].children[0].style.strokeWidth = "0.5px";
+        }
+        
+        //iterate through the object for every key (question) except the participant ID 
+        for(let key in dotsData) {
             if(key === "value"){
-                infoString += "<br>";
                 continue;
             }
-            infoString += key + ": " + temp[key] + "<br>";
+            
+            for(let i = 0; i < ringAnswers.length; i++) {
+                var question = ringAnswers[i]["__data__"]["data"]["question"],
+                    answer = ringAnswers[i]["__data__"]["data"]["answer"],
+                    segment = ringAnswers[i].children[0];
+                
+                if(question === key && answer === dotsData[key]) {
+                    segment.style.stroke = "blue";
+                    segment.style.strokeWidth = "1px";
+                    segment.style.fill = "rgb(0,0,0)"
+                } 
+            }
         }
-        dotsInfoText.innerHTML = infoString;
     }
     
-    function removeDotsInformaton(e) {
-        dotsInfoText.innerHTML = "";
-    }
     
     that.setupEventListeners = setupEventListeners;
     return that;
