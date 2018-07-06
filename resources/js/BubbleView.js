@@ -6,7 +6,7 @@ BubbleDiagram.BubbleView = function(params) {
 
   var that = new EventPublisher(),
     bubbleSvg, bubbleChartId;
-  var bubbleColors = {}, colorObj = {}, dataArr = [], xDataCircle = [], yDataCircle = [], xDataText = [], yDataText = [],
+  var bubbleColors = {}, colorObj = {}, dataArr = [],
   transitionDelay = 1000,
   initialPackSize = 960,
   diagramShift;
@@ -37,9 +37,6 @@ BubbleDiagram.BubbleView = function(params) {
   function init() {
     bubbleSvg = params.bubbleSvg;
     bubbleChartId = bubbleSvg._groups[0][0].id;
-    console.log(bubbleSvg);
-    console.log(bubbleChartId);
-    console.log(bubbleChartColors);
     return that;
   }
 
@@ -74,7 +71,6 @@ BubbleDiagram.BubbleView = function(params) {
    var rgbValues = bubbleChartColors[bubbleChartId];
 
    var factor = 1.0;
-   console.log(rgbValues);
    var circle = circles.enter().append("circle");
     circle.style("fill", function(d, i) {
        var color;
@@ -82,8 +78,6 @@ BubbleDiagram.BubbleView = function(params) {
          //color = "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 15))+"%)";
          color = "rgb(" + rgbValues.map(x => x * factor).join(",") + ")";
          factor -= 0.1;
-         console.log(factor);
-         console.log(bubbleChartId);
          var obj = {key: d, value: color};
          dataArr.push(obj);
        } else {
@@ -142,20 +136,59 @@ BubbleDiagram.BubbleView = function(params) {
   }
 
  function setUpText(selection) {
-
+   let xValue = 0;
+   let yValue = 30;
+   let yShift = [];
   let texts = selection.attr("x", function(d,i){
+    let textWidth = this.innerHTML.length*10;//this.getBBox().width//this.getComputedTextLength(); //+ this.innerHTML.length*10;
+//     console.log(this.innerHTML);
+//     console.log(this.innerHTML.length);
+//     console.log(textWidth);
+//     console.log(this.getBBox().width);
+// console.log("bla");
+//     console.log(this.getBBox().x2);
 
-   var diagramShift = (856 - d.parent.value)/2;
-   xDataCircle.push(d.x + diagramShift);
-   xDataText.push(300+i*200);
-   return 300+i*200;
+    let result = xValue;
+
+    // if (i > 0) {
+    //   updatedXValue = xValue;// + halfTextWidth;
+    //   xValue = updatedXValue+ textWidth + padding;
+    // }else {
+    //   updatedXValue = xValue ;//+ textShiftWithPadding;
+    //   xValue = updatedXValue + textWidth+ padding;
+    // }
+    //
+    // if(updatedXValue + textWidth > 960){
+    //   //updatedXValue = 0;// + halfTextWidth;
+    //   //xValue = updatedXValue + padding;
+    //   yValue += 30;
+    // }
+
+    xValue = xValue + textWidth;
+    console.log(result);
+
+    console.log("x:");
+    console.log(xValue);
+
+    if ( xValue > 960) {
+      console.log("break");
+      xValue = textWidth;
+      result = 0;
+      yValue += 30;
+    }
+
+
+    console.log("y:");
+    console.log(yValue);
+
+    yShift.push(yValue);
+
+   return result;
  }).attr("y", function(d){
-
-   var diagramShift = (856 - d.parent.value)/2;
-    yDataCircle.push(d.y + diagramShift);
-    yDataText.push(30);
-   return 30;
- }).style("text-anchor", "middle").style("font-size", "20px").attr("class",'labelBox');
+   yValue = yShift[0];
+   yShift.shift();
+   return yValue;
+ }).style("text-anchor", "start").style("font-size", "20px").attr("class",'labelBox');
 
  }
 
