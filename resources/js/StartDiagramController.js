@@ -11,7 +11,8 @@ FlyingEtiquette.StartDiagramController = function() {
       outerInfoText,
       innerInfoText,
       dotsInfoText,
-      colorInformation = [];
+      colorInformation = [],
+      colorRange = ["#1565C0", "#B71C1C", "#C62828", "#EF6C00", "#6A1B9A", "#7B1FA2", "#8E24AA", "#00838F", "#9E9D24", "#AFB42B", "#D32F2F", "#E53935", "#F44336", "#0097A7", "#00ACC1", "#C0CA33", "#CDDC39", "#F57C00", "#FB8C00", "#1B5E20", "#2E7D32", "#1976D2", "#1E88E5", "#2196F3", "#42A5F5", "#64B5F6"];
     
     function setupEventListeners() {
         dots = document.querySelectorAll(".participantDots");
@@ -48,12 +49,31 @@ FlyingEtiquette.StartDiagramController = function() {
         answer = e.target["__data__"]["data"]["answer"];
         
         resetDotsColor();
+        resetInnerRingColor();
         selectDotsColor(keyPair, answer, question);
     }
     
     function resetDotsColor() {
         for(let i = 1; i < dots.length; i++) {
             dots[i].style = ("fill: rgb(20,20,100)");
+        }
+    }
+    
+    //reset Color of inner ring segments, when clicking on an answer, to avoid having the colored answers from clicking on a dot (answers given by the participant change to a different color and would retain that color instead of having the default colors for the corresponding questions and answers)
+    function resetInnerRingColor() {
+        var curQuestion,
+            colorCounter = 0;
+        
+        for(let i = 0; i < innerRingSegments.length; i++) {
+            if(innerRingSegments[i]["__data__"]["data"]["question"] === curQuestion) {
+                innerRingSegments[i].children[0].style.fill = colorRange[colorCounter];
+            } else {
+                if(curQuestion !== undefined) {
+                    colorCounter++;
+                }
+                innerRingSegments[i].children[0].style.fill = colorRange[colorCounter];
+            }
+            curQuestion = innerRingSegments[i]["__data__"]["data"]["question"];
         }
     }
     
