@@ -74,8 +74,13 @@ function handleMouseOver(node, i) {
   })
   // we need the id to remove the text after hovering off the bubble
   .attr("id", "hoverText")
-  .attr("x", node.x - 55)
-  .attr("y", node.y)
+  .attr("x", function(d) {
+    var diagramShift = (participantNumber - node.parent.value)/2;
+    // -55 to center the text in the bubble
+    return node.x + diagramShift - 55})
+  .attr("y", function(d) {
+    var diagramShift = (participantNumber - node.parent.value)/2;
+    return node.y + diagramShift})
   .style("fill", "#E0E0E0")
   .style("font-size", "25px");
 }
