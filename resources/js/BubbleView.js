@@ -65,16 +65,22 @@ BubbleDiagram.BubbleView = function(params) {
   // appendLines(answersWithCount);
  }
 
-function handleMouseOver(d, i) {
-  console.log("mouse over");
-  console.log(d);
-  console.log(i);
-  bubbleSvg.append("text").attr("id", "hoverText").text(d.value).attr("x", d.x).attr("y", d.y);
+// show number of given answers on Hover
+function handleMouseOver(node, i) {
+  bubbleSvg.append("text").text(function(d) {
+    let text = node.value + " von " + 800;
+    return text;
+  })
+  // we need the id to remove the text after hovering off the bubble
+  .attr("id", "hoverText")
+  .attr("x", node.x - 55)
+  .attr("y", node.y)
+  .style("fill", "#E0E0E0")
+  .style("font-size", "25px");
 }
 
 function handleMouseOut(){
   bubbleSvg.select("#hoverText").remove();
-  console.log("mouse out");
 }
 
  function createBubbles (circles) {
