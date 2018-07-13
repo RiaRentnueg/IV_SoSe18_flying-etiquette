@@ -65,13 +65,27 @@ BubbleDiagram.BubbleView = function(params) {
   // appendLines(answersWithCount);
  }
 
+function handleMouseOver(d, i) {
+  console.log("mouse over");
+  console.log(d);
+  console.log(i);
+  bubbleSvg.append("text").attr("id", "hoverText").text(d.value).attr("x", d.x).attr("y", d.y);
+}
+
+function handleMouseOut(){
+  bubbleSvg.select("#hoverText").remove();
+  console.log("mouse out");
+}
 
  function createBubbles (circles) {
 
    var rgbValues = bubbleChartColors[bubbleChartId];
 
    var factor = 1.0;
-   var circle = circles.enter().append("circle");
+   var circle = circles.enter().append("circle")
+    .on("mouseover", handleMouseOver)
+    .on("mouseout", handleMouseOut);
+
     circle.style("fill", function(d, i) {
        var color;
        if(Object.keys(colorObj).length === 0 && colorObj.constructor === Object){
