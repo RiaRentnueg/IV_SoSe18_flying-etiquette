@@ -9,6 +9,7 @@ BubbleDiagram.BubbleView = function(params) {
   var bubbleColors = {}, colorObj = {}, dataArr = [], lineX1 = [], lineY1 = [],
   transitionDelay = 1000,
   initialPackSize = 960,
+  participantNumber = 856,
   diagramShift;
   //seat reclining colors are missing -> diagrams not correct in html
   //need to rename bubbleChart ids in seat
@@ -126,7 +127,7 @@ function handleMouseOut(){
 
   function updateBubbles (answersWithCount, bubbleSvg) {
 
-    var dataObj = {name: "bubbleArray", size: 856, children: answersWithCount};
+    var dataObj = {name: "bubbleArray", size: participantNumber, children: answersWithCount};
     var circles = bubbleSvg.selectAll("circle").data(answersWithCount);
     circles.exit().remove();
     createBubbles(circles);
@@ -140,10 +141,10 @@ function handleMouseOut(){
    selection.attr("r", function (d){
      return d.r;
    }).attr("cx", function(d){
-     var diagramShift = (856 - d.parent.value)/2;
+     var diagramShift = (participantNumber - d.parent.value)/2;
      return d.x + diagramShift;
    }).attr("cy", function(d, diagramShift){
-     var diagramShift = (856 - d.parent.value)/2;
+     var diagramShift = (participantNumber - d.parent.value)/2;
      return d.y + diagramShift;
    });
  }
@@ -224,10 +225,10 @@ function handleMouseOut(){
     //lineY1.shift();
    return result;
   }).attr("x2", function(d,i){
-   var diagramShift = (856 - d.parent.value)/2;
+   var diagramShift = (participantNumber - d.parent.value)/2;
    return d.x + diagramShift;
  }).attr("y2", function(d){
-    var diagramShift = (856 - d.parent.value)/2;
+    var diagramShift = (participantNumber - d.parent.value)/2;
     return d.y + diagramShift;
  }).style("stroke", function(d) {
    return 'black';
