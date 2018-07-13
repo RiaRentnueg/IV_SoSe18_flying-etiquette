@@ -79,15 +79,15 @@ var BubbleDiagram = (function() {
     })).init();
   }
 
-  function onGenderFilterClicked(event) {
-    if (event.value) {
-      filter.genderFilter = event.gender;
+  function onGenderFilterClicked(notificationData) {
+    if (notificationData.value) {
+      filter.genderFilter = notificationData.gender;
     } else {
       filter.genderFilter = null;
     }
-    bubbleModel[event.question].loadBubbleData(filterWrapper[event.question]);
-    
-    bubbleFilterView[event.question].updateGenderButton(event.oppositeElement);
+    bubbleModel[notificationData.question].loadBubbleData(filterWrapper[notificationData.question]);
+
+    bubbleFilterView[notificationData.question].updateGenderButton(notificationData.oppositeElement);
   }
 
   function onChildFilterClicked(event) {
