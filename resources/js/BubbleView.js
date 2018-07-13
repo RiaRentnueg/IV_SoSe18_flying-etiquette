@@ -6,7 +6,7 @@ BubbleDiagram.BubbleView = function(params) {
 
   var that = new EventPublisher(),
     bubbleSvg, bubbleChartId;
-  var bubbleColors = {}, colorObj = {}, dataArr = [],
+  var bubbleColors = {}, colorObj = {}, dataArr = [], lineX1 = [], lineY1 = [],
   transitionDelay = 1000,
   initialPackSize = 960,
   diagramShift;
@@ -138,7 +138,7 @@ BubbleDiagram.BubbleView = function(params) {
  function setUpText(selection) {
    let xValue = 0;
    let yValue = 30;
-   let yShift = [];
+
   let texts = selection.attr("x", function(d,i){
     let textWidth = this.innerHTML.length*10;//this.getBBox().width//this.getComputedTextLength(); //+ this.innerHTML.length*10;
 //     console.log(this.innerHTML);
@@ -174,22 +174,19 @@ BubbleDiagram.BubbleView = function(params) {
       console.log("break");
       xValue = textWidth;
       result = 0;
-      yValue += 30;
+      yValue += 40;
     }
 
 
     console.log("y:");
     console.log(yValue);
+    lineX1.push(result);
+    lineY1.push(yValue);
+   return lineX1[i];
+ }).attr("y", function(d,i){
 
-    yShift.push(yValue);
-
-   return result;
- }).attr("y", function(d){
-   yValue = yShift[0];
-   yShift.shift();
-   return yValue;
+   return lineY1[i]-10;
  }).style("text-anchor", "start").style("font-size", "20px").attr("class",'labelBox');
-
  }
 
 
@@ -213,10 +210,15 @@ BubbleDiagram.BubbleView = function(params) {
 
  function setUpLine(selection) {
 
-   selection.attr("x1", function(d,i){
-    return 300+i*200;
-  }).attr("y1", function(d){
-    return 40;
+   selection
+   .attr("x1", function(d,i){
+     let result = lineX1[i];
+     //lineX1.shift();
+    return result;
+  }).attr("y1", function(d,i){
+    let result = lineY1[i];
+    //lineY1.shift();
+   return result;
   }).attr("x2", function(d,i){
    var diagramShift = (856 - d.parent.value)/2;
    return d.x + diagramShift;
