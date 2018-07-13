@@ -69,7 +69,7 @@ BubbleDiagram.BubbleView = function(params) {
 // show number of given answers on Hover
 function handleMouseOver(node, i) {
   bubbleSvg.append("text").text(function(d) {
-    let text = node.value + " von " + 800;
+    let text = node.value + " von " + 856;
     return text;
   })
   // we need the id to remove the text after hovering off the bubble
