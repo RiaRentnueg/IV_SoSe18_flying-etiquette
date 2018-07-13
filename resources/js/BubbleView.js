@@ -142,10 +142,11 @@ BubbleDiagram.BubbleView = function(params) {
   let texts = selection.attr("x", function(d,i){
     let textWidth = this.innerHTML.length*10;
     let result = xValue + textWidth/2;
+    let padding = textWidth/2 + 15;
 
     if (xValue === 0) {
       xValue = textWidth;
-      result = textWidth/2 + 15;
+      result = padding;
     }
     xValue = result + textWidth;
     console.log(result);
@@ -156,7 +157,7 @@ BubbleDiagram.BubbleView = function(params) {
     if ( xValue > 960 ) {
       console.log("break");
       xValue = textWidth;
-      result = textWidth/2 + 15;
+      result = padding;
       yValue += 40;
     }
 
