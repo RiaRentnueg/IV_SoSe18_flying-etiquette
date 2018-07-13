@@ -140,40 +140,23 @@ BubbleDiagram.BubbleView = function(params) {
    let yValue = 30;
 
   let texts = selection.attr("x", function(d,i){
-    let textWidth = this.innerHTML.length*10;//this.getBBox().width//this.getComputedTextLength(); //+ this.innerHTML.length*10;
-//     console.log(this.innerHTML);
-//     console.log(this.innerHTML.length);
-//     console.log(textWidth);
-//     console.log(this.getBBox().width);
-// console.log("bla");
-//     console.log(this.getBBox().x2);
+    let textWidth = this.innerHTML.length*10;
+    let result = xValue + textWidth/2;
 
-    let result = xValue;
-
-    // if (i > 0) {
-    //   updatedXValue = xValue;// + halfTextWidth;
-    //   xValue = updatedXValue+ textWidth + padding;
-    // }else {
-    //   updatedXValue = xValue ;//+ textShiftWithPadding;
-    //   xValue = updatedXValue + textWidth+ padding;
-    // }
-    //
-    // if(updatedXValue + textWidth > 960){
-    //   //updatedXValue = 0;// + halfTextWidth;
-    //   //xValue = updatedXValue + padding;
-    //   yValue += 30;
-    // }
-
-    xValue = xValue + textWidth;
+    if (xValue === 0) {
+      xValue = textWidth;
+      result = textWidth/2 + 15;
+    }
+    xValue = result + textWidth;
     console.log(result);
 
     console.log("x:");
     console.log(xValue);
 
-    if ( xValue > 960) {
+    if ( xValue > 960 ) {
       console.log("break");
       xValue = textWidth;
-      result = 0;
+      result = textWidth/2 + 15;
       yValue += 40;
     }
 
@@ -186,7 +169,7 @@ BubbleDiagram.BubbleView = function(params) {
  }).attr("y", function(d,i){
 
    return lineY1[i]-10;
- }).style("text-anchor", "start").style("font-size", "20px").attr("class",'labelBox');
+ }).style("text-anchor", "middle").style("font-size", "20px").attr("class",'labelBox');
  }
 
 
