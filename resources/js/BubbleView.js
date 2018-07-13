@@ -71,7 +71,7 @@ function handleMouseOver(node, i) {
   bubbleSvg.append("text").text(function(d) {
     let text = node.value + " von " + 856;
     return text;
-  })
+  }).attr("pointer-events", "none")
   // we need the id to remove the text after hovering off the bubble
   .attr("id", "hoverText")
   .attr("x", function(d) {
