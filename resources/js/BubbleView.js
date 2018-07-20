@@ -68,6 +68,11 @@ BubbleDiagram.BubbleView = function(params) {
 
 // show number of given answers on Hover
 function handleMouseOver(node, i) {
+  let extraYShift = 0;
+  if(bubbleSvg._groups[0][0].id === "seatTwoArmrestBubbleChart" || bubbleSvg._groups[0][0].id === "seatMiddleArmrestBubbleChart"){
+    console.log("im if");
+    extraYShift = 100;
+  }
   bubbleSvg.append("text").text(function(d) {
     let text = node.value + " von " + 856;
     return text;
@@ -80,7 +85,7 @@ function handleMouseOver(node, i) {
     return node.x + diagramShift - 55})
   .attr("y", function(d) {
     var diagramShift = (participantNumber - node.parent.value)/2;
-    return node.y + diagramShift})
+    return node.y + diagramShift + extraYShift})
   .style("fill", "#E0E0E0")
   .style("font-size", "25px");
 }
