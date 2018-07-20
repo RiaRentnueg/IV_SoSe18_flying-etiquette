@@ -143,15 +143,28 @@ function handleMouseOut(){
    }
 
  function setUpCircle(selection) {
-   selection.attr("r", function (d){
-     return d.r;
-   }).attr("cx", function(d){
-     var diagramShift = (participantNumber - d.parent.value)/2;
-     return d.x + diagramShift;
-   }).attr("cy", function(d, diagramShift){
-     var diagramShift = (participantNumber - d.parent.value)/2;
-     return d.y + diagramShift;
-   });
+   // these questions have the longest answers. If they are not shifted, they overlay the bubbles
+   if (selection._parents[0].id === "seatTwoArmrestBubbleChart" || selection._parents[0].id === "seatMiddleArmrestBubbleChart") {
+     selection.attr("r", function (d){
+       return d.r;
+     }).attr("cx", function(d){
+       var diagramShift = (participantNumber - d.parent.value)/2;
+       return d.x + diagramShift;
+     }).attr("cy", function(d, diagramShift){
+       var diagramShift = (participantNumber - d.parent.value)/2;
+       return d.y + diagramShift + 100;
+     });
+   } else {
+     selection.attr("r", function (d){
+       return d.r;
+     }).attr("cx", function(d){
+       var diagramShift = (participantNumber - d.parent.value)/2;
+       return d.x + diagramShift;
+     }).attr("cy", function(d, diagramShift){
+       var diagramShift = (participantNumber - d.parent.value)/2;
+       return d.y + diagramShift;
+     });
+   }
  }
 
  function addText(texts){
@@ -175,21 +188,11 @@ function handleMouseOut(){
       result = padding;
     }
     xValue = result + textWidth;
-    console.log(result);
-
-    console.log("x:");
-    console.log(xValue);
-
     if ( xValue > 960 ) {
-      console.log("break");
       xValue = textWidth;
       result = padding;
       yValue += 40;
     }
-
-
-    console.log("y:");
-    console.log(yValue);
     lineX1.push(result);
     lineY1.push(yValue);
    return lineX1[i];
