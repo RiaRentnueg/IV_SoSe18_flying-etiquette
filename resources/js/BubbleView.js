@@ -68,10 +68,6 @@ BubbleDiagram.BubbleView = function(params) {
 
 // show number of given answers on Hover
 function handleMouseOver(node, i) {
-  let extraYShift = 0;
-  if(bubbleSvg._groups[0][0].id === "seatTwoArmrestBubbleChart" || bubbleSvg._groups[0][0].id === "seatMiddleArmrestBubbleChart"){
-    extraYShift = 100;
-  }
   bubbleSvg.append("text").text(function(d) {
     let text = node.value + " von " + 856;
     return text;
@@ -84,9 +80,18 @@ function handleMouseOver(node, i) {
     return node.x + diagramShift - 55})
   .attr("y", function(d) {
     var diagramShift = (participantNumber - node.parent.value)/2;
-    return node.y + diagramShift + extraYShift})
+    return node.y + diagramShift + getExtraYShift();
+  })
   .style("fill", "#E0E0E0")
   .style("font-size", "25px");
+}
+
+function getExtraYShift(){
+  // these questions have the longest answers. If they are not shifted, they overlay the bubbles. If the current bubblechart is one of these two, than the extraYShift is set to 100. If not it stays 0 and down there where cy is set, 0 is added.
+  if(bubbleSvg._groups[0][0].id === "seatTwoArmrestBubbleChart" || bubbleSvg._groups[0][0].id === "seatMiddleArmrestBubbleChart"){
+    return 100;
+  }
+  return 0;
 }
 
 function handleMouseOut(){
@@ -147,12 +152,6 @@ function handleMouseOut(){
    }
 
  function setUpCircle(selection) {
-   let extraYShift = 0;
-   // these questions have the longest answers. If they are not shifted, they overlay the bubbles. If the current bubblechart is one of these two, than the extraYShift is set to 100. If not it stays 0 and down there where cy is set, 0 is added.
-   if(bubbleSvg._groups[0][0].id === "seatTwoArmrestBubbleChart" || bubbleSvg._groups[0][0].id === "seatMiddleArmrestBubbleChart"){
-     extraYShift = 100;
-   }
-
      selection.attr("r", function (d){
        return d.r;
      }).attr("cx", function(d){
@@ -160,7 +159,7 @@ function handleMouseOut(){
        return d.x + diagramShift;
      }).attr("cy", function(d, diagramShift){
        var diagramShift = (participantNumber - d.parent.value)/2;
-       return d.y + diagramShift + extraYShift;
+       return d.y + diagramShift + getExtraYShift();
      });
 
  }
@@ -231,13 +230,9 @@ function handleMouseOut(){
    var diagramShift = (participantNumber - d.parent.value)/2;
    return d.x + diagramShift;
   }).attr("y2", function(d){
-    if (selection._parents[0].id === "seatTwoArmrestBubbleChart" || selection._parents[0].id === "seatMiddleArmrestBubbleChart") {
-      var diagramShift = (participantNumber - d.parent.value)/2;
-      return d.y + diagramShift + 100;
-      } else {
         var diagramShift = (participantNumber - d.parent.value)/2;
-        return d.y + diagramShift;
-      }
+        return d.y + diagramShift + getExtraYShift();
+
   }).style("stroke", function(d) {
    return 'black';
   }).style("stroke-width", 1);
