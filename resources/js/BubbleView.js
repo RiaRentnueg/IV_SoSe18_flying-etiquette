@@ -222,28 +222,27 @@ function handleMouseOut(){
 
 
  function setUpLine(selection) {
-
    selection
    .attr("x1", function(d,i){
-     let result = lineX1[i];
-     //lineX1.shift();
+    let result = lineX1[i];
     return result;
   }).attr("y1", function(d,i){
     let result = lineY1[i];
-    //lineY1.shift();
-   return result;
+    return result;
   }).attr("x2", function(d,i){
    var diagramShift = (participantNumber - d.parent.value)/2;
    return d.x + diagramShift;
- }).attr("y2", function(d){
-    var diagramShift = (participantNumber - d.parent.value)/2;
-    return d.y + diagramShift;
- }).style("stroke", function(d) {
+  }).attr("y2", function(d){
+    if (selection._parents[0].id === "seatTwoArmrestBubbleChart" || selection._parents[0].id === "seatMiddleArmrestBubbleChart") {
+      var diagramShift = (participantNumber - d.parent.value)/2;
+      return d.y + diagramShift + 100;
+      } else {
+        var diagramShift = (participantNumber - d.parent.value)/2;
+        return d.y + diagramShift;
+      }
+  }).style("stroke", function(d) {
    return 'black';
- })  // colour the line
- .style("stroke-width", 1);
-  //.style("text-anchor", "middle").style("font-size", "20px").attr("class",'labelBox');
-
+  }).style("stroke-width", 1);
  }
 
  function updateText (answersWithCount, bubbleSvg) {
