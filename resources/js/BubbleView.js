@@ -6,9 +6,10 @@ BubbleDiagram.BubbleView = function(params) {
 
   var that = new EventPublisher(),
     bubbleSvg, bubbleChartId;
-  var bubbleColors = {}, colorObj = {}, dataArr = [], xDataCircle = [], yDataCircle = [], xDataText = [], yDataText = [],
+  var bubbleColors = {}, colorObj = {}, dataArr = [], lineX1 = [], lineY1 = [],
   transitionDelay = 1000,
   initialPackSize = 960,
+  participantNumber = 856,
   diagramShift;
   //seat reclining colors are missing -> diagrams not correct in html
   //need to rename bubbleChart ids in seat
@@ -37,9 +38,6 @@ BubbleDiagram.BubbleView = function(params) {
   function init() {
     bubbleSvg = params.bubbleSvg;
     bubbleChartId = bubbleSvg._groups[0][0].id;
-    console.log(bubbleSvg);
-    console.log(bubbleChartId);
-    console.log(bubbleChartColors);
     return that;
   }
 
@@ -68,22 +66,53 @@ BubbleDiagram.BubbleView = function(params) {
   // appendLines(answersWithCount);
  }
 
+// show number of given answers on Hover
+function handleMouseOver(node, i) {
+  bubbleSvg.append("text").text(function(d) {
+    let text = node.value + " von " + 856;
+    return text;
+  }).attr("pointer-events", "none")
+  // we need the id to remove the text after hovering off the bubble
+  .attr("id", "hoverText")
+  .attr("x", function(d) {
+    var diagramShift = (participantNumber - node.parent.value)/2;
+    // -55 to center the text in the bubble
+    return node.x + diagramShift - 55})
+  .attr("y", function(d) {
+    var diagramShift = (participantNumber - node.parent.value)/2;
+    return node.y + diagramShift + getExtraYShift();
+  })
+  .style("fill", "#E0E0E0")
+  .style("font-size", "25px");
+}
+
+function getExtraYShift(){
+  // these questions have the longest answers. If they are not shifted, they overlay the bubbles. If the current bubblechart is one of these two, than the extraYShift is set to 100. If not it stays 0 and down there where cy is set, 0 is added.
+  if(bubbleSvg._groups[0][0].id === "seatTwoArmrestBubbleChart" || bubbleSvg._groups[0][0].id === "seatMiddleArmrestBubbleChart"){
+    return 100;
+  }
+  return 0;
+}
+
+function handleMouseOut(){
+  bubbleSvg.select("#hoverText").remove();
+}
 
  function createBubbles (circles) {
 
    var rgbValues = bubbleChartColors[bubbleChartId];
 
    var factor = 1.0;
-   console.log(rgbValues);
-   var circle = circles.enter().append("circle");
+   var circle = circles.enter().append("circle")
+    .on("mouseover", handleMouseOver)
+    .on("mouseout", handleMouseOut);
+
     circle.style("fill", function(d, i) {
        var color;
        if(Object.keys(colorObj).length === 0 && colorObj.constructor === Object){
          //color = "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 15))+"%)";
          color = "rgb(" + rgbValues.map(x => x * factor).join(",") + ")";
          factor -= 0.1;
-         console.log(factor);
-         console.log(bubbleChartId);
          var obj = {key: d, value: color};
          dataArr.push(obj);
        } else {
@@ -112,7 +141,7 @@ BubbleDiagram.BubbleView = function(params) {
 
   function updateBubbles (answersWithCount, bubbleSvg) {
 
-    var dataObj = {name: "bubbleArray", size: 856, children: answersWithCount};
+    var dataObj = {name: "bubbleArray", size: participantNumber, children: answersWithCount};
     var circles = bubbleSvg.selectAll("circle").data(answersWithCount);
     circles.exit().remove();
     createBubbles(circles);
@@ -123,15 +152,16 @@ BubbleDiagram.BubbleView = function(params) {
    }
 
  function setUpCircle(selection) {
-   selection.attr("r", function (d){
-     return d.r;
-   }).attr("cx", function(d){
-     var diagramShift = (856 - d.parent.value)/2;
-     return d.x + diagramShift;
-   }).attr("cy", function(d, diagramShift){
-     var diagramShift = (856 - d.parent.value)/2;
-     return d.y + diagramShift;
-   });
+     selection.attr("r", function (d){
+       return d.r;
+     }).attr("cx", function(d){
+       var diagramShift = (participantNumber - d.parent.value)/2;
+       return d.x + diagramShift;
+     }).attr("cy", function(d, diagramShift){
+       var diagramShift = (participantNumber - d.parent.value)/2;
+       return d.y + diagramShift + getExtraYShift();
+     });
+
  }
 
  function addText(texts){
@@ -142,21 +172,31 @@ BubbleDiagram.BubbleView = function(params) {
   }
 
  function setUpText(selection) {
+   let xValue = 0;
+   let yValue = 30;
 
   let texts = selection.attr("x", function(d,i){
+    let textWidth = this.innerHTML.length*10;
+    let result = xValue + textWidth/2;
+    let padding = textWidth/2 + 15;
 
-   var diagramShift = (856 - d.parent.value)/2;
-   xDataCircle.push(d.x + diagramShift);
-   xDataText.push(300+i*200);
-   return 300+i*200;
- }).attr("y", function(d){
+    if (xValue === 0) {
+      xValue = textWidth;
+      result = padding;
+    }
+    xValue = result + textWidth;
+    if ( xValue > 960 ) {
+      xValue = textWidth;
+      result = padding;
+      yValue += 40;
+    }
+    lineX1.push(result);
+    lineY1.push(yValue);
+   return lineX1[i];
+ }).attr("y", function(d,i){
 
-   var diagramShift = (856 - d.parent.value)/2;
-    yDataCircle.push(d.y + diagramShift);
-    yDataText.push(30);
-   return 30;
+   return lineY1[i]-10;
  }).style("text-anchor", "middle").style("font-size", "20px").attr("class",'labelBox');
-
  }
 
 
@@ -179,23 +219,23 @@ BubbleDiagram.BubbleView = function(params) {
 
 
  function setUpLine(selection) {
-
-   selection.attr("x1", function(d,i){
-    return 300+i*200;
-  }).attr("y1", function(d){
-    return 40;
+   selection
+   .attr("x1", function(d,i){
+    let result = lineX1[i];
+    return result;
+  }).attr("y1", function(d,i){
+    let result = lineY1[i];
+    return result;
   }).attr("x2", function(d,i){
-   var diagramShift = (856 - d.parent.value)/2;
+   var diagramShift = (participantNumber - d.parent.value)/2;
    return d.x + diagramShift;
- }).attr("y2", function(d){
-    var diagramShift = (856 - d.parent.value)/2;
-    return d.y + diagramShift;
- }).style("stroke", function(d) {
-   return 'black';
- })  // colour the line
- .style("stroke-width", 1);
-  //.style("text-anchor", "middle").style("font-size", "20px").attr("class",'labelBox');
+  }).attr("y2", function(d){
+        var diagramShift = (participantNumber - d.parent.value)/2;
+        return d.y + diagramShift + getExtraYShift();
 
+  }).style("stroke", function(d) {
+   return 'black';
+  }).style("stroke-width", 1);
  }
 
  function updateText (answersWithCount, bubbleSvg) {
