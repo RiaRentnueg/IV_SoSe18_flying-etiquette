@@ -2,13 +2,14 @@ body{
   font-family: 'Roboto', sans-serif;
 }
 h3{
-  padding: 40px;
+  padding-top: 60px;
+  padding-bottom: 40px;
   text-align: center;
   font-size: 6em;
 }
 
-.legend {
-  vertical-align: top;
+img {
+  height: 60px;
 }
 
 .bubbleQuestion{
@@ -17,10 +18,15 @@ h3{
 }
 .navbar-default {
   background-image: linear-gradient(to bottom,#B3E5FC 0,#B3E5FC 100%);
+  min-height: 80px;
 }
 
 .navbar-default .navbar-nav>li>a {
   color: #0277BD;
+  line-height: 50px;
+
+  font-size: 1.5em;
+
 }
 
 .navbar-default .navbar-brand {
@@ -156,6 +162,32 @@ a:hover{
     padding: 20px;
     p {
     }
+  }
+
+  .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+  }
+
+  .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      top: -5px;
+      left: 105%;
+  }
+
+  .tooltip:hover .tooltiptext {
+      visibility: visible;
   }
 
 .startDiagramBox {
