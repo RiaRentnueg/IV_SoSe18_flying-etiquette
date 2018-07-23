@@ -18,10 +18,9 @@ var BubbleDiagram = (function() {
     bubbleCharts = d3.selectAll(".questionView");
     bubbleCharts._groups[0].forEach(function(element) {
       var bubbleSvg = d3.select(element).select(".bubbleDiagram");
-      var legendSvg = d3.select(element).select(".legend");
       var question = d3.select(element).select("h2").node().innerText;
       var filters = d3.select(element).select(".standardFilters").node();
-      bubbleView[question] = initBubbleView(bubbleSvg, legendSvg);
+      bubbleView[question] = initBubbleView(bubbleSvg);
       bubbleModel[question] = initBubbleModel(question);
       bubbleDiagramController[question] = initBubbleDiagramController(question, filters);
       bubbleFilterView[question] = initBubbleFilterView(filters);
@@ -67,10 +66,9 @@ var BubbleDiagram = (function() {
     bubbleView[event.data.question].setAnswersWithCount(event.data.answersWithCount);
   }
 
-  function initBubbleView(bubbleSvg, legendSvg) {
+  function initBubbleView(bubbleSvg) {
     return (new BubbleDiagram.BubbleView({
       bubbleSvg: bubbleSvg,
-      legendSvg: legendSvg,
     })).init();
   }
 
@@ -81,15 +79,15 @@ var BubbleDiagram = (function() {
     })).init();
   }
 
-  function onGenderFilterClicked(event) {
-    if (event.value) {
-      filter.genderFilter = event.gender;
+  function onGenderFilterClicked(notificationData) {
+    if (notificationData.value) {
+      filter.genderFilter = notificationData.gender;
     } else {
       filter.genderFilter = null;
     }
-    bubbleModel[event.question].loadBubbleData(filterWrapper[event.question]);
+    bubbleModel[notificationData.question].loadBubbleData(filterWrapper[notificationData.question]);
 
-    bubbleFilterView[event.question].updateGenderButton(event.gender);
+    bubbleFilterView[notificationData.question].updateGenderButton(notificationData.oppositeElement);
   }
 
   function onChildFilterClicked(event) {
