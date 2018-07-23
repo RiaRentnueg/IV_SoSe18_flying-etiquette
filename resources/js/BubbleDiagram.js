@@ -30,7 +30,6 @@ var BubbleDiagram = (function() {
 
   function initBubbleDiagramController(question, filterNode) {
     var result;
-    if (document.querySelector(".special-filter") != null) {
       result = (new BubbleDiagram.BubbleDiagramController({
         filter:  filterNode,
         genderFilter: d3.select(filterNode).select(".gender-filter").node(),
@@ -38,13 +37,7 @@ var BubbleDiagram = (function() {
         slider: d3.select(filterNode).select(".slidecontainer").node(),
         question: question,
       })).init();
-    } else {
-      result = (new BubbleDiagram.BubbleDiagramController({
-        filter:  filterNode,
-        genderFilter: d3.select(filterNode).select(".gender-filter").node(),
-        question: question,
-      })).init2();
-    }
+  
     result.setOnFilterClickListener(onOptionSelected);
     result.setOnGenderFilterClickListener(onGenderFilterClicked);
     result.setOnSliderClickListener(onSliderClicked);

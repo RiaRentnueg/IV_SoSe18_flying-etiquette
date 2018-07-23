@@ -18,23 +18,20 @@ BubbleDiagram.BubbleDiagramController = function(params) {
     question = params.question;
     filter = params.filter;
     genderFilter = params.genderFilter;
-    slider = params.slider;
-    childFilter = params.childFilter;
-    childFilter.addEventListener("change", onChildFilterClicked);
-    slider.addEventListener("input", onSliderClicked);
+    if(params.childFilter != null){
+      childFilter = params.childFilter;
+      childFilter.addEventListener("change", onChildFilterClicked);
+    }
+    if(params.slider != null){
+      slider = params.slider;
+      slider.addEventListener("input", onSliderClicked);
+    }
     filter.addEventListener("click", onFilterOptionClicked);
     genderFilter.addEventListener("click", onGenderFilterClicked);
     return that;
   }
 
-  function init2() {
-    filter = params.filter;
-    question = params.question;
-    genderFilter = params.genderFilter;
-    filter.addEventListener("click", onFilterOptionClicked);
-    genderFilter.addEventListener("click", onGenderFilterClicked);
-    return that;
-  }
+
 
   function onChildFilterClicked(event) {
     var checked = false;
@@ -87,7 +84,7 @@ BubbleDiagram.BubbleDiagramController = function(params) {
       //retrieve the include tag for gender female
       oppositeElement = event.target.previousElementSibling.previousElementSibling;
     }
-    
+
     var checked = false;
     if (event.target.checked) {
       checked = true;
@@ -137,7 +134,6 @@ BubbleDiagram.BubbleDiagramController = function(params) {
 
 
   that.init = init;
-  that.init2 = init2;
   that.setOnFilterClickListener = setOnFilterClickListener;
   that.setOnGenderFilterClickListener = setOnGenderFilterClickListener;
   that.setOnSliderClickListener = setOnSliderClickListener;
