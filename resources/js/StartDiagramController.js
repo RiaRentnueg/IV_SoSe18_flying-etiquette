@@ -12,6 +12,7 @@ FlyingEtiquette.StartDiagramController = function() {
       innerInfoText,
       dotsInfoText,
       activeSegments = [],
+      activeDot = [],
       colorRange = ["#1565C0", "#B71C1C", "#C62828", "#EF6C00", "#6A1B9A", "#7B1FA2", "#8E24AA", "#00838F", "#9E9D24", "#AFB42B", "#D32F2F", "#E53935", "#F44336", "#0097A7", "#00ACC1", "#C0CA33", "#CDDC39", "#F57C00", "#FB8C00", "#1B5E20", "#2E7D32", "#1976D2", "#1E88E5", "#2196F3", "#42A5F5", "#64B5F6"];
     
     function setupEventListeners() {
@@ -99,23 +100,39 @@ FlyingEtiquette.StartDiagramController = function() {
     
     //only highlight a dot when the answer belongs to the right question, because there are multiple answers that consist of the same words but belong to different questions
     function selectDotsColor(keyPair) {
-        for(let j = 0; j < activeSegments.length; j++) {
+        var tempActiveDot = [];
+        activeDot = [];
         
-            for(let i = 1; i < dots.length; i++) {
-                keyPair = dots[i]["__data__"]["data"];
-                
-                //iterate through the data of the dot, e.g. the answers of the participant for every key (question)
-                for (let key in keyPair){
-                    if (activeSegments[j]["__data__"]["data"]["answer"] === keyPair[key] && key === activeSegments[j]["__data__"]["data"]["question"]) {
-                        if(j === 0) {
-                            dots[i].style = ("fill: rgb(0,80,250)");
-                        } else if(j > 0 || (activeSegments[j]["__data__"]["data"]["answer"] !== keyPair[key] || key !== activeSegments[j]["__data__"]["data"]["question"])) {
-                            console.log("ist");
-                            dots[i].style = ("fill: rgb(20,20,100)");
+        for(let j = 0; j < activeSegments.length; j++) {
+            
+            if (j === 0) {
+                for(let i = 1; i < dots.length; i++) {
+                    keyPair = dots[i]["__data__"]["data"];
+
+                    for (let key in keyPair){
+                        if (activeSegments[j]["__data__"]["data"]["answer"] === keyPair[key] && key === activeSegments[j]["__data__"]["data"]["question"]) {
+                            activeDot.push(dots[i]);
                         }
                     }
                 }
+                
+            } else {
+                for(let k = 0; k < activeDot.length; k++) {
+                    keyPair = activeDot[k]["__data__"]["data"];
+                    
+                    for (let key in keyPair){
+                        if (activeSegments[j]["__data__"]["data"]["answer"] === keyPair[key] && key === activeSegments[j]["__data__"]["data"]["question"]) {
+                            tempActiveDot.push(activeDot[k]);
+                        }
+                    }
+                }
+                activeDot = tempActiveDot;
+                tempActiveDot = []
             }
+        }
+        
+        for(let h = 0; h < activeDot.length; h++) {
+            activeDot[h].style = ("fill: rgb(0,80,250)");
         }
     }
     
