@@ -11,7 +11,6 @@ FlyingEtiquette.StartDiagramController = function() {
       outerInfoText,
       innerInfoText,
       dotsInfoText,
-      colorInformation = [],
       activeSegments = [],
       colorRange = ["#1565C0", "#B71C1C", "#C62828", "#EF6C00", "#6A1B9A", "#7B1FA2", "#8E24AA", "#00838F", "#9E9D24", "#AFB42B", "#D32F2F", "#E53935", "#F44336", "#0097A7", "#00ACC1", "#C0CA33", "#CDDC39", "#F57C00", "#FB8C00", "#1B5E20", "#2E7D32", "#1976D2", "#1E88E5", "#2196F3", "#42A5F5", "#64B5F6"];
     
@@ -108,7 +107,12 @@ FlyingEtiquette.StartDiagramController = function() {
                 //iterate through the data of the dot, e.g. the answers of the participant for every key (question)
                 for (let key in keyPair){
                     if (activeSegments[j]["__data__"]["data"]["answer"] === keyPair[key] && key === activeSegments[j]["__data__"]["data"]["question"]) {
-                        dots[i].style = ("fill: rgb(0,80,250)");
+                        if(j === 0) {
+                            dots[i].style = ("fill: rgb(0,80,250)");
+                        } else if(j > 0 || (activeSegments[j]["__data__"]["data"]["answer"] !== keyPair[key] || key !== activeSegments[j]["__data__"]["data"]["question"])) {
+                            console.log("ist");
+                            dots[i].style = ("fill: rgb(20,20,100)");
+                        }
                     }
                 }
             }
@@ -144,15 +148,8 @@ FlyingEtiquette.StartDiagramController = function() {
         ringAnswers = document.querySelectorAll(".inner");
         tempColor = document.querySelectorAll(".tempColor");
         
-        
-        //reset the style of the inner ring segments
-        for (let j = 0; j < tempColor.length; j++) {
-            tempColor[j].style.fill = colorInformation[j];
-            
-            tempColor[j].classList.remove("tempColor");
-        }
-        
-        colorInformation = [];
+        activeSegments = [];
+        resetInnerRingColor();
         
         //iterate through the object for every key (question) except the participant ID 
         for(let key in dotsData) {
@@ -166,7 +163,6 @@ FlyingEtiquette.StartDiagramController = function() {
                     segment = ringAnswers[i].children[0];
                 
                 if(question === key && answer === dotsData[key]) {
-                    colorInformation.push(segment.style.fill);
                     
                     segment.style.fill = "rgb(0,0,80)";
                     segment.classList.add("tempColor");
