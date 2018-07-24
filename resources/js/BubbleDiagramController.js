@@ -76,7 +76,9 @@ BubbleDiagram.BubbleDiagramController = function(params) {
   function onGenderFilterClicked(event) {
     var gender = event.target.className;
     var oppositeElement;
-    if (gender.includes("female")) {
+    if (gender.includes("fa")) {
+      return;
+    } else if (gender.includes("female")) {
       gender = "female";
       //retrieve the include tag for gender male
       oppositeElement = event.target.nextElementSibling.nextElementSibling;
