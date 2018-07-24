@@ -2,20 +2,31 @@
 
 \usepackage{hyperref}
 
-\title{Dokumentation Projekt Inforamtionsvisualisierung}
-\subtitle{Flying Etiquette}
+\title{Flying Etiquette}
+\subtitle{Dokumentation zum Projekt Inforamtionsvisualisierung}
 \author{Kevin Angermeyer \\ \and Lydia Güntner \\ \and Maximiliane Windl}
 
 
 \begin{document}
 \maketitle
+\section{Das Projekt starten} \label{Das Projekt starten}
+\subsection{Unix}
+\textbf{Was wird benötigt?}\newline
+Python\newline\newline
+\textbf{Wie wird das Projekt gestartet?}\newline
+1. Über das Terminal zum Projekt navigieren\newline
+2. Im Projekt durch den Befehl\newline 
+\textit{python -m SimpleHTTPServer}\newline
+den Server starten.\newline
+3. im Browser auf localhost:8000 wechseln.
+
 \section{Datensatz} \label{Datensatz}
 Bei dem Datensatz handelt es sich um den Datensatz \textit{flying-etiquette-survey} von \textit{\href{https://github.com/fivethirtyeight/data/tree/master/flying-etiquette-survey}{fivethirtyeight}}. Die Daten stammen aus einer Online-Umfrage, welche mit \href{https://www.surveymonkey.com/mp/audience/}{SurveyMonkey}, am 29. und 30. August 2014 durchgeführt wurde. Insgesamt nahmen 1040 Probanden an der Studie teil. Nach einer Säuberung der Daten, bei der alle Teilnehmer die angaben nie zu fliegen und daher die anderen Fragen zum Thema Fliegen nicht beantwortet hatten, entfernt wurden, blieben Daten von 856 Probanden übrig. 
 \newline \newline
 Anschließend wurde der Datensatz in verschiedene Kategorien aufgeteilt, denen folgende Fragen zugeordnet wurden:
 \begin{enumerate}
 
-\item demografischen Fragen:
+\item demographischen Fragen:
 \begin{itemize}
 \item Gender
 \item Age
@@ -86,16 +97,19 @@ Anschließend wurde der Datensatz in verschiedene Kategorien aufgeteilt, denen f
 \section{Startdiagramm}
 
 \section{Bubblediagramme}
-Nachdem das Startdiagramm einen Überblick über die Daten geben sollte, geben die Bubblediagramme die Möglichkeit die in \ref{Datensatz} beschriebenen Kategorien genauer zu erforschen.
+Nachdem das Startdiagramm einen Überblick über die Daten geben sollte, geben die Bubblediagramme die Möglichkeit die in \ref{Datensatz} beschriebenen Kategorien genauer und interaktiv zu erforschen.
+Die Wahl fiel auf Bubblediagramme, da der Nutzer hier auf einen Blick die Verhältnisse der gegebenen Antworten sehen kann. Die Größe der Bubbles spiegelt nämlich immer die Anzahl der gegeben Antwort wider. Über den Bubbles befinden sich alle möglichen Antworten. Diese sind durch Linien mit der zugehörigen Bubble verbunden. Wenn der Nutzer über die Bubbles hovert, erscheint auf diesen die Anzahl der gegebenen Antworten und die Anzahl aller Antworten. So steht dem Nutzer neben der visuellen Größe der Bubbles, noch ein Zahlenwert zur Verfügung. 
 
-Dafür wurde für jede Kategorie eine eigene Unterseite erstellt. Auf den Unterseiten befinden sich jeweils zwei bis drei Bubblediagramme, welche Fragen der Kategorien repräsentieren. Jede Bubble ist dabei eine Antwort die auf die jeweilige Frage geben wurde. 
+Für jede Kategorie gibt es eine eigene Unterseite. Auf diesen befinden sich jeweils zwei bis drei Bubblediagramme, welche die Fragen der Kategorien repräsentieren. Jede Bubble steht für eine Antwort, die auf die jeweilige Frage geben werden konnte. 
 
 \subsection{Filter}
-Die Bubblediagramme können mit Hilfe von Filtern verändert werden. Diese befinden sich jeweils links der Diagramme.
+Die Bubblediagramme können mit Hilfe von Filtern verändert werden. Diese befinden sich jeweils rechts der Diagramme. Die Filter sind durch Icons und im Falle der Dropdown-Filter, durch einen kurzen Text gekennzeichnet. Die Wahl fiel auf Icons, da der Nutzer so sofort die Funktionalität des Filters erfassen kann. Ist das Icon aber trotzdem nicht eindeutig genug, kann der Nutzer zusätzlich über die Filter hovern und erhält dann eine genauere Erklärung, für was der jeweilige Filter steht. 
 
-Wenn Filter ausgewählt werden, passen sich die Bubbles so an, dass sie nur noch die Zahl der Testpersonen repräsentieren, auf die die ausgewählten Filtermöglichkeiten zutreffen.
+Werden die Filter gesetzt, passt sich die Größe der Bubbles an die Anzahl der gegebenen Antworten an. Das heißt die Bubbles sind anteilig immer so groß, wie die Anzahl der gegebenen Antworten. Das stellt sicher, dass der Nutzer auf einen Blick die Verhältnisse wahrnehmen kann.  
 
-Als Standardfilter stehen allen Diagrammen folgende Filter zur Verfügung:
+Es wird zwischen Standardfilter und speziellen Filtern, die nicht bei allen Diagrammen zur Verfügung stehen, unterschieden. Die Entscheidung spezielle Filter einzuführen fiel, da bestimmte Filter nur bei manchen Fragen Sinn machen. So macht es beispielsweise nur Sinn die Größe der befragten Person mit einzubeziehen, wenn absehbar ist, dass die Antwort auf eine Frage durch die Größe beeinflusst wird. So beispielsweise bei der Frage, wie unhöflich es ist, den Sitz im Flugzeug zurückzulehnen. Man kann davon ausgehen, dass es für größere Personen mit längeren Beinen wesentlich unangenehmer ist, wenn die Person vor ihm den Sitz zurücklehnt. Deshalb kann es sein, dass die Antwort durch die Größe beeinflusst wird.
+
+Folgende Standardfilter stehen bei allen Diagrammen zur Verfügung:
 \begin{itemize}
 \item Gender-Filter: Mit dem Gender-Filter kann nach dem Geschlecht, also nach männlich oder weiblich gefiltert werden.
 \item FrequencyOfAirTravel-Filter: Mit dem FrequencyOfAirTravel-Filter kann nach der Häufigkeit, mit der die Testpersonen fliegen gefiltert werden. Zur Auswahl stehen: 
