@@ -11,7 +11,8 @@ FlyingEtiquette.StartDiagramController = function() {
       outerInfoText,
       innerInfoText,
       dotsInfoText,
-      colorInformation = [],
+      activeSegments = [],
+      activeDot = [],
       colorRange = ["#1565C0", "#B71C1C", "#C62828", "#EF6C00", "#6A1B9A", "#7B1FA2", "#8E24AA", "#00838F", "#9E9D24", "#AFB42B", "#D32F2F", "#E53935", "#F44336", "#0097A7", "#00ACC1", "#C0CA33", "#CDDC39", "#F57C00", "#FB8C00", "#1B5E20", "#2E7D32", "#1976D2", "#1E88E5", "#2196F3", "#42A5F5", "#64B5F6"];
     
     function setupEventListeners() {
@@ -22,7 +23,7 @@ FlyingEtiquette.StartDiagramController = function() {
         outerInfoText = document.querySelector(".outerInfoText");
         innerInfoText = document.querySelector(".innerInfoText");
         dotsInfoText = document.querySelector(".dotsInfoText");
-        
+
         for(let i = 0; i < outerRingSegments.length; i++) {
             outerRingSegments[i].addEventListener("mouseover", showOuterRingInformation);
             outerRingSegments[i].addEventListener("mouseleave", removeOuterRingInformation);
@@ -37,20 +38,33 @@ FlyingEtiquette.StartDiagramController = function() {
         for(let k = 1; k < dots.length; k++) {
             dots[k].addEventListener("click", showDotsInformation);
         }
-        
     }
     
     function changeDotsColor(e) {
-        var answer,
-            question,
-            keyPair;
+        var keyPair;
         
-        question = e.target["__data__"]["data"]["question"];
-        answer = e.target["__data__"]["data"]["answer"];
+        if(checkActiveOrInactive(e)){
+            activeSegments.push(e.target);
+        }
         
         resetDotsColor();
         resetInnerRingColor();
-        selectDotsColor(keyPair, answer, question);
+        markActiveSegments();
+        selectDotsColor(keyPair);
+                
+    }
+    
+    //checks if the clicked on segment is active or inactive, a segment is active after the user clicked on it and the user can set it as inactive by clicking on it again, if the user clicks on an element and it is included in the activeSegments array this segment is no longer active and then removed from the array
+    function checkActiveOrInactive(e){
+        var active = true;
+        for(let i = 0; i < activeSegments.length; i++) {
+            if(activeSegments[i] === e.target && activeSegments.length !== 0) {
+                activeSegments.splice(i, 1);
+                active = false;
+                break;
+            }
+        }
+        return active;
     }
     
     function resetDotsColor() {
@@ -77,18 +91,51 @@ FlyingEtiquette.StartDiagramController = function() {
         }
     }
     
-    //nur wenn Antwort und Frage übereinstimmen
-    function selectDotsColor(keyPair, answer, question) {
-        for(let i = 1; i < dots.length; i++) {
-            keyPair = dots[i]["__data__"]["data"];
-            for (let key in keyPair){
-                if (answer === keyPair[key] && key === question) {
-                    dots[i].style = ("fill: rgb(0,80,250)");
-                }
-            }
+    //currently active segments should be highlighted in a different color, the same color that is used for highlighting corresponding answers when clicking on a participant dot is also used here
+    function markActiveSegments() {
+        for(let i = 0; i < activeSegments.length; i++) {
+            activeSegments[i].style.fill = "rgb(0,0,80)";
         }
     }
     
+    //only highlight a dot when the answer belongs to the right question, because there are multiple answers that consist of the same words but belong to different questions
+    function selectDotsColor(keyPair) {
+        var tempActiveDot = [];
+        activeDot = [];
+        
+        for(let j = 0; j < activeSegments.length; j++) {
+            
+            if (j === 0) {
+                for(let i = 1; i < dots.length; i++) {
+                    keyPair = dots[i]["__data__"]["data"];
+
+                    for (let key in keyPair){
+                        if (activeSegments[j]["__data__"]["data"]["answer"] === keyPair[key] && key === activeSegments[j]["__data__"]["data"]["question"]) {
+                            activeDot.push(dots[i]);
+                        }
+                    }
+                }
+                
+            } else {
+                for(let k = 0; k < activeDot.length; k++) {
+                    keyPair = activeDot[k]["__data__"]["data"];
+                    
+                    for (let key in keyPair){
+                        if (activeSegments[j]["__data__"]["data"]["answer"] === keyPair[key] && key === activeSegments[j]["__data__"]["data"]["question"]) {
+                            tempActiveDot.push(activeDot[k]);
+                        }
+                    }
+                }
+                activeDot = tempActiveDot;
+                tempActiveDot = []
+            }
+        }
+        
+        for(let h = 0; h < activeDot.length; h++) {
+            activeDot[h].style = ("fill: rgb(0,80,250)");
+        }
+    }
+
     function showOuterRingInformation(e) {
         outerInfoText.innerHTML = "<br>" + e.target["__data__"]["data"];
     }
@@ -118,15 +165,8 @@ FlyingEtiquette.StartDiagramController = function() {
         ringAnswers = document.querySelectorAll(".inner");
         tempColor = document.querySelectorAll(".tempColor");
         
-        
-        //reset the style of the inner ring segments
-        for (let j = 0; j < tempColor.length; j++) {
-            tempColor[j].style.fill = colorInformation[j];
-            
-            tempColor[j].classList.remove("tempColor");
-        }
-        
-        colorInformation = [];
+        activeSegments = [];
+        resetInnerRingColor();
         
         //iterate through the object for every key (question) except the participant ID 
         for(let key in dotsData) {
@@ -140,7 +180,6 @@ FlyingEtiquette.StartDiagramController = function() {
                     segment = ringAnswers[i].children[0];
                 
                 if(question === key && answer === dotsData[key]) {
-                    colorInformation.push(segment.style.fill);
                     
                     segment.style.fill = "rgb(0,0,80)";
                     segment.classList.add("tempColor");
@@ -150,6 +189,7 @@ FlyingEtiquette.StartDiagramController = function() {
         showSelectedParticipant(e.target);
     }
     
+    //show only the participant dot that the user clicked on
     function showSelectedParticipant(test) {
         for(let i = 1; i < dots.length; i++) {
             if(dots[i] === test) {
@@ -160,7 +200,7 @@ FlyingEtiquette.StartDiagramController = function() {
         }        
     }
     
-   
+
     that.setupEventListeners = setupEventListeners;
     return that;
 };
