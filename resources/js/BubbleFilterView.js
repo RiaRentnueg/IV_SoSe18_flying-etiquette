@@ -2,10 +2,10 @@
 /* global BubbleDiagram */
 
 BubbleDiagram.BubbleFilterView = function(params) {
-    "use strict";
+  "use strict";
 
   var that = {},
-  filter, sliderValue;
+    filter, sliderValue;
 
 
   function init() {
@@ -27,8 +27,8 @@ BubbleDiagram.BubbleFilterView = function(params) {
   }
 
   //unchecks the box of the opposite gender (if gender female is clicked -> male box gets unchecked)
-  function updateGenderButton(oppositeElement){
-      oppositeElement.checked = false;
+  function updateGenderButton(oppositeElement) {
+    oppositeElement.checked = false;
   }
 
   that.init = init;
