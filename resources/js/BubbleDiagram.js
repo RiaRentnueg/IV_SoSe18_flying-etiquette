@@ -6,13 +6,18 @@ var BubbleDiagram = (function() {
   "use strict";
 
   var that = new EventPublisher(),
-  bubbleDiagramController = {},
-  bubbleFilterView = {},
-  bubbleCharts,
-  bubbleModel = {},
-  bubbleView = {},
-  filter = {genderFilter : null, childFilter : null, dropDownFilter : null, sliderFilter : null},
-  filterWrapper = {};
+    bubbleDiagramController = {},
+    bubbleFilterView = {},
+    bubbleCharts,
+    bubbleModel = {},
+    bubbleView = {},
+    filter = {
+      genderFilter: null,
+      childFilter: null,
+      dropDownFilter: null,
+      sliderFilter: null
+    },
+    filterWrapper = {};
 
   function init() {
     bubbleCharts = d3.selectAll(".questionView");
@@ -30,21 +35,14 @@ var BubbleDiagram = (function() {
 
   function initBubbleDiagramController(question, filterNode) {
     var result;
-    if (document.querySelector(".special-filter") != null) {
-      result = (new BubbleDiagram.BubbleDiagramController({
-        filter:  filterNode,
-        genderFilter: d3.select(filterNode).select(".gender-filter").node(),
-        childFilter: d3.select(filterNode).select(".child-filter").node(),
-        slider: d3.select(filterNode).select(".slidecontainer").node(),
-        question: question,
-      })).init();
-    } else {
-      result = (new BubbleDiagram.BubbleDiagramController({
-        filter:  filterNode,
-        genderFilter: d3.select(filterNode).select(".gender-filter").node(),
-        question: question,
-      })).init2();
-    }
+    result = (new BubbleDiagram.BubbleDiagramController({
+      filter: filterNode,
+      genderFilter: d3.select(filterNode).select(".gender-filter").node(),
+      childFilter: d3.select(filterNode).select(".child-filter").node(),
+      slider: d3.select(filterNode).select(".slidecontainer").node(),
+      question: question,
+    })).init();
+
     result.setOnFilterClickListener(onOptionSelected);
     result.setOnGenderFilterClickListener(onGenderFilterClicked);
     result.setOnSliderClickListener(onSliderClicked);
@@ -62,7 +60,7 @@ var BubbleDiagram = (function() {
     return result;
   }
 
-  function onBubbleDataLoaded (event){
+  function onBubbleDataLoaded(event) {
     bubbleView[event.data.question].setAnswersWithCount(event.data.answersWithCount);
   }
 
@@ -74,7 +72,7 @@ var BubbleDiagram = (function() {
 
   function initBubbleFilterView(filterNode) {
     return (new BubbleDiagram.BubbleFilterView({
-      filter:  d3.select(filterNode),
+      filter: d3.select(filterNode),
       sliderValue: d3.select(filterNode).select(".current-value").node(),
     })).init();
   }
