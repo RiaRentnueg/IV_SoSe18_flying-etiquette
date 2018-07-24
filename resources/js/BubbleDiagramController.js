@@ -112,7 +112,7 @@ BubbleDiagram.BubbleDiagramController = function(params) {
       question: question,
       value: textElement
     }
-    if (textElement.tagName == "LI") {
+    if ((textElement != null) && (textElement.tagName == "LI")) {
       filterSelectionListeners.forEach(function(listener) {
         listener(notificationData);
       });
