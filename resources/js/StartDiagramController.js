@@ -18,7 +18,7 @@ FlyingEtiquette.StartDiagramController = function() {
         dots = document.querySelectorAll(".participantDots");
         outerRingSegments = document.querySelectorAll(".outer");
         innerRingSegments = document.querySelectorAll(".inner");
-        
+
         outerInfoText = document.querySelector(".outerInfoText");
         innerInfoText = document.querySelector(".innerInfoText");
         dotsInfoText = document.querySelector(".dotsInfoText");
@@ -160,7 +160,7 @@ FlyingEtiquette.StartDiagramController = function() {
         }        
     }
     
-    
+   
     that.setupEventListeners = setupEventListeners;
     return that;
 };
