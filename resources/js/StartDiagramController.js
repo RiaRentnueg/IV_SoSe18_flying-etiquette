@@ -19,11 +19,11 @@ FlyingEtiquette.StartDiagramController = function() {
         dots = document.querySelectorAll(".participantDots");
         outerRingSegments = document.querySelectorAll(".outer");
         innerRingSegments = document.querySelectorAll(".inner");
-        
+
         outerInfoText = document.querySelector(".outerInfoText");
         innerInfoText = document.querySelector(".innerInfoText");
         dotsInfoText = document.querySelector(".dotsInfoText");
-        
+
         for(let i = 0; i < outerRingSegments.length; i++) {
             outerRingSegments[i].addEventListener("mouseover", showOuterRingInformation);
             outerRingSegments[i].addEventListener("mouseleave", removeOuterRingInformation);
@@ -135,7 +135,7 @@ FlyingEtiquette.StartDiagramController = function() {
             activeDot[h].style = ("fill: rgb(0,80,250)");
         }
     }
-    
+
     function showOuterRingInformation(e) {
         outerInfoText.innerHTML = "<br>" + e.target["__data__"]["data"];
     }
@@ -200,7 +200,7 @@ FlyingEtiquette.StartDiagramController = function() {
         }        
     }
     
-    
+
     that.setupEventListeners = setupEventListeners;
     return that;
 };

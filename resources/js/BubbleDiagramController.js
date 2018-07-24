@@ -2,12 +2,12 @@
 
 var BubbleDiagram = BubbleDiagram || {};
 BubbleDiagram.BubbleDiagramController = function(params) {
-    "use strict";
+  "use strict";
 
   var that = {},
     question,
     filter,
-    genderFilter,childFilter,
+    genderFilter, childFilter,
     slider,
     sliderFilterListener = [],
     childFilterClickListeners = [],
@@ -18,23 +18,20 @@ BubbleDiagram.BubbleDiagramController = function(params) {
     question = params.question;
     filter = params.filter;
     genderFilter = params.genderFilter;
-    slider = params.slider;
-    childFilter = params.childFilter;
-    childFilter.addEventListener("change", onChildFilterClicked);
-    slider.addEventListener("input", onSliderClicked);
+    if (params.childFilter != null) {
+      childFilter = params.childFilter;
+      childFilter.addEventListener("change", onChildFilterClicked);
+    }
+    if (params.slider != null) {
+      slider = params.slider;
+      slider.addEventListener("input", onSliderClicked);
+    }
     filter.addEventListener("click", onFilterOptionClicked);
     genderFilter.addEventListener("click", onGenderFilterClicked);
     return that;
   }
 
-  function init2() {
-    filter = params.filter;
-    question = params.question;
-    genderFilter = params.genderFilter;
-    filter.addEventListener("click", onFilterOptionClicked);
-    genderFilter.addEventListener("click", onGenderFilterClicked);
-    return that;
-  }
+
 
   function onChildFilterClicked(event) {
     var checked = false;
@@ -55,14 +52,15 @@ BubbleDiagram.BubbleDiagramController = function(params) {
   function onSliderClicked(event) {
     var originalVal = event.target.value;
     var value = event.target.value;
-    var heights = ['<5',"5'0\"","5'1\"","5'2\"","5'3\"","5'4\"","5'5\"","5'6\"","5'7\"","5'8\"",
-    "5'9\"","5'10\"","5'11\"","6'0\"","6'1\"","6'2\"","6'3\"","6'4\"","6'5\"","<6'6\""]
+    var heights = ['<5', "5'0\"", "5'1\"", "5'2\"", "5'3\"", "5'4\"", "5'5\"", "5'6\"", "5'7\"", "5'8\"",
+      "5'9\"", "5'10\"", "5'11\"", "6'0\"", "6'1\"", "6'2\"", "6'3\"", "6'4\"", "6'5\"", "<6'6\""
+    ]
     var i;
     for (i = 1; i < 20; i++) {
       if (originalVal == 0) {
         value = '';
       } else
-      if (value <= i*100/19) {
+      if (value <= i * 100 / 19) {
         value = heights[i];
       }
     }
@@ -82,12 +80,12 @@ BubbleDiagram.BubbleDiagramController = function(params) {
       gender = "female";
       //retrieve the include tag for gender male
       oppositeElement = event.target.nextElementSibling.nextElementSibling;
-    }else if (gender.includes("male")) {
+    } else if (gender.includes("male")) {
       gender = "male";
       //retrieve the include tag for gender female
       oppositeElement = event.target.previousElementSibling.previousElementSibling;
     }
-    
+
     var checked = false;
     if (event.target.checked) {
       checked = true;
@@ -127,7 +125,7 @@ BubbleDiagram.BubbleDiagramController = function(params) {
     genderFilterListeners.push(listener);
   }
 
-  function setOnFilterClickListener (listener) {
+  function setOnFilterClickListener(listener) {
     filterSelectionListeners.push(listener);
   }
 
@@ -137,7 +135,6 @@ BubbleDiagram.BubbleDiagramController = function(params) {
 
 
   that.init = init;
-  that.init2 = init2;
   that.setOnFilterClickListener = setOnFilterClickListener;
   that.setOnGenderFilterClickListener = setOnGenderFilterClickListener;
   that.setOnSliderClickListener = setOnSliderClickListener;
