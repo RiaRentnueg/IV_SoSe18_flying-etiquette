@@ -49,7 +49,7 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
             color = d3.scaleOrdinal().range(colorRange),
             arc = d3.arc().outerRadius(radius - 10).innerRadius(radius - 70),
             pie = d3.pie().sort(null).value(function(d){return d.value}),
-            zoom = d3.zoom().scaleExtent([1, 2]).on("zoom", zoomed),
+            zoom = d3.zoom().scaleExtent([1, 10]).on("zoom", zoomed),
             svg = d3.select(svgEl).attr("width", width)
                 .attr("height", height)
                 .append("g")
@@ -65,14 +65,13 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
             .attr("d", arc)
             .style("fill", function(d){return color(d.data["question"])})
             .style("stroke", "white")
-            .style("stroke-width", "0.5px");
+            .style("stroke-width", "0.2px");
         
         svg.call(zoom);
         
         
         function zoomed() {
-            container.attr("transform", "translate(" + d3.event.transform.x + d3.event.transform.y + ")scale(" + d3.event.transform.k + ")");
-            console.log(container);
+            container.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + d3.event.transform.k + "," + d3.event.transform.k + ")");
         }
     }
     
