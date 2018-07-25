@@ -1,0 +1,3 @@
+\select@language {german}
+\contentsline {section}{\numberline {1}Über dieses Dokument}{6}{section.1}
+\contentsline {subsection}{\numberline {1.1}Abschnitt 2}{7}{subsection.1.1}
