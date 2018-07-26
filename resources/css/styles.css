@@ -202,19 +202,14 @@ a:hover{
     position: absolute;
     padding: 20px;
     width: 800px;
-    height: 800px;
+    height: 400px;
     background-color: #00aaff;
-    font-size: 1.5em;
+    font-size: 2em;
 }
 
 .infoBoxText {
     display: inline-block;
     color: #ddffff;
-}
-
-.dotsInfo {
-    height: 680px;
-    overflow-y: scroll;
 }
 
 .m1 {margin:0.5em}
