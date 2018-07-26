@@ -1,11 +1,11 @@
 body{
   font-family: 'Roboto', sans-serif;
 }
-h3{
+h1{
   padding-top: 60px;
   padding-bottom: 40px;
   text-align: center;
-  font-size: 6em;
+  font-size: 5em;
 }
 
 img {
@@ -23,9 +23,9 @@ img {
 
 .navbar-default .navbar-nav>li>a {
   color: #0277BD;
-  line-height: 50px;
+  line-height: 40px;
 
-  font-size: 1.5em;
+  font-size: 1.2em;
 
 }
 
