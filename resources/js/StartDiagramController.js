@@ -5,16 +5,18 @@ FlyingEtiquette.StartDiagramController = function() {
     "use strict";
 
     var that = {},
+      manager,
       dots,
       innerRingSegments,
       outerRingSegments,
       outerInfoText,
       innerInfoText,
       activeSegments = [],
-      activeDot = [],
-      colorRange = ["#1565C0", "#B71C1C", "#C62828", "#EF6C00", "#6A1B9A", "#7B1FA2", "#8E24AA", "#00838F", "#9E9D24", "#AFB42B", "#D32F2F", "#E53935", "#F44336", "#0097A7", "#00ACC1", "#C0CA33", "#CDDC39", "#F57C00", "#FB8C00", "#1B5E20", "#2E7D32", "#1976D2", "#1E88E5", "#2196F3", "#42A5F5", "#64B5F6"];
+      activeDot = [];
     
     function setupEventListeners() {
+        manager = FlyingEtiquette.StartDiagramManager();
+        
         dots = document.querySelectorAll(".participantDots");
         outerRingSegments = document.querySelectorAll(".outer");
         innerRingSegments = document.querySelectorAll(".inner");
@@ -39,7 +41,6 @@ FlyingEtiquette.StartDiagramController = function() {
     }
     
     function changeDotsColor(e) {
-        var keyPair;
         
         if(checkActiveOrInactive(e)){
             activeSegments.push(e.target);
@@ -48,7 +49,7 @@ FlyingEtiquette.StartDiagramController = function() {
         resetDotsColor();
         resetInnerRingColor();
         markActiveSegments();
-        selectDotsColor(keyPair);
+        selectDotsColor();
                 
     }
     
@@ -67,7 +68,7 @@ FlyingEtiquette.StartDiagramController = function() {
     
     function resetDotsColor() {
         for(let i = 1; i < dots.length; i++) {
-            dots[i].style = ("fill: rgb(20,20,100)");
+            manager.colorInactiveDot(dots[i]);
         }
     }
     
@@ -78,12 +79,12 @@ FlyingEtiquette.StartDiagramController = function() {
         
         for(let i = 0; i < innerRingSegments.length; i++) {
             if(innerRingSegments[i]["__data__"]["data"]["question"] === curQuestion) {
-                innerRingSegments[i].children[0].style.fill = colorRange[colorCounter];
+                manager.reassignRingColor(innerRingSegments[i], colorCounter);
             } else {
                 if(curQuestion !== undefined) {
                     colorCounter++;
                 }
-                innerRingSegments[i].children[0].style.fill = colorRange[colorCounter];
+                manager.reassignRingColor(innerRingSegments[i], colorCounter);
             }
             curQuestion = innerRingSegments[i]["__data__"]["data"]["question"];
         }
@@ -92,76 +93,78 @@ FlyingEtiquette.StartDiagramController = function() {
     //currently active segments should be highlighted in a different color, the same color that is used for highlighting corresponding answers when clicking on a participant dot is also used here
     function markActiveSegments() {
         for(let i = 0; i < activeSegments.length; i++) {
-            activeSegments[i].style.fill = "rgb(0,0,80)";
+            manager.colorActiveSegment(activeSegments[i]);
         }
     }
     
     //only highlight a dot when the answer belongs to the right question, because there are multiple answers that consist of the same words but belong to different questions
-    function selectDotsColor(keyPair) {
+    function selectDotsColor() {
         var tempActiveDot = [];
         activeDot = [];
         
-        for(let j = 0; j < activeSegments.length; j++) {
-            
-            if (j === 0) {
-                for(let i = 1; i < dots.length; i++) {
-                    keyPair = dots[i]["__data__"]["data"];
-
-                    for (let key in keyPair){
-                        if (activeSegments[j]["__data__"]["data"]["answer"] === keyPair[key] && key === activeSegments[j]["__data__"]["data"]["question"]) {
-                            activeDot.push(dots[i]);
-                        }
-                    }
-                }
-                
+        for(let i = 0; i < activeSegments.length; i++) {
+            if (i === 0) {
+                setUpDotsArray(dots,activeDot,i);
             } else {
-                for(let k = 0; k < activeDot.length; k++) {
-                    keyPair = activeDot[k]["__data__"]["data"];
-                    
-                    for (let key in keyPair){
-                        if (activeSegments[j]["__data__"]["data"]["answer"] === keyPair[key] && key === activeSegments[j]["__data__"]["data"]["question"]) {
-                            tempActiveDot.push(activeDot[k]);
-                        }
-                    }
-                }
+                setUpDotsArray(activeDot,tempActiveDot,i);
+                
                 activeDot = tempActiveDot;
-                tempActiveDot = []
+                tempActiveDot = [];
             }
         }
         
-        for(let h = 0; h < activeDot.length; h++) {
-            activeDot[h].style = ("fill: rgb(0,80,250)");
+        highlightActiveDots();
+        
+    }
+    
+    function highlightActiveDots() {
+        for(let i = 0; i < activeDot.length; i++) {
+            manager.colorActiveDot(activeDot[i]);
+        }
+    }
+    
+    function setUpDotsArray(initialCollection,newCollection,iteration) {
+        var keyPair,
+            answer,
+            question;
+        
+        for(let i = 1; i < initialCollection.length; i++) {
+            keyPair = initialCollection[i]["__data__"]["data"];
+            answer = activeSegments[iteration]["__data__"]["data"]["answer"];
+            question = activeSegments[iteration]["__data__"]["data"]["question"];
+
+            for (let key in keyPair){
+                if (answer === keyPair[key] && key === question) {
+                    newCollection.push(initialCollection[i]);
+                }
+            }
         }
     }
 
     function showOuterRingInformation(e) {
-        outerInfoText.innerHTML = "<br>" + e.target["__data__"]["data"];
+        manager.setOuterRingHoverText(outerInfoText, e);
     }
     
     function removeOuterRingInformation(e) {
-        outerInfoText.innerHTML = "";
+        manager.removeOuterRingHoverText(outerInfoText);
     }
     
     function showInnerRingInformation(e) {
-        innerInfoText.innerHTML = "<br>" + e.target["__data__"]["data"]["answer"] + " <br> (" + (e.target["__data__"]["data"]["value"] / 856 * 100) + "%)";
-        outerInfoText.innerHTML = "<br>" + e.target["__data__"]["data"]["question"];
+        manager.setInnerRingHoverText(innerInfoText, outerInfoText, e);
     }
     
     function removeInnerRingInformation(e) {
-        innerInfoText.innerHTML = "";
-        outerInfoText.innerHTML = "";
+        manager.removeInnerRingHoverText(innerInfoText, outerInfoText);
     }
     
     //when hovering over a dot, the answers to the question from the participant appear in the info box
     function showDotsInformation(e) {
         var dotsData,
-            ringAnswers,
-            tempColor;
+            ringAnswers;
         
         //saves the data of the dot temporarily on hover
         dotsData = e.target["__data__"]["data"];
         ringAnswers = document.querySelectorAll(".inner");
-        tempColor = document.querySelectorAll(".tempColor");
         
         activeSegments = [];
         resetInnerRingColor();
@@ -178,9 +181,7 @@ FlyingEtiquette.StartDiagramController = function() {
                     segment = ringAnswers[i].children[0];
                 
                 if(question === key && answer === dotsData[key]) {
-                    
-                    segment.style.fill = "rgb(0,0,80)";
-                    segment.classList.add("tempColor");
+                    manager.colorActiveSegment(segment);
                 }
             }
         }
@@ -188,12 +189,12 @@ FlyingEtiquette.StartDiagramController = function() {
     }
     
     //show only the participant dot that the user clicked on
-    function showSelectedParticipant(test) {
+    function showSelectedParticipant(clickedDot) {
         for(let i = 1; i < dots.length; i++) {
-            if(dots[i] === test) {
-                dots[i].style.fill = "rgb(0,80,250)";
+            if(dots[i] === clickedDot) {
+                manager.colorActiveDot(dots[i]);
             } else {
-                dots[i].style.fill = "rgb(20,20,100)";
+                manager.colorInactiveDot(dots[i]);
             }
         }        
     }
