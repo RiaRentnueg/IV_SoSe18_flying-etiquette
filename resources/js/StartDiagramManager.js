@@ -111,6 +111,48 @@ FlyingEtiquette.StartDiagramManager = function (divEl, svgEl) {
         
     }
     
+    function colorActiveSegment(element) {
+        element.style.fill = "rgb(0,0,80)";
+    }
+    
+    function colorActiveDot(element) {
+        element.style.fill = "rgb(0,80,250)";
+    }
+    
+    function colorInactiveDot(element) {
+        element.style.fill = "rgb(20,20,100)";
+    }
+    
+    function setOuterRingHoverText(element, event) {
+        element.innerHTML = "<br>" + event.target["__data__"]["data"];
+    }
+    
+    function removeOuterRingHoverText(element) {
+        element.innerHTML = "";
+    }
+    
+    function setInnerRingHoverText(innerRingText, outerRingText, event) {
+        innerRingText.innerHTML = "<br>" + event.target["__data__"]["data"]["answer"] + " <br> (" + (event.target["__data__"]["data"]["value"] / 856 * 100).toFixed(2) + "%)";
+        outerRingText.innerHTML = "<br>" + event.target["__data__"]["data"]["question"];
+    }
+    
+    function removeInnerRingHoverText(innerRingText, outerRingText) {
+        innerRingText.innerHTML = "";
+        outerRingText.innerHTML = "";
+    }
+    
+    function reassignRingColor(element, counter) {
+        element.children[0].style.fill = colorRange[counter];
+    }
+    
     that.setupStartDiagram = setupStartDiagram;
+    that.colorActiveSegment = colorActiveSegment;
+    that.colorActiveDot = colorActiveDot;
+    that.colorInactiveDot = colorInactiveDot;
+    that.setOuterRingHoverText = setOuterRingHoverText;
+    that.removeOuterRingHoverText = removeOuterRingHoverText;
+    that.setInnerRingHoverText = setInnerRingHoverText;
+    that.removeInnerRingHoverText = removeInnerRingHoverText;
+    that.reassignRingColor = reassignRingColor;
     return that;
 };
