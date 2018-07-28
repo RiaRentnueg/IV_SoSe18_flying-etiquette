@@ -1,21 +1,39 @@
 body{
   font-family: 'Roboto', sans-serif;
 }
-h3{
+
+footer {
+    text-align: center;
+    padding-bottom: 2em;
+}
+h1{
   padding-top: 60px;
   padding-bottom: 40px;
   text-align: center;
-  font-size: 6em;
+  font-size: 5em;
 }
 
 img {
   height: 60px;
 }
 
+.aboutImprintHeading {
+  text-align: center;
+  padding-top: 70px;
+  font-size: 3em;
+}
+
+.aboutImprintText {
+  text-align: center;
+  padding-left: 12em;
+  padding-right: 12em;
+}
+
 .bubbleQuestion{
   text-align: center;
   color: #fff;
 }
+
 .navbar-default {
   background-image: linear-gradient(to bottom,#B3E5FC 0,#B3E5FC 100%);
   min-height: 80px;
@@ -23,9 +41,9 @@ img {
 
 .navbar-default .navbar-nav>li>a {
   color: #0277BD;
-  line-height: 50px;
+  line-height: 40px;
 
-  font-size: 1.5em;
+  font-size: 1.2em;
 
 }
 
@@ -49,7 +67,7 @@ a.active {
 }
 
 
-a:hover{
+.navbar-default>a:hover{
   color: #fff;
   background: transparent;
 }
