@@ -12,45 +12,51 @@ FlyingEtiquette.StartDiagramModel = function() {
         columnsData = [],
         dataArray = [];
 
+    //setup the csv data and save the different processed data collections in separate arrays
     function setupCsvData() {
         d3.csv("./data/flying-etiquette.csv", function(data) {
             processDotsData(data);
-            console.log(data.columns);
-            //this loop saves all answers form the dataset into a temporary array that can then be sorted and provide the output we need, the first column of the data is an id which is irrelevant at this point, so the loop starts at 1
+            //this loop saves all answers form the dataset into a temporary array that can then be sorted and provides the output we need, the first column of the data is an id, which is irrelevant at this point, so the loop starts at 1
             for(let i = 1; i < data.columns.length; i++){
                 //this saves the data needed for the outer ring in a seperate array
                 columnsData.push(data.columns[i]);
+                
+                //creates a list of all the answers from every participant for a single question
                 for(let j = 0; j < data.length; j++){
                     tempData.push(data[j][data.columns[i]]);
                 }
+                
                 countArrayElements(tempData, data.columns[i]);
+                //reset the temporary list of answers for the next loop
                 tempData = [];
             }
         });
-        
     }
     
+    //this outputs the data needed to draw the inner ring segments of the start diagram in the StartDiagramManager
     function getInnerRingData() {
         return currData;
     }
     
+    //this outputs the data needed to draw the outer ring segments of the start diagram in the StartDiagramManager
     function getOuterRingData() {
         return columnsData;
     }
     
+    //this outputs the data needed to draw the outer ring segments of the start diagram in the StartDiagramManager
     function getProccessedDotsData() {
         return dataArray;
     }
     
+    //the elements in the array are sorted and then the function iterates through the array and counts the amount of same answers until a different one appears, the important data is being saved in a container and the new answer is then the current answer until a different one is selected again
     function countArrayElements(array, questionName) {
         var current = null,
             count = 0;
         
-        //sorts the elements in the array so that the same answers from the csv file are grouped together
         array.sort();
-        //now the function goes through the array and counts the amount of same answers until a different one appears, the important data is being saved in a container and the new answer is now the current answer until a different one is selected again
+        
         for(let i = 0; i < array.length; i++) {
-            if (array[i] != current) {
+            if (array[i] !== current) {
                 if (count > 0) {
                     setupContainer(questionName, current, count);
                 }
@@ -66,7 +72,7 @@ FlyingEtiquette.StartDiagramModel = function() {
         }
     }
     
-    //the question, the answer and the amount of the answers is being saved in an object container and then pushed into an array, which later contains every answer and the amount these answers have been given, the container is then being emptied so that a new set of data can be pushed into the array
+    //the question, the answer and the amount of the answers are being saved in an object container and then pushed into an array, which later contains every answer and the amount these answers have been given by a participant, the container is then being emptied so that a new set of data can be pushed into the array
     function setupContainer(question, answer, value) {
         container.question = question;
         container.answer = answer;
@@ -75,6 +81,7 @@ FlyingEtiquette.StartDiagramModel = function() {
         container = {};
     }
     
+    //process the data so that all answers from a participant can be saved in the same object and to make it easier to later compare the data of the dots with the data of the outer and inner ring
     function processDotsData(rawData) {
         for (let i = 0; i < rawData.length; i++){
             var dataValue  = rawData[i]["RespondentID"],

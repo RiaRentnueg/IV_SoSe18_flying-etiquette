@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="" content="Visualization of survey data about etiquette while flying">
-    <title>IV SoSe 18</title>
+    <title>Home</title>
+    <link rel="shortcut icon" href="resources/assets/favicon.png" type="image/png"/>
+    <link rel="icon" href="resources/assets/favicon.png" type="image/png"/>
     <script src="vendors/jquery/dist/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
@@ -18,12 +20,6 @@
 </head>
 
 <body>
-
-	<header>
-
-	</header>
-
-  <!-- Fixed navbar -->
   <div class="row">
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -34,7 +30,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Flying Etiquette</a>
+          <a class="navbar-brand" href="index.html"><img src="resources/assets/logo.svg" alt="logo"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -67,7 +63,28 @@
 
 	<main>
         <div id="startDiagramBox" class="startDiagramBox">
+            <div class="startDiagramInfo center">
+                <span class="startDiagramInfoText">You can interact with the diagram below in the following ways:<br></span>
+                <ul class="diagramInfoList m3">
+                    <li class="m2"><strong>Hover</strong> over <strong>a segment of the outer ring</strong> to see the corresponding information in the info-box to the right</li>
+                    <li class="m2"><strong>Click</strong> on <strong>a segment of the inner ring</strong> to see which participants (represented through the highlighted dots in the middle) have given the exact same answer or a set of answers if multiple segments are clicked</li>
+                    <li class="m2"><strong>Zoom</strong> with the mouse wheel or other input methods to enlarge <strong>the inner ring</strong>. You can also move the inner ring per <strong>drag</strong>, which is useful if the inner ring isn't centered anymore after the zoom</li>
+                    <li class="m2"><strong>Click</strong> on a <strong>dot</strong> to see every answer (represented through the highlighted segments of the inner ring) that a participant has given</li>
+                </ul>
+            </div>
             <svg class="startDiagram"></svg>
+            <div class="infoBox">
+                <div class="outerInfo">
+                    <span class="infoBoxText">Question (Outer Ring):</span>
+                    <span class="outerInfoText"></span>
+                </div>
+                <hr>
+                <div class="innerInfo">
+                    <span class="infoBoxText">Answer (Inner Ring):</span>
+                    <span class="innerInfoText"></span>
+                </div>
+            </div>
+            
         </div>
 	</main>
 
@@ -83,4 +100,11 @@
             FlyingEtiquette.init()
     </script>
 </body>
+<footer>
+  <div>
+    <a href="imprint.html">Imprint&nbsp;</a>
+    <span>|&nbsp;</span>
+    <a href="about.html">About</a>
+  </div>
+</footer>
 </html>
