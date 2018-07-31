@@ -209,20 +209,22 @@ a.active {
   }
 
 .startDiagramBox {
-    padding: 50px;
+    padding: 3em;
     display: inline-block;
     width: 100%;
-    height: 100%;
+}
+
+.startDiagram {
+    width: 60%;
 }
 
 .infoBox {
     display: inline-block;
-    position: absolute;
     padding: 20px;
-    width: 800px;
-    height: 400px;
+    width: 40%;
     background-color: #00aaff;
     font-size: 2em;
+    float: right;
     margin-top: 6em;
 }
 
@@ -232,7 +234,56 @@ a.active {
 }
 
 .startDiagramInfo {
+    margin: 2.5em;
     font-size: 2em;
+}
+
+.diagramInfoList {
+    line-height: 1.2em;
+    padding: 0;
+}
+
+
+@media(max-width:990px) {
+    
+    .startDiagramInfo {
+        margin: 6em 2.5em 2.5em 2.5em;
+    }
+    
+}
+
+@media(max-width:766px) {
+    
+    .startDiagramInfo {
+        margin: 2.5em 0 2.5em 0;
+        font-size: 1.5em;
+    }
+    
+    .startDiagram {
+        width: 100%;
+    }
+    
+    .infoBox {
+        float: none;
+        width: 100%;
+        margin: 1em 0;
+        font-size: 1.5em;
+    }
+}
+
+@media(max-width:500px) {
+    
+    .startDiagramInfo {
+        font-size: 1em;
+    }
+    
+    .infoBox {
+        font-size: 1em;
+    }
+    
+    .startDiagramBox {
+        padding: 4em 1em;
+    }
 }
 
 .m1 {margin:0.5em}
