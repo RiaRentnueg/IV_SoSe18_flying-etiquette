@@ -8,7 +8,8 @@ BubbleDiagram.BubbleModel = function(params) {
     csvPath,
     question;
 
-
+  // initializez the BubbleModel
+  // it set the in the params delivered variables as global variables and initialy calls a function to load the data for the bubbleDiagram
   function init() {
     csvPath = params.csvPath;
     question = params.question;
@@ -16,7 +17,9 @@ BubbleDiagram.BubbleModel = function(params) {
     return that;
   }
 
-
+  // this function filters the data with the selected filters
+  // it checks each row of the data, if an answer in the current row does not concur with the seleced answer of a filter, result is set to false and the row will not appear in the result set (a row will only appear in the reult set if it fits all the filters)
+  // than the result set gets nested in another way, so that it does not longer looks like the data in the csv. The object contains all given answers for the main question of the diagram with the count how often they were given
   function loadBubbleData(filter) {
     d3.csv(csvPath, function(error, data) {
 

@@ -15,8 +15,7 @@ BubbleDiagram.BubbleView = function(params) {
     initialPackSize = 960,
     participantNumber = 856,
     diagramShift;
-  //seat reclining colors are missing -> diagrams not correct in html
-  //need to rename bubbleChart ids in seat
+
   var bubbleChartColors = {
     babyBubbleChart: [245, 124, 0],
     babyUnrulyBubbleChart: [251, 140, 0],
@@ -38,7 +37,8 @@ BubbleDiagram.BubbleView = function(params) {
   }
 
 
-
+  // initializez Bubbleview
+  // it set the in the params delivered variables as global variables
   function init() {
     bubbleSvg = params.bubbleSvg;
     bubbleChartId = bubbleSvg._groups[0][0].id;
@@ -101,10 +101,12 @@ BubbleDiagram.BubbleView = function(params) {
     return 0;
   }
 
+  // removes number of given answers if the mouse is no longer over the bubble
   function handleMouseOut() {
     bubbleSvg.select("#hoverText").remove();
   }
 
+  // createBubbles Bubbles
   function createBubbles(circles) {
 
     var rgbValues = bubbleChartColors[bubbleChartId];
@@ -117,7 +119,7 @@ BubbleDiagram.BubbleView = function(params) {
     circle.style("fill", function(d, i) {
       var color;
       if (Object.keys(colorObj).length === 0 && colorObj.constructor === Object) {
-        //color = "hsl(" + (baseColor ) + ",100%,"+(30+ (d.parent.children.indexOf(d) * 15))+"%)";
+        // calculates the color for the bubble
         color = "rgb(" + rgbValues.map(x => x * factor).join(",") + ")";
         factor -= 0.1;
         var obj = {
@@ -157,6 +159,7 @@ BubbleDiagram.BubbleView = function(params) {
     circle.call(setUpCircle);
   }
 
+  // updates bubbles with current answersWithCount
   function updateBubbles(answersWithCount, bubbleSvg) {
 
     var dataObj = {
@@ -173,6 +176,7 @@ BubbleDiagram.BubbleView = function(params) {
       .call(setUpCircle);
   }
 
+  //gives bubbles correct position and size
   function setUpCircle(selection) {
     selection.attr("r", function(d) {
       return d.r;
@@ -186,6 +190,7 @@ BubbleDiagram.BubbleView = function(params) {
 
   }
 
+  // add the text with the answer for each bubble
   function addText(texts) {
     texts.enter().append("text")
       .text(function(d) {
@@ -193,6 +198,7 @@ BubbleDiagram.BubbleView = function(params) {
       }).call(setUpText);
   }
 
+  // gives the text the correct position
   function setUpText(selection) {
     let xValue = 0;
     let yValue = 30;
@@ -233,6 +239,7 @@ BubbleDiagram.BubbleView = function(params) {
       .call(setUpLine);
   }
 
+  // create Lines to connect bubbles with corresponding text
   function createLines(lines) {
     var line = lines.enter().append("line");
     line.call(setUpLine);
