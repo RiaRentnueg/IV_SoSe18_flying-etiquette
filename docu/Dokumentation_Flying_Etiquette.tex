@@ -1,6 +1,10 @@
 \documentclass{mi-seminar}
 
 \usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman}
 
 \title{Flying Etiquette}
 %\subtitle{Dokumentation zum Projekt Informationsvisualisierung}
@@ -176,7 +180,7 @@ Der Nutzer hat mehrere Möglichkeiten, um mit dem Startdiagramm zu interagieren.
 \end{figure}
 
 \subsubsection{Antworten/Segmente des inneren Rings anklicken}
-Der innere Ring stellt eine der wichtigsten Interaktionsmöglichkeiten für den Nutzer bereit. Dieser kann nämlich eine Antwort anklicken und bekommt alle Probanden, die durch die Kreise in der Mitte dargestellt werden, angezeigt, die in der Studie diese Antwort gegeben haben. Dabei ist es möglich gleich mehrere Segmente auszuwählen, woraufhin nur  Probanden/Kreise hervorgehoben werden, die alle diese Antworten in der Studie abgegeben haben. Somit kann ein Nutzer selbst untersuchen, welche Antwortkombinationen wie oft gegeben wurden und ob bestimmte Kombinationen überhaupt vorkommen. Alle vom Nutzer ausgewählten Segmente des inneren Rings werden dabei farblich von den restlichen Segmenten abgegrenzt, damit man immer weiß, welche Segmente man gerade ausgewählt hat. Ausgewählte Antworten kann man mit einem erneuten Klick darauf wieder abwählen. Ist keine Antwort ausgewählt oder falls kein Teilnehmer eine bestimmte Kombination aufweist, sind alle Kreise dunkelblau und somit inaktiv (Abbildung \ref{ScStartDiagramInnerRingClick}).
+Der innere Ring stellt eine der wichtigsten Interaktionsmöglichkeiten für den Nutzer bereit. Dieser kann dort eine Antwort anklicken und bekommt alle Probanden, die durch die Kreise in der Mitte dargestellt werden, angezeigt, die in der Studie diese Antwort gegeben haben. Dabei ist es möglich gleich mehrere Segmente auszuwählen, woraufhin nur  Probanden/Kreise hervorgehoben werden, die alle diese Antworten in der Studie abgegeben haben. Somit kann ein Nutzer selbst untersuchen, welche Antwortkombinationen wie oft gegeben wurden und ob bestimmte Kombinationen überhaupt vorkommen. Alle vom Nutzer ausgewählten Segmente des inneren Rings werden dabei farblich von den restlichen Segmenten abgegrenzt, damit man immer weiß, welche Segmente man gerade ausgewählt hat. Ausgewählte Antworten kann man mit einem erneuten Klick darauf wieder abwählen. Ist keine Antwort ausgewählt oder falls kein Teilnehmer eine bestimmte Kombination aufweist, sind alle Kreise dunkelblau und somit inaktiv (Abbildung \ref{ScStartDiagramInnerRingClick}).
 \begin{figure}
 \includegraphics[scale=0.3]{assets/start_click_inner_ring_segments.png}
 \caption{Screenshot der Startseite \textit{Home} mit dem Anklicken von mehreren Segmenten des Startdiagramms}
@@ -201,9 +205,10 @@ Die Probanden-Kreise ermöglichen es für jeden Probanden dessen Antworten anzei
 
 \section{Bubblediagramme}
 Nachdem das Startdiagramm einen Überblick über die Daten geben sollte, geben die Bubblediagramme die Möglichkeit die in \ref{Datensatz} beschriebenen Kategorien genauer und interaktiv zu erforschen.
-Die Wahl fiel auf Bubblediagramme, da der Nutzer hier auf einen Blick die Verhältnisse der gegebenen Antworten sehen kann. Die Größe der Bubbles spiegelt nämlich immer die Anzahl der gegeben Antwort wider. Über den Bubbles befinden sich alle möglichen Antworten. Diese sind durch Linien mit der zugehörigen Bubble verbunden. Wenn der Nutzer über die Bubbles hovert, erscheint auf diesen die Anzahl der gegebenen Antworten und die Anzahl aller Antworten. So steht dem Nutzer neben der visuellen Größe der Bubbles, noch ein Zahlenwert zur Verfügung. 
+Die Wahl fiel auf Bubblediagramme, da der Nutzer hier auf einen Blick die Verhältnisse der gegebenen Antworten sehen kann. Die Größe der Bubbles spiegelt dabei immer die Anzahl der gegeben Antwort wider. Über den Bubbles befinden sich alle möglichen Antworten. Diese sind durch Linien mit der zugehörigen Bubble verbunden. Wenn der Nutzer über die Bubbles hovert, erscheint auf diesen die Anzahl der gegebenen Antworten und die Anzahl aller Antworten. So steht dem Nutzer neben der visuellen Größe der Bubbles, noch ein Zahlenwert zur Verfügung. 
 
 Für jede Kategorie gibt es eine eigene Unterseite. Auf diesen befinden sich jeweils zwei bis drei Bubblediagramme, welche die Fragen der Kategorien repräsentieren. Jede Bubble steht für eine Antwort, die auf die jeweilige Frage geben werden konnte (Abbildung \ref{ScSwitchingSeats}). 
+Die Grundfarbe eines Bubblediagramms ist dabei immer die Farbe, in welcher der Kreisabschnitt derselben Frage im Startdiagramm eingefärbt ist.
 \begin{figure}
 \includegraphics[scale=0.5]{assets/filter_standard.png}
 \caption{Screenshot der Unterseite \textit{Switching Seats} mit Standard-Filtern}
@@ -222,7 +227,7 @@ Werden die Filter gesetzt, passt sich die Größe der Bubbles an die Anzahl der 
 Es wird zwischen Standardfilter und speziellen Filtern, die nicht bei allen Diagrammen zur Verfügung stehen, unterschieden. Die Entscheidung spezielle Filter einzuführen fiel, da bestimmte Filter nur bei manchen Fragen Sinn machen. So macht es beispielsweise nur Sinn die Größe der befragten Person mit einzubeziehen, wenn absehbar ist, dass die Antwort auf eine Frage durch die Größe beeinflusst wird. Das ist beispielsweise bei der Frage der Fall, bei der erfasst wurde, wie unhöflich es ist, den Sitz im Flugzeug zurückzulehnen. Man kann davon ausgehen, dass es für größere Personen mit längeren Beinen wesentlich unangenehmer ist, wenn die Person vor ihr den Sitz zurücklehnt. Deshalb kann es bei dieser Frage sein, dass die Größe der befragten Person Einfluss auf die Antwort hat (Abbildung \ref{ScSeatRecliningActive}).
 \begin{figure}
 \includegraphics[scale=0.5]{assets/filter_seat_active.png}
-\caption{Screenshot der Unterseite \textit{Seat Reclining} mit aktivem Größen-Filter}
+\caption{Screenshot der Unterseite \textit{Seat Reclining} mit aktivem Grö{\ss}en-Filter}
 \label{ScSeatRecliningActive}
 \end{figure}
 
