@@ -223,11 +223,16 @@ a.active {
     height: 400px;
     background-color: #00aaff;
     font-size: 2em;
+    margin-top: 6em;
 }
 
 .infoBoxText {
     display: inline-block;
     color: #ddffff;
+}
+
+.startDiagramInfo {
+    font-size: 2em;
 }
 
 .m1 {margin:0.5em}

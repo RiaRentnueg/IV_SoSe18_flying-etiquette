@@ -62,18 +62,29 @@
   </div>
 
 	<main>
-        <div id="startDiagramBox" class="startDiagramBox mt8">
+        <div id="startDiagramBox" class="startDiagramBox">
+            <div class="startDiagramInfo center m6">
+                <span class="startDiagramInfoText">You can interact with the diagram below in the following ways:<br></span>
+                <ul class="m2">
+                    <li><strong>Hover</strong> over <strong>a segment of the outer ring</strong> to see the corresponding information in the info-box to the right</li>
+                    <li><strong>Click</strong> on <strong>a segment of the inner ring</strong> to see which participants (represented through the highlighted dots in the middle) have given the exact same answer or a set of answers if multiple segments are clicked</li>
+                    <li><strong>Zoom</strong> with the mouse wheel or other input methods to enlarge <strong>the inner ring</strong>. You can also move the inner ring per <strong>drag</strong>, which is useful if the inner ring isn't centered anymore after the zoom</li>
+                    <li><strong>Click</strong> on a <strong>dot</strong> to see every answer (represented through the highlighted segments of the inner ring) that a participant has given</li>
+                </ul>
+            </div>
             <svg class="startDiagram"></svg>
             <div class="infoBox">
-                <div class="outerInfo mb1">
+                <div class="outerInfo">
                     <span class="infoBoxText">Question (Outer Ring):</span>
                     <span class="outerInfoText"></span>
                 </div>
-                <div class="innerInfo mb1">
+                <hr>
+                <div class="innerInfo">
                     <span class="infoBoxText">Answer (Inner Ring):</span>
                     <span class="innerInfoText"></span>
                 </div>
             </div>
+            
         </div>
 	</main>
 
