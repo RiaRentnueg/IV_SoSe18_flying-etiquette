@@ -131,7 +131,12 @@ In den wöchentlichen Gruppentreffen, wurden die \textit{Tickets}
 auf die Mitglieder aufgeteilt.
 
 \section{Startdiagramm}
-Das Startdiagramm soll dem Nutzer ermöglichen, selbstständig sowie umfassend den Datensatz zu erkunden. Es besteht aus mehreren einzelnen Diagrammen, die zusammen als eine svg-Datei auf der Startseite dargestellt werden. Dadurch kann man auf einen Blick mehrere Aspekte des Datensatzes visuell abbilden. Ferner kann der Nutzer somit ohne Umwege mit einem Großteil der Daten interagieren. Der Unterschied zu den Bubble-Diagrammen auf den Unterseiten besteht darin, dass im Startdiagramm alle Aspekte des Datensatzes dargestellt werden, der Detailgrad und die Filteroptionen sind allerdings nicht in dem gleichen Ausmaß gegeben. Insgesamt besteht das Startdiagramm aus vier Segmenten (Äußerer Ring, Innerer Ring, Teilnehmer-Kreise und Info-Box), die zur besseren Übersicht in diesem Text einzeln erläutert werden. Des Weiteren werden die Interaktionsmöglichkeiten  mit dem Startdiagramm ebenfalls im Detail erläutert.
+Das Startdiagramm soll dem Nutzer ermöglichen, selbstständig sowie umfassend den Datensatz zu erkunden. Es besteht aus mehreren einzelnen Diagrammen, die zusammen als eine svg-Datei auf der Startseite dargestellt werden. Dadurch kann man auf einen Blick mehrere Aspekte des Datensatzes visuell abbilden. Ferner kann der Nutzer somit ohne Umwege mit einem Großteil der Daten interagieren. Der Unterschied zu den Bubble-Diagrammen auf den Unterseiten besteht darin, dass im Startdiagramm alle Aspekte des Datensatzes dargestellt werden, der Detailgrad und die Filteroptionen sind allerdings nicht in dem gleichen Ausmaß gegeben. Insgesamt besteht das Startdiagramm aus vier Segmenten (Äußerer Ring, Innerer Ring, Teilnehmer-Kreise und Info-Box), die zur besseren Übersicht in diesem Text einzeln erläutert werden. Eine statische Beschreibung über die Funktionen des Startdiagramms wurde über dem Diagramm zusätzlich eingefügt, um dem Nutzer zu erklären, welche Interaktionsmöglichkeiten er hat. Diese werden ebenfalls im Detail erläutert (Abbildung \ref{ScStartDiagram}).
+\begin{figure}
+\includegraphics[scale=0.3]{assets/start_startpage.png}
+\caption{Screenshot der Startseite \textit{Home} mit dem Startdiagramm inklusive dessen Beschreibung}
+\label{ScStartDiagram}
+\end{figure}
 
 \subsection{Äußerer Ring}
 Der äußere Ring wird durch ein Donut-Diagramm visualisiert und repräsentiert alle Fragen, welche die Teilnehmer der Studie beantworten sollten. Insgesamt 26 Fragen, die in \ref{Datensatz} nach den einzelnen Kategorien aufgelistet sind, wurden den Probanden gestellt. Jede Frage wird hierbei als ein Segment des äußeren Rings dargestellt. Jedes dieser Segmente erhält dabei zusätzlich noch eine Farbe, die abhängig von der Kategorie ist, in welche die Frage eingeordnet wurde. So sind z.B. alle auf Kinder bezogenen Segmente orange, während die demographischen Fragen hellblau sind. Fragen der gleichen Kategorie haben einen leicht anderen Farbton, um diese voneinander zu unterscheiden. 
@@ -155,16 +160,36 @@ Die Darstellung als Info-Box wurde gewählt, um dem Nutzer eine zentrale Anlaufs
 
 \subsection{Interaktionsmöglichkeiten}
 \subsubsection{Über die Ringe hovern}
-Der Nutzer hat mehrere Möglichkeiten, um mit dem Startdiagramm zu interagieren. Zu den Grundfunktionen gehört dabei das Hovern über die einzelnen Ring-Segmente. Wenn die Maus über einem Segment des äußeren Rings liegt, wird die Frage angezeigt, welche dieses Segment repräsentiert. Liegt die Maus auf einem Segment des inneren Rings werden zusätzlich zu der Frage noch eine der abgegebenen Antworten sowie die Häufigkeit dieser Antwort in Prozent innerhalb der Info-Box angezeigt. Verlässt der Nutzer einen der Ringe verschwindet der Text wieder und die Info-Box ist leer. 
+Der Nutzer hat mehrere Möglichkeiten, um mit dem Startdiagramm zu interagieren. Zu den Grundfunktionen gehört dabei das Hovern über die einzelnen Ring-Segmente. Wenn die Maus über einem Segment des äußeren Rings liegt, wird die Frage angezeigt, welche dieses Segment repräsentiert. Liegt die Maus auf einem Segment des inneren Rings werden zusätzlich zu der Frage noch eine der abgegebenen Antworten sowie die Häufigkeit dieser Antwort in Prozent innerhalb der Info-Box angezeigt. Verlässt der Nutzer einen der Ringe verschwindet der Text wieder und die Info-Box ist leer (Abbildung \ref{ScStartDiagramHover}).
+\begin{figure}
+\includegraphics[scale=0.3]{assets/start_hover_rings.png}
+\caption{Screenshot der Startseite \textit{Home} mit dem Hovern über Ringsegmenten des Startdiagramms}
+\label{ScStartDiagramHover}
+\end{figure}
 
 \subsubsection{Antworten/Segmente des inneren Rings anklicken}
-Der innere Ring stellt eine der wichtigsten Interaktionsmöglichkeiten für den Nutzer bereit. Dieser kann nämlich eine Antwort anklicken und bekommt alle Probanden, die durch die Kreise in der Mitte dargestellt werden, angezeigt, die in der Studie diese Antwort gegeben haben. Dabei ist es möglich gleich mehrere Segmente auszuwählen, woraufhin nur  Probanden/Kreise hervorgehoben werden, die alle diese Antworten in der Studie abgegeben haben. Somit kann ein Nutzer selbst untersuchen, welche Antwortkombinationen wie oft gegeben wurden und ob bestimmte Kombinationen überhaupt vorkommen. Alle vom Nutzer ausgewählten Segmente des inneren Rings werden dabei farblich von den restlichen Segmenten abgegrenzt, damit man immer weiß, welche Segmente man gerade ausgewählt hat. Ausgewählte Antworten kann man mit einem erneuten Klick darauf wieder abwählen. Ist keine Antwort ausgewählt oder falls kein Teilnehmer eine bestimmte Kombination aufweist, sind alle Kreise dunkelblau und somit inaktiv. 
+Der innere Ring stellt eine der wichtigsten Interaktionsmöglichkeiten für den Nutzer bereit. Dieser kann nämlich eine Antwort anklicken und bekommt alle Probanden, die durch die Kreise in der Mitte dargestellt werden, angezeigt, die in der Studie diese Antwort gegeben haben. Dabei ist es möglich gleich mehrere Segmente auszuwählen, woraufhin nur  Probanden/Kreise hervorgehoben werden, die alle diese Antworten in der Studie abgegeben haben. Somit kann ein Nutzer selbst untersuchen, welche Antwortkombinationen wie oft gegeben wurden und ob bestimmte Kombinationen überhaupt vorkommen. Alle vom Nutzer ausgewählten Segmente des inneren Rings werden dabei farblich von den restlichen Segmenten abgegrenzt, damit man immer weiß, welche Segmente man gerade ausgewählt hat. Ausgewählte Antworten kann man mit einem erneuten Klick darauf wieder abwählen. Ist keine Antwort ausgewählt oder falls kein Teilnehmer eine bestimmte Kombination aufweist, sind alle Kreise dunkelblau und somit inaktiv (Abbildung \ref{ScStartDiagramInnerRingClick}).
+\begin{figure}
+\includegraphics[scale=0.3]{assets/start_click_inner_ring_segments.png}
+\caption{Screenshot der Startseite \textit{Home} mit dem Anklicken von mehreren Segmenten des Startdiagramms}
+\label{ScStartDiagramInnerRingClick}
+\end{figure}
 
 \subsubsection{Zoom für inneren Ring}
-Da einige der Antworten nur von wenigen Probanden gegeben wurden, erscheinen diese als sehr kleine Segmente des inneren Rings. Um diese besser sehen und für andere Interaktionsmöglichkeiten anklicken zu können, wurde ein Zoom eingebaut, mit dem man den inneren Ring mit Hilfe des Mausrads oder anderen entsprechenden Eingabemöglichkeiten vergrößern und wieder verkleinern kann. Der innere Ring kann dabei auch per Drag-and-Drop bewegt werden, falls der Zoom den restlichen Ring beim verkleinern verschiebt oder falls man andere Segmente bei der aktuellen Zoomgröße untersuchen will. 
+Da einige der Antworten nur von wenigen Probanden gegeben wurden, erscheinen diese als sehr kleine Segmente des inneren Rings. Um diese besser sehen und für andere Interaktionsmöglichkeiten anklicken zu können, wurde ein Zoom eingebaut, mit dem man den inneren Ring mit Hilfe des Mausrads oder anderen entsprechenden Eingabemöglichkeiten vergrößern und wieder verkleinern kann. Der innere Ring kann dabei auch per Drag-and-Drop bewegt werden, falls der Zoom den restlichen Ring beim verkleinern verschiebt oder falls man andere Segmente bei der aktuellen Zoomgröße untersuchen will (Abbildung \ref{ScStartDiagramZoom}).
+\begin{figure}
+\includegraphics[scale=0.3]{assets/start_inner_ring_zoom.png}
+\caption{Screenshot der Startseite \textit{Home} mit dem Zoom vom inneren Ring des Startdiagramms}
+\label{ScStartDiagramZoom}
+\end{figure}
 
 \subsubsection{Probanden-Kreise anklicken}
-Die Probanden-Kreise ermöglichen es für jeden Probanden dessen Antworten anzeigen zu lassen, indem der Nutzer auf einen der Kreise klickt. Daraufhin werden alle Segmente des inneren Rings, die den Antworten entsprechen, die der Nutzer angeklickt hat, farblich markiert. Somit ist es möglich, durch das Hovern über die markierte Segmente zu erfahren, welche Antworten dieser Proband gegeben hat. Die farbliche Darstellung vermeidet eine zu große Informationsflut an textueller Information, da einige der Fragen und Antworten sehr lang sind. Der aktuell ausgewählte Proband/Kreis wird in diesem Fall farblich hellblau hervorgehoben, während alle anderen Kreise inaktiv und somit dunkelblau werden.
+Die Probanden-Kreise ermöglichen es für jeden Probanden dessen Antworten anzeigen zu lassen, indem der Nutzer auf einen der Kreise klickt. Daraufhin werden alle Segmente des inneren Rings, die den Antworten entsprechen, die der Nutzer angeklickt hat, farblich markiert. Somit ist es möglich, durch das Hovern über die markierte Segmente zu erfahren, welche Antworten dieser Proband gegeben hat. Die farbliche Darstellung vermeidet eine zu große Informationsflut an textueller Information, da einige der Fragen und Antworten sehr lang sind. Der aktuell ausgewählte Proband/Kreis wird in diesem Fall farblich hellblau hervorgehoben, während alle anderen Kreise inaktiv und somit dunkelblau werden (Abbildung \ref{ScStartDiagramDotClick}).
+\begin{figure}
+\includegraphics[scale=0.3]{assets/start_click_participant_dot.png}
+\caption{Screenshot der Startseite \textit{Home} mit dem Anklicken eines Probanden-Kreises}
+\label{ScStartDiagramDotClick}
+\end{figure}
 
 \section{Bubblediagramme}
 Nachdem das Startdiagramm einen Überblick über die Daten geben sollte, geben die Bubblediagramme die Möglichkeit die in \ref{Datensatz} beschriebenen Kategorien genauer und interaktiv zu erforschen.
