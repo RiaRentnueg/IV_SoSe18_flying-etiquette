@@ -11,6 +11,8 @@
 \usepackage[table]{xcolor}
 %for table over more than one page
 \usepackage{longtable}
+%FloatBarrier for images
+\usepackage{placeins}
 
 
 
@@ -22,7 +24,7 @@
 
 \title{Flying Etiquette}
 \author{Kevin Angermeyer, Lydia Güntner, Maximiliane Windl}
-\semester{SS18}
+\semester{SoSe18}
 \course{Projektseminar Mediengestaltung I: Informationsvisualisierung}
 \module{MEI-M05.3 }
 \dozent{Florin Schwappach}
@@ -133,18 +135,18 @@ Anschließend wurde der Datensatz in verschiedene Kategorien aufgeteilt, denen f
 \end{enumerate}
 
 \section{Projektmanagement}
-Zur Organisation des Projekts wurde die Plattform Github in Kombination mit Git verwendet. In einer der ersten Gruppentreffen, wurde der \textit{Issuetracker} mit \textit{Tickets} befüllt und geschätzt wie viel Zeit die einzelnen \textit{Tickets} benötigen. 
-Daraufhin wurde noch ein \textit{Project} auf Github angelegt mit den Spalten:
+Zur Organisation des Projekts wurde die Plattform GitHub in Kombination mit Git verwendet. In einer der ersten Gruppentreffen, wurde der \textit{Issuetracker} mit \textit{Tickets} befüllt und geschätzt wie viel Zeit die einzelnen \textit{Tickets} benötigen. 
+Daraufhin wurde ein \textit{Project} auf GitHub angelegt mit den Spalten:
 \begin{itemize}
 \item \textbf{Queue: } Hier befinden sich alle \textit{Tickets}, die noch bearbeitet werden müssen
 \item \textbf{Blocker: } Hier befinden sich alle \textit{Tickets}, die höchste Priorität haben, da diese den weiteren Fortschritt blockieren
 \item \textbf{In Progress: } Hier befinden sich alle \textit{Tickets}, die gerade bearbeitet werden.
 \item \textbf{Code Review: } Hier befinden sich alle \textit{Tickets}, für die ein offener \textit{Pull-Request} existiert, der von den anderen Projektbeteiligten angesehen werden muss.
 \item \textbf{Needs Testing: } Hier befinden sich alle \textit{Tickets}, die getestet werden müssen.
-\item \textbf{Queue: } Hier befinden sich alle \textit{Tickets}, die fertig sind.
+\item \textbf{Done: } Hier befinden sich alle \textit{Tickets}, die fertig sind.
 \newline \newline
 \end{itemize}
-Link zum Github Repository:\newline
+Link zum GitHub Repository:\newline
 \href{https://github.com/RiaRentnueg/IV_SoSe18_flying-etiquette}{https://github.com/RiaRentnueg/IV\_SoSe18\_flying-etiquette}
 \linebreak \newline
 Offene \textit{Pull-Requests} wurden immer erst gemerged, wenn diese von einem anderen Projektmitglied angeschaut und akzeptiert wurden. 
@@ -153,19 +155,20 @@ auf die Mitglieder aufgeteilt.
 
 \section{Startdiagramm}
 Das Startdiagramm soll dem Nutzer ermöglichen, selbstständig sowie umfassend den Datensatz zu erkunden. Es besteht aus mehreren einzelnen Diagrammen, die zusammen als eine svg-Datei auf der Startseite dargestellt werden. Dadurch kann man auf einen Blick mehrere Aspekte des Datensatzes visuell abbilden. Ferner kann der Nutzer somit ohne Umwege mit einem Großteil der Daten interagieren. Der Unterschied zu den Bubble-Diagrammen auf den Unterseiten besteht darin, dass im Startdiagramm alle Aspekte des Datensatzes dargestellt werden, der Detailgrad und die Filteroptionen sind allerdings nicht in dem gleichen Ausmaß gegeben. Insgesamt besteht das Startdiagramm aus vier Segmenten (Äußerer Ring, Innerer Ring, Teilnehmer-Kreise und Info-Box), die zur besseren Übersicht in diesem Text einzeln erläutert werden. Eine statische Beschreibung über die Funktionen des Startdiagramms wurde über dem Diagramm zusätzlich eingefügt, um dem Nutzer zu erklären, welche Interaktionsmöglichkeiten er hat. Diese werden ebenfalls im Detail erläutert (Abbildung \ref{ScStartDiagram}).
-\begin{figure}
+\FloatBarrier
+\begin{figure}[h]
 \includegraphics[scale=0.3]{assets/start_startpage.png}
 \caption{Screenshot der Startseite \textit{Home} mit dem Startdiagramm inklusive dessen Beschreibung}
 \label{ScStartDiagram}
 \end{figure}
 
 \subsection{Äußerer Ring}
-Der äußere Ring wird durch ein Donut-Diagramm visualisiert und repräsentiert alle Fragen, welche die Teilnehmer der Studie beantworten sollten. Insgesamt 26 Fragen, die in \ref{Datensatz} nach den einzelnen Kategorien aufgelistet sind, wurden den Probanden gestellt. Jede Frage wird hierbei als ein Segment des äußeren Rings dargestellt. Jedes dieser Segmente erhält dabei zusätzlich noch eine Farbe, die abhängig von der Kategorie ist, in welche die Frage eingeordnet wurde. So sind z.B. alle auf Kinder bezogenen Segmente orange, während die demographischen Fragen hellblau sind. Fragen der gleichen Kategorie haben einen leicht anderen Farbton, um diese voneinander zu unterscheiden. 
+Der äußere Ring wird durch ein Donut-Diagramm visualisiert und repräsentiert alle Fragen, welche die Teilnehmer der Studie beantworten sollten. Den Probanden wurden insgesamt 26 Fragen, welche in Abschnitt \ref{Datensatz} nach den einzelnen Kategorien aufgelistet sind, gestellt. Jede Frage wird hierbei als ein Segment des äußeren Rings dargestellt. Jedes dieser Segmente erhält dabei zusätzlich noch eine Farbe, die abhängig von der Kategorie ist, in welche die Frage eingeordnet wurde. So sind z.B. alle auf Kinder bezogenen Segmente orange, während die demographischen Fragen hellblau sind. Fragen der gleichen Kategorie haben einen leicht anderen Farbton, um diese voneinander zu unterscheiden. 
 
 Der äußere Ring hilft dem Nutzer auf einen Blick alle Fragen, sowie deren dazugehörige Kategorie mithilfe der Farben, zu sehen. Somit ist es möglich, sich ein gutes erstes Bild über die Daten zu verschaffen und es hilft später bei der Zuordnung der Fragen zu den Antworten im inneren Ring. 
 
 \subsection{Innerer Ring}
-Der innere Ring wird, genau wie der äußere Ring, durch ein Donut-Diagramm visualisiert, jedoch zeigt dieser nicht die Fragen, sondern alle Antworten, an, die von den Probanden gegeben wurden. Die Größe der einzelnen Segmente hängt dabei davon ab, wie viele Testpersonen gleich geantwortet haben. Die Summe aller Antworten ergibt dabei die Gesamtanzahl der Probanden, also 1040. Gleichermaßen entsprechen alle Segmente des inneren Rings der Größe des Segments des äußeren Rings, das die übergeordnete Frage zu den Antworten darstellt. Aus diesem Grund werden die zusammengehörenden Segmente beider Ringe direkt untereinander gezeichnet und beide haben die gleiche Farbe. Einzelne Antworten können später angeklickt werden und ändern dabei deren Farbe, um dem Nutzer mitzuteilen, dass dieses Segment des inneren Rings gerade ausgewählt wurde und aktiv ist. 
+Der innere Ring wird, genau wie der äußere Ring, durch ein Donut-Diagramm visualisiert, jedoch zeigt dieser nicht die Fragen, sondern alle Antworten, an, die von den Probanden gegeben wurden. Die Größe der einzelnen Segmente hängt dabei davon ab, wie viele Testpersonen gleich geantwortet haben. Die Summe aller Antworten ergibt dabei die Gesamtanzahl der Probanden, also 856. Gleichermaßen entsprechen alle Segmente des inneren Rings der Größe des Segments des äußeren Rings, das die übergeordnete Frage zu den Antworten darstellt. Aus diesem Grund werden die zusammengehörenden Segmente beider Ringe direkt untereinander gezeichnet und beide haben die gleiche Farbe. Einzelne Antworten können später angeklickt werden und ändern dabei deren Farbe, um dem Nutzer mitzuteilen, dass dieses Segment des inneren Rings gerade ausgewählt wurde und aktiv ist. 
 
 Der visuelle Vorteil beim inneren Ring ist die Darstellung aller möglichen Antworten für jede der 26 Fragen. Beliebte oder unbeliebte Antworten sowie häufig auftretende demographische Werte werden durch die Größe der Segmente, die an die Häufigkeit der Antworten gebunden ist, schnell und leicht ersichtlich. Dies ermöglicht es später beim Auswählen von verschiedenen Antworten, um zu sehen, wie viele Probanden eine bestimmte Kombination von Antworten gegeben haben, häufige oder seltene Antworten beliebig miteinander zu kombinieren und zu vergleichen, wie sich diese aufeinander auswirken. Dabei bleibt es dem Nutzer überlassen, ebenso nur häufige oder nur seltene Antworten auszuwählen. Durch die Platzierung unter den Fragen vom inneren Ring ist immer ein visueller Zusammenhang zwischen dem äußeren und dem inneren Ring für den Nutzer ersichtlich.
 
@@ -182,7 +185,7 @@ Die Darstellung als Info-Box wurde gewählt, um dem Nutzer eine zentrale Anlaufs
 \subsection{Interaktionsmöglichkeiten}
 \subsubsection{Über die Ringe hovern}
 Der Nutzer hat mehrere Möglichkeiten, um mit dem Startdiagramm zu interagieren. Zu den Grundfunktionen gehört dabei das Hovern über die einzelnen Ring-Segmente. Wenn die Maus über einem Segment des äußeren Rings liegt, wird die Frage angezeigt, welche dieses Segment repräsentiert. Liegt die Maus auf einem Segment des inneren Rings werden zusätzlich zu der Frage noch eine der abgegebenen Antworten sowie die Häufigkeit dieser Antwort in Prozent innerhalb der Info-Box angezeigt. Verlässt der Nutzer einen der Ringe verschwindet der Text wieder und die Info-Box ist leer (Abbildung \ref{ScStartDiagramHover}).
-\begin{figure}
+\begin{figure}[h]
 \includegraphics[scale=0.3]{assets/start_hover_rings.png}
 \caption{Screenshot der Startseite \textit{Home} mit dem Hovern über Ringsegmenten des Startdiagramms}
 \label{ScStartDiagramHover}
@@ -190,7 +193,7 @@ Der Nutzer hat mehrere Möglichkeiten, um mit dem Startdiagramm zu interagieren.
 
 \subsubsection{Antworten/Segmente des inneren Rings anklicken}
 Der innere Ring stellt eine der wichtigsten Interaktionsmöglichkeiten für den Nutzer bereit. Dieser kann dort eine Antwort anklicken und bekommt alle Probanden, die durch die Kreise in der Mitte dargestellt werden, angezeigt, die in der Studie diese Antwort gegeben haben. Dabei ist es möglich gleich mehrere Segmente auszuwählen, woraufhin nur  Probanden/Kreise hervorgehoben werden, die alle diese Antworten in der Studie abgegeben haben. Somit kann ein Nutzer selbst untersuchen, welche Antwortkombinationen wie oft gegeben wurden und ob bestimmte Kombinationen überhaupt vorkommen. Alle vom Nutzer ausgewählten Segmente des inneren Rings werden dabei farblich von den restlichen Segmenten abgegrenzt, damit man immer weiß, welche Segmente man gerade ausgewählt hat. Ausgewählte Antworten kann man mit einem erneuten Klick darauf wieder abwählen. Ist keine Antwort ausgewählt oder falls kein Teilnehmer eine bestimmte Kombination aufweist, sind alle Kreise dunkelblau und somit inaktiv (Abbildung \ref{ScStartDiagramInnerRingClick}).
-\begin{figure}
+\begin{figure}[h]
 \includegraphics[scale=0.3]{assets/start_click_inner_ring_segments.png}
 \caption{Screenshot der Startseite \textit{Home} mit dem Anklicken von mehreren Segmenten des Startdiagramms}
 \label{ScStartDiagramInnerRingClick}
@@ -198,27 +201,28 @@ Der innere Ring stellt eine der wichtigsten Interaktionsmöglichkeiten für den 
 
 \subsubsection{Zoom für inneren Ring}
 Da einige der Antworten nur von wenigen Probanden gegeben wurden, erscheinen diese als sehr kleine Segmente des inneren Rings. Um diese besser sehen und für andere Interaktionsmöglichkeiten anklicken zu können, wurde ein Zoom eingebaut, mit dem man den inneren Ring mit Hilfe des Mausrads oder anderen entsprechenden Eingabemöglichkeiten vergrößern und wieder verkleinern kann. Der innere Ring kann dabei auch per Drag-and-Drop bewegt werden, falls der Zoom den restlichen Ring beim verkleinern verschiebt oder falls man andere Segmente bei der aktuellen Zoomgröße untersuchen will (Abbildung \ref{ScStartDiagramZoom}).
-\begin{figure}
+\begin{figure}[h]
 \includegraphics[scale=0.3]{assets/start_inner_ring_zoom.png}
 \caption{Screenshot der Startseite \textit{Home} mit dem Zoom vom inneren Ring des Startdiagramms}
 \label{ScStartDiagramZoom}
 \end{figure}
 
 \subsubsection{Probanden-Kreise anklicken}
-Die Probanden-Kreise ermöglichen es für jeden Probanden dessen Antworten anzeigen zu lassen, indem der Nutzer auf einen der Kreise klickt. Daraufhin werden alle Segmente des inneren Rings, die den Antworten entsprechen, die der Nutzer angeklickt hat, farblich markiert. Somit ist es möglich, durch das Hovern über die markierte Segmente zu erfahren, welche Antworten dieser Proband gegeben hat. Die farbliche Darstellung vermeidet eine zu große Informationsflut an textueller Information, da einige der Fragen und Antworten sehr lang sind. Der aktuell ausgewählte Proband/Kreis wird in diesem Fall farblich hellblau hervorgehoben, während alle anderen Kreise inaktiv und somit dunkelblau werden (Abbildung \ref{ScStartDiagramDotClick}).
-\begin{figure}
+Die Probanden-Kreise ermöglichen es für jeden Probanden dessen Antworten anzeigen zu lassen, indem der Nutzer auf einen der Kreise klickt. Daraufhin werden alle Segmente des inneren Rings, die den Antworten entsprechen, die der Nutzer angeklickt hat, farblich markiert. Somit ist es möglich, durch das Hovern über die markierte Segmente zu erfahren, welche Antworten dieser Proband gegeben hat. Die farbliche Darstellung vermeidet eine zu große Informationsflut an textueller Information, da einige der Fragen und Antworten sehr lang sind. Der aktuell ausgewählte Proband / Kreis wird in diesem Fall farblich hellblau hervorgehoben, während alle anderen Kreise inaktiv und somit dunkelblau werden (Abbildung \ref{ScStartDiagramDotClick}).
+\begin{figure}[h]
 \includegraphics[scale=0.3]{assets/start_click_participant_dot.png}
 \caption{Screenshot der Startseite \textit{Home} mit dem Anklicken eines Probanden-Kreises}
 \label{ScStartDiagramDotClick}
 \end{figure}
 
 \section{Bubblediagramme}
-Nachdem das Startdiagramm einen Überblick über die Daten geben sollte, geben die Bubblediagramme die Möglichkeit die in \ref{Datensatz} beschriebenen Kategorien genauer und interaktiv zu erforschen.
+\FloatBarrier
+Nachdem das Startdiagramm einen Überblick über die Daten geben sollte, geben die Bubblediagramme die Möglichkeit die in Abschnitt \ref{Datensatz} beschriebenen Kategorien genauer und interaktiv zu erforschen.
 Die Wahl fiel auf Bubblediagramme, da der Nutzer hier auf einen Blick die Verhältnisse der gegebenen Antworten sehen kann. Die Größe der Bubbles spiegelt dabei immer die Anzahl der gegeben Antwort wider. Über den Bubbles befinden sich alle möglichen Antworten. Diese sind durch Linien mit der zugehörigen Bubble verbunden. Wenn der Nutzer über die Bubbles hovert, erscheint auf diesen die Anzahl der gegebenen Antworten und die Anzahl aller Antworten. So steht dem Nutzer neben der visuellen Größe der Bubbles, noch ein Zahlenwert zur Verfügung. 
 
 Für jede Kategorie gibt es eine eigene Unterseite. Auf diesen befinden sich jeweils zwei bis drei Bubblediagramme, welche die Fragen der Kategorien repräsentieren. Jede Bubble steht für eine Antwort, die auf die jeweilige Frage geben werden konnte (Abbildung \ref{ScSwitchingSeats}). 
 Die Grundfarbe eines Bubblediagramms ist dabei immer die Farbe, in welcher der Kreisabschnitt derselben Frage im Startdiagramm eingefärbt ist.
-\begin{figure}
+\begin{figure}[h]
 \includegraphics[scale=0.5]{assets/filter_standard.png}
 \caption{Screenshot der Unterseite \textit{Switching Seats} mit Standard-Filtern}
 \label{ScSwitchingSeats}
@@ -228,17 +232,13 @@ Die Grundfarbe eines Bubblediagramms ist dabei immer die Farbe, in welcher der K
 Die Bubblediagramme können mit Hilfe von Filtern explorativ erforscht werden. Diese befinden sich jeweils rechts der Diagramme. Die Filter sind durch Icons und im Falle der Dropdown-Filter, durch einen kurzen Text gekennzeichnet. Die Wahl fiel auf Icons, da der Nutzer so sofort die Funktionalität des Filters erfassen kann. Ist das Icon aber trotzdem nicht eindeutig genug, kann der Nutzer zusätzlich über die Filter hovern und erhält dann eine genauere Erklärung, für was der jeweilige Filter steht. 
 
 Werden die Filter gesetzt, passt sich die Größe der Bubbles an die Anzahl der gegebenen Antworten an. Das heißt die Bubbles sind anteilig immer so groß, wie die Anzahl der gegebenen Antworten. Das stellt sicher, dass der Nutzer auf einen Blick die Verhältnisse wahrnehmen kann (Abbildung \ref{ScSwitchingSeatsActive}).  
-\begin{figure}
+\begin{figure}[h]
 \includegraphics[scale=0.5]{assets/filter_standard_active.png}
 \caption{Screenshot der Unterseite \textit{Switching Seats} mit aktiven Standard-Filtern}
 \label{ScSwitchingSeatsActive}
 \end{figure}
 Es wird zwischen Standardfilter und speziellen Filtern, die nicht bei allen Diagrammen zur Verfügung stehen, unterschieden. Die Entscheidung spezielle Filter einzuführen fiel, da bestimmte Filter nur bei manchen Fragen Sinn machen. So macht es beispielsweise nur Sinn die Größe der befragten Person mit einzubeziehen, wenn absehbar ist, dass die Antwort auf eine Frage durch die Größe beeinflusst wird. Das ist beispielsweise bei der Frage der Fall, bei der erfasst wurde, wie unhöflich es ist, den Sitz im Flugzeug zurückzulehnen. Man kann davon ausgehen, dass es für größere Personen mit längeren Beinen wesentlich unangenehmer ist, wenn die Person vor ihr den Sitz zurücklehnt. Deshalb kann es bei dieser Frage sein, dass die Größe der befragten Person Einfluss auf die Antwort hat (Abbildung \ref{ScSeatRecliningActive}).
-\begin{figure}
-\includegraphics[scale=0.5]{assets/filter_seat_active.png}
-\caption{Screenshot der Unterseite \textit{Seat Reclining} mit aktivem Grö{\ss}en-Filter}
-\label{ScSeatRecliningActive}
-\end{figure}
+
 
 Folgende Standardfilter stehen bei allen Diagrammen zur Verfügung:
 \begin{itemize}
@@ -293,7 +293,7 @@ Auf der Unterseite \textit{Children} ein Child-Filter, mit dem danach gefiltert 
 
 Auf der Unterseite \textit{Seat Reclining} stehen folgende zwei Sonderfilter zur Verfügung: 
 \begin{itemize}
-\item FrequencyOfeatReclining-Filter: Mit dem FrequencyOfeatReclining-Filter kann nach der Häufigkeit mit der die Testpersonen ihren Sitz zurücklehnen gefiltert werden. Zur Auswahl stehen:
+\item FrequencyOfSeatReclining-Filter: Mit dem FrequencyOfeatReclining-Filter kann nach der Häufigkeit mit der die Testpersonen ihren Sitz zurücklehnen gefiltert werden. Zur Auswahl stehen:
 	\begin{itemize}
 	\item Never
 	\item Once in a while
@@ -303,6 +303,12 @@ Auf der Unterseite \textit{Seat Reclining} stehen folgende zwei Sonderfilter zur
 	\end{itemize}
 \item Height-Filter: Mit dem Height-Filter kann nach der Größe der Testpersonen gefiltert werden. Dabei können auf einem Slider Größen vom 5 Fuß bis größer als 6 Fuß und 6 Zoll gesetzt werden.
 \end{itemize} 
+
+\begin{figure}[h]
+\includegraphics[scale=0.5]{assets/filter_seat_active.png}
+\caption{Screenshot der Unterseite \textit{Seat Reclining} mit aktivem Grö{\ss}en-Filter}
+\label{ScSeatRecliningActive}
+\end{figure}
 
 \section{Aufteilung}
 Link zum GitHub Repository: \newline
