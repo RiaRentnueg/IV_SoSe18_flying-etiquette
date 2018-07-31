@@ -37,15 +37,14 @@ BubbleDiagram.BubbleView = function(params) {
   }
 
 
-  // initializez Bubbleview
-  // it set the in the params delivered variables as global variables
+  // initializes Bubbleview by setting the in the params delivered variables as global variables
   function init() {
     bubbleSvg = params.bubbleSvg;
     bubbleChartId = bubbleSvg._groups[0][0].id;
     return that;
   }
 
-  //updates bubblediagrams with current size and answers (depending in witch filters are selected)
+  //updates bubblediagrams with current size and answers (depending on selected filters)
   function setAnswersWithCount(answersWithCount) {
     //viewBox is needed for making the bubbleChart responsive
     var chartSVG = bubbleSvg
@@ -60,7 +59,7 @@ BubbleDiagram.BubbleView = function(params) {
         return d.value;
       });
 
-    var currentPackSize = rootNode.value; //* tpCount;
+    var currentPackSize = rootNode.value;
 
     d3.pack().padding(2).size([currentPackSize, currentPackSize])(rootNode);
 
@@ -69,7 +68,6 @@ BubbleDiagram.BubbleView = function(params) {
     updateBubbles(rootNodeChildren, bubbleSvg);
     updateText(rootNodeChildren, bubbleSvg);
     updateLines(rootNodeChildren, bubbleSvg);
-    // appendLines(answersWithCount);
   }
 
   // show number of given answers on Hover
@@ -94,7 +92,7 @@ BubbleDiagram.BubbleView = function(params) {
   }
 
   function getExtraYShift() {
-    // these questions have the longest answers. If they are not shifted, they overlay the bubbles. If the current bubblechart is one of these two, than the extraYShift is set to 100. If not it stays 0 and down there where cy is set, 0 is added.
+    // these questions have the longest answers. If they are not shifted, they overlay the bubbles. If the current bubblechart is one of these two, than the extraYShift is set to 100.
     if (bubbleSvg._groups[0][0].id === "seatTwoArmrestBubbleChart" || bubbleSvg._groups[0][0].id === "seatMiddleArmrestBubbleChart") {
       return 100;
     }
@@ -106,7 +104,6 @@ BubbleDiagram.BubbleView = function(params) {
     bubbleSvg.select("#hoverText").remove();
   }
 
-  // createBubbles Bubbles
   function createBubbles(circles) {
 
     var rgbValues = bubbleChartColors[bubbleChartId];
@@ -130,11 +127,9 @@ BubbleDiagram.BubbleView = function(params) {
       } else {
         color = colorObj.children[i].data.value;
       }
-
-
-
       return color;
     });
+
     if (Object.keys(colorObj).length === 0 && colorObj.constructor === Object) {
       var rootNode = d3.hierarchy({
           children: dataArr
@@ -144,7 +139,7 @@ BubbleDiagram.BubbleView = function(params) {
             return d.value;
           });
 
-      var currentPackSize = rootNode.value; //* tpCount;
+      var currentPackSize = rootNode.value;
 
       d3.pack().padding(2).size([currentPackSize, currentPackSize])(rootNode);
 
@@ -234,6 +229,7 @@ BubbleDiagram.BubbleView = function(params) {
     var lines = bubbleSvg.selectAll("line").data(answersWithCount);
     lines.exit().remove();
     createLines(lines);
+    // move lines along with the bubbles when filters are selected
     lines.transition()
       .duration(transitionDelay)
       .call(setUpLine);
@@ -268,12 +264,9 @@ BubbleDiagram.BubbleView = function(params) {
   }
 
   function updateText(answersWithCount, bubbleSvg) {
-
     var texts = bubbleSvg.selectAll("text").data(answersWithCount);
-
     texts.exit().remove();
     addText(texts);
-
     texts.transition()
       .duration(transitionDelay)
       .call(setUpText);
