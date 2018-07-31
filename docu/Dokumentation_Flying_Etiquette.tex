@@ -2,9 +2,17 @@
 
 \usepackage{hyperref}
 \usepackage{graphicx}
+%against error \nobreakspace
 \usepackage[T1]{fontenc}
+%for ß
 \usepackage[utf8]{inputenc}
 \usepackage{ngerman}
+%for table colors
+\usepackage[table]{xcolor}
+%for table over more than one page
+\usepackage{longtable}
+
+
 
 \title{Flying Etiquette}
 %\subtitle{Dokumentation zum Projekt Informationsvisualisierung}
@@ -39,13 +47,13 @@ Um das Projekt zu starten muss \textit{Python} installiert sein.
 \textbf{Wie wird das Projekt gestartet?}\newline
 \begin{enumerate}
 \item Über das Terminal zum Projekt navigieren
-\item Im Projekt durch den Befehl \textit{python -m SimpleHTTPServer} den Server starten.\newline
+\item Im Projekt durch den Befehl \textit{python -m SimpleHTTPServer} den Server starten.
 \item Im Browser auf localhost:8000 wechseln.
 \end{enumerate}
 \subsection{Windows}
 \textbf{Wie wird das Projekt gestartet?}\newline
 \begin{enumerate}
-\item Die Datei Run.bat mit Doppelklick in der Kommandozeile starten 
+\item Die Datei Run.bat mit Doppelklick starten (Kommandozeile sollte sich öffnen)
 \item Im Browser auf localhost:8000 wechseln.
 \end{enumerate}
 
@@ -297,15 +305,51 @@ Auf der Unterseite \textit{Seat Reclining} stehen folgende zwei Sonderfilter zur
 \end{itemize} 
 
 \section{Aufteilung}
-Link zum Git-Hub Repository: \newline
+Link zum GitHub Repository: \newline
 \href{https://github.com/RiaRentnueg/IV_SoSe18_flying-etiquette}{https://github.com/RiaRentnueg/IV\_SoSe18\_flying-etiquette}
 \linebreak \newline
-Kevin Angermeyer (Verantwortlich für das komplette Startdiagramm):
-\begin{itemize}
-\item Startdiagramm-Konzept testen und umsetzen
-\item Kompletter Code für StartDiagramManager, StartDiagramController und StartDiagramModel 
-\item Kleinere Anpassungen an der css- sowie index-Datei
-\item Visuelle Darstellung des Startdiagramms auf der Startseite
-\end{itemize}
+\definecolor{lightgray}{rgb}{0.93, 0.93, 0.93}
+\rowcolors{2}{lightgray}{white}
+\begin{longtable}{p{5cm} | c | c | c}
+Softwarekomponenten & Kevin & Lydia & Maximiliane \\
+ & Angermeyer & Güntner & Windl \\
+\hline
+\endhead
+Initiale Dateien anlegen (Grundstuktur)& & & x \\
+Verantwortlich Bubblediagramme & & x & x \\
+Verantwortlich Startdiagramm & x & & \\
+Startdiagramm-Konzept testen und umsetzen & x & & \\
+Kompletter Code für StartDiagramManager & x & & \\
+Kompletter Code für StartDiagramController & x & & \\
+Kompletter Code für StartDiagramModel & x & & \\
+Kleinere Anpassungen an der css- sowie index-Datei & x & & \\
+Visuelle Darstellung des Startdiagramms auf der Startseite & x & & \\
+Impressum & & & x\\
+Navigationsleiste & & & x\\
+Bubble Diagramme Grundlagen & & x & \\
+Filter Grundlagen & & & x \\
+CSV aufräumen & & & x \\
+Bubblediagramm responsiv & & x & \\
+Filter auswählbar & & & x \\
+MVC Struktur für Bubblediagramm js Dateien & & x & \\
+Erklärung zu den Filtern & & & x \\
+Styling Navigationsleiste & & & x \\
+Styling Bubblediagramm Überschrift & & & x \\
+Bubblediagramm Animation & & x & \\
+Proporionales Schrumpfen der Bubblediagramme & & x & \\
+Hinzufügen zusätzlicher Bubblediagramme zu einer Seite & & x & \\
+Gender-Filter nur ein Geschlecht gleichzeitig auswählbar & & x & \\
+Bubblediagramm Bubble Farben & & x & \\
+Legende (wurde wieder verworfen) & & & x \\
+Text zu Bubbles hinzufügen & & x & x \\
+Bubble Text richtig positionieren & & x & x \\
+Bubblediagramme zu restlichen Unterseiten hinzufügen & & x & \\
+
+
+
+\end{longtable}
+
+
+
 
 \end{document}
